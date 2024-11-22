@@ -12,6 +12,8 @@
  5. Hacer que funcione bien venderProducto, aniadirProducto, cambiarProducto, devolverProducto --> Todo en la clase producto
  6. ¿DONDE PONEMOS LOS MÉTODOS DEL MENU PRINCIPAL en clase Producto o de clase Inventario?
  */
+
+// blablabla
 #include <iostream>
 #include <vector>
 
