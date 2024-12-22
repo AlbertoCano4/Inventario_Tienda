@@ -6,3 +6,4 @@ COSAS QUE AÑADIR:
       (Ej: Tienda de madrid sold out de producto x y a la tienda de Barcelona le sobra ese producto x,
       hacer una función que permita mandar ropa de una tienda a otra (restar a Barcelona y Sumar a madrid))
  5. Hacer que funcione bien venderProducto, aniadirProducto, cambiarProducto, devolverProducto --> Todo en la clase producto
+ 6. OTRAS MODFICACIONES PARA HACERLO MEJOR
