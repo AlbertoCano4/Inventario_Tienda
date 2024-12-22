@@ -1,7 +1,9 @@
-//
-//  Inventario.cpp
-//  PROYECTO GRUPAL
-//
-//  Created by Alberto Cano Moreno on 14/11/24.
-//
+/*
+#include "Inventario.hpp"
+#include <iostream>
 
+using namespace std;
+
+Inventario(Producto productos);
+void cambiarTienda();
+*/
