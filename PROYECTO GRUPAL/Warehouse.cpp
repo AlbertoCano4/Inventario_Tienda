@@ -11,6 +11,7 @@ using namespace std;
 
 Warehouse::Warehouse() {
     productos.push_back(Camiseta("C001", 19.99, 50, Temporada::VERANO, Genero::HOMBRE, Talla::M, TipoCamiseta::MANGA_CORTA, "Algodón", true));
+    productos.push_back(Camiseta("C002", 19.99, 40, Temporada::INVIERNO, Genero::MUJER, Talla::L, TipoCamiseta::MANGA_LARGA, "Algodón", true));
     productos.push_back(Pantalon("P001", 29.99, 40, Temporada::INVIERNO, Genero::MUJER, Talla::L, TipoPantalon::LARGO, true));
     productos.push_back(Bufanda("B001", 14.99, 20, Temporada::INVIERNO, Genero::MUJER, Estilo::CLASICO, true));
     productos.push_back(Sudadera("S001", 39.99, 30, Temporada::INVIERNO, Genero::HOMBRE, Talla::XL, TipoSudadera::HOODIE, "Poliéster", true));

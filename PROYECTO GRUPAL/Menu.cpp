@@ -8,9 +8,7 @@ void iniciarPrograma(){
     
     Warehouse warehouse;
     Inventario inventario;
-    
-    Camiseta camiseta1("CA1", 20, 3, Temporada::VERANO, Genero::HOMBRE, Talla::L, TipoCamiseta::MANGA_CORTA, "Algodon", true);
-    
+        
     menuInicioDeSesion(codigo, ciudades);
     menuPrincipal(codigo, ciudades, warehouse, inventario);
 }
@@ -150,7 +148,7 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
                 menuConsultaInventario(inventario);
                 break;
             case 2:
-                
+                inventario.registrarVenta();
                 break;
             case 3:
                 inventario.ampliarInventario(warehouse);
@@ -159,8 +157,7 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
                 
                 break;
             case 5:
-                cout << "Realizando cambio..." << endl;
-                // cambio();
+                inventario.realizarCambio();
                 break;
             case 6:
                 menuInicioDeSesion(codigo, ciudadesDisponibles);
@@ -174,5 +171,4 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
         
     } while (opcion != 0);
 }
-
 
