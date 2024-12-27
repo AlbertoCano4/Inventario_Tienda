@@ -9,6 +9,8 @@ void iniciarPrograma(){
     Warehouse warehouse;
     Inventario inventario;
     
+    Camiseta camiseta1("CA1", 20, 3, Temporada::VERANO, Genero::HOMBRE, Talla::L, TipoCamiseta::MANGA_CORTA, "Algodon", true);
+    
     menuInicioDeSesion(codigo, ciudades);
     menuPrincipal(codigo, ciudades, warehouse, inventario);
 }
@@ -64,13 +66,12 @@ void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles){
     cout << "Acceso permitido." << endl;
 }
 
-void menuConsultaInventario(const vector<string>& ciudadesDisponibles){
+void menuConsultaInventario(Inventario& inventario) {
     int opcion;
-    do{
+    do {
         cout << "-------------------------------------" << endl;
-        // cout << "CONSULTAR INVENTARIO TIENDA: " << ciudadesDisponibles <<endl;
+        cout << "CONSULTAR INVENTARIO" << endl;
         cout << "-------------------------------------" << endl;
-        cout << "POSIBLES OPCIONES:" << endl;
         cout << "1. CONSULTAR INVENTARIO COMPLETO" << endl;
         cout << "2. CONSULTAR TODA LA ROPA" << endl;
         cout << "3. CONSULTAR TODOS LOS ACCESORIOS" << endl;
@@ -85,43 +86,34 @@ void menuConsultaInventario(const vector<string>& ciudadesDisponibles){
         cout << "QUE QUIERES HACER:" << endl;
         cin >> opcion;
         cout << "-------------------------------------" << endl;
-        
+
         switch (opcion) {
             case 1:
-                cout << "Mostrando inventario completo..." << endl;
-                // consultarInventarioCompleto();
+                inventario.consultarInventarioCompleto();
                 break;
             case 2:
-                cout << "Mostrando toda la ropa..." << endl;
-                // consultarTodaLaRopa();
+                inventario.consultarPorCategoria("Ropa");
                 break;
             case 3:
-                cout << "Mostrando todos los accesorios..." << endl;
-                // consultarTodosLosAccesorios();
+                inventario.consultarPorCategoria("Accesorio");
                 break;
             case 4:
-                cout << "Mostrando camisetas..." << endl;
-                // consultarCamisetas();
+                inventario.consultarPorCategoria("Camiseta");
                 break;
             case 5:
-                cout << "Mostrando sudaderas..." << endl;
-                // consultarSudaderas();
+                inventario.consultarPorCategoria("Sudadera");
                 break;
             case 6:
-                cout << "Mostrando pantalones..." << endl;
-                // consultarPantalones();
+                inventario.consultarPorCategoria("Pantalon");
                 break;
             case 7:
-                cout << "Mostrando gafas de sol..." << endl;
-                // consultarGafasDeSol();
+                inventario.consultarPorCategoria("GafasDeSol");
                 break;
             case 8:
-                cout << "Mostrando bufandas..." << endl;
-                // consultarBufandas();
+                inventario.consultarPorCategoria("Bufanda");
                 break;
             case 9:
-                cout << "Mostrando gorras..." << endl;
-                // consultarGorras();
+                inventario.consultarPorCategoria("Gorra");
                 break;
             case 0:
                 cout << "Volviendo al menú principal..." << endl;
@@ -129,9 +121,9 @@ void menuConsultaInventario(const vector<string>& ciudadesDisponibles){
             default:
                 cout << "Opción no válida. Inténtelo de nuevo." << endl;
         }
-    }while(opcion != 0);
-    
+    } while (opcion != 0);
 }
+
 
 void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Warehouse& warehouse, Inventario& inventario) {
     int opcion;
@@ -155,7 +147,7 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
         
         switch (opcion) {
             case 1:
-                menuConsultaInventario(ciudadesDisponibles);
+                menuConsultaInventario(inventario);
                 break;
             case 2:
                 
