@@ -1,41 +1,35 @@
 #include "Camiseta.hpp"
-#include <iostream>
 
-using namespace std;
+Camiseta::Camiseta(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoCamiseta tip, string mat, bool est)
+: Ropa(cod, precioV, cant, temp ,gen, t), tipo(tip), material(mat), estampado(est) {}
 
-// Constructor
-Camiseta::Camiseta(string cod, float precioV, int cant, Genero gen, Talla t, TipoCamiseta tip, string mat, string est)
-: Ropa(cod, precioV, cant, gen, t), tipo(tip), material(mat), estilo(est) {}
-
-//Getters y setters
-TipoCamiseta Camiseta::getTipo() const{
+TipoCamiseta Camiseta::getTipo() const {
     return tipo;
-  }
+}
 
-void Camiseta::setTipo(TipoCamiseta t){
+void Camiseta::setTipo(TipoCamiseta t) {
     tipo = t;
-  }
+}
 
-string Camiseta::getMaterial() const{
+string Camiseta::getMaterial() const {
     return material;
-  }
+}
 
 void Camiseta::setMaterial(string mat) {
     material = mat;
-  }
+}
 
-string Camiseta::getEstilo() const{
-    return estilo;
-  }
+bool Camiseta::getEstampado() const {
+    return estampado;
+}
 
-void Camiseta::setEstilo(string est) {
-    estilo = est;
-  }
+void Camiseta::setEstampado(bool est) {
+    estampado = est;
+}
 
-//Método que muestra la info de las camisetas y que hereda la info que muestra la clase principal Ropa
-void Camiseta::mostrarInformacion(){
+void Camiseta::mostrarInformacion() const {
     Ropa::mostrarInformacion();
-    cout << "Tipo de Camiseta: " << static_cast<int>(tipo) << endl;
-    cout << "Material: " << material << endl;
-    cout << "Estilo: " << estilo << endl;
+    cout << "Tipo: " << static_cast<int>(tipo) << "\n"
+    << "Material: " << material << "\n"
+    << "Estampado: " << (estampado ? "Sí" : "No") << endl;
 }

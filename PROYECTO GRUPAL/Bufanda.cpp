@@ -1,33 +1,18 @@
-#include "Bufanda.hpp"
+#include "bufanda.hpp"
 #include <iostream>
 
-using namespace std;
+Bufanda::Bufanda(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, bool lana)
+    : Accesorio(cod, precioV, cant, temp, gen, est), esDeLana(lana) {}
 
-// Constructor
-Bufanda::Bufanda(string cod, string col, float precioV, int cant, Genero gen, Temporada temp, string mat, bool lana)
-: Accesorio(cod, precioV, cant, gen, temp), material(mat), esDeLana(lana) {}
+bool Bufanda::getEsDeLana() const {
+    return esDeLana;
+}
 
-//Getters y setters
-string Bufanda::getMaterial() const{
-        return material;
-    }
+void Bufanda::setEsDeLana(bool lana) {
+    esDeLana = lana;
+}
 
-void Bufanda::setMaterial(string mat_bufanda) {
-        material = mat_bufanda;
-    }
-
-bool Bufanda::getEsDeLana() {
-        return esDeLana;
-    }
-
-void Bufanda::setEsDeLana(bool es_lana) {
-    esDeLana = es_lana;
-    }
-
-//Método que muestra la info de las Bufanda y que hereda la info que muestra la clase principal Accesorios
-void Bufanda::mostrarInformacion() {
+void Bufanda::mostrarInformacion() const {
     Accesorio::mostrarInformacion();
-    cout << "Material: " << material << endl;
-    cout << "Es de Lana: " << (esDeLana ? "Sí" : "No") << endl;
-    }
-
+    cout << "Es de lana: " << (esDeLana ? "Sí" : "No") << endl;
+}

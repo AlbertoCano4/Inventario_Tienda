@@ -1,32 +1,27 @@
 #include "gorra.hpp"
 #include <iostream>
 
-using namespace std;
+Gorra::Gorra(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string tip, string mat)
+    : Accesorio(cod, precioV, cant, temp, gen, est), tipo(tip), material(mat) {}
 
-// Constructor
-Gorra::Gorra(string cod, float precioV, int cant, Genero gen, Temporada temp, string tip, string mat)
-: Accesorio(cod, precioV, cant, gen, temp), tipo(tip), material(mat) {}
-
-//Getters y setters
-string Gorra::getTipo() const{
+string Gorra::getTipo() const {
     return tipo;
-    }
+}
 
-void Gorra::setTipoGorra(string tip){
+void Gorra::setTipo(string tip) {
     tipo = tip;
-    }
+}
 
-string Gorra::getMaterial() const{
+string Gorra::getMaterial() const {
     return material;
-    }
+}
 
-void Gorra::setMaterial(string mat_acc) {
-    material = mat_acc;
-    }
-//Método que muestra la info de las camisetas y que hereda la info que muestra la clase principal Ropa
-void Gorra::mostrarInformacion()  {
-        Accesorio::mostrarInformacion();
-        cout << "Tipo de Gorra: " << tipo << endl;
-        cout << "Material: " << material << endl;
-    }
+void Gorra::setMaterial(string mat) {
+    material = mat;
+}
 
+void Gorra::mostrarInformacion() const {
+    Accesorio::mostrarInformacion();
+    cout << "Tipo: " << tipo << "\n"
+         << "Material: " << material << endl;
+}

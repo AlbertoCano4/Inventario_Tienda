@@ -1,24 +1,28 @@
 #ifndef ACCESORIO_HPP
 #define ACCESORIO_HPP
 
-#include "producto.hpp"  // Incluimos la clase padre
+#include "producto.hpp"  // Clase base Producto
 
+enum class Estilo { MODERNO, CLASICO, DEPORTIVO, CASUAL };
+
+// Clase abstracta Accesorio
 class Accesorio : public Producto {
 protected:
-    Temporada temporada;
-    
+    Estilo estilo; // Estilo del accesorio
+
 public:
     // Constructor
-    Accesorio(string cod, float precioV, int cant, Genero gen, Temporada temp);
+    Accesorio(string cod, float precioV, int cant, Temporada temp, Genero gen ,Estilo est);
+
     // Destructor virtual
     virtual ~Accesorio() = default;
-    
+
     // Getters y Setters
-    Temporada getTemporada() const;
-    void setTemporada(Temporada temp);
-    
-    // Método que sobreescribe el de la clase padre
-    void mostrarInformacion() override;
+    Estilo getEstilo() const;
+    void setEstilo(Estilo est);
+
+    // Método abstracto que sobreescribe el de Producto
+    virtual void mostrarInformacion() const = 0; // Accesorio sigue siendo abstracta
 };
 
 #endif // ACCESORIO_HPP

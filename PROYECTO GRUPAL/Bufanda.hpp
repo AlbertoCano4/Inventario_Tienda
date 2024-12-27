@@ -1,26 +1,25 @@
 #ifndef BUFANDA_HPP
 #define BUFANDA_HPP
 
-#include "accesorio.hpp"  // Incluimos la clase padre (Producto-> Ropa -> Bufanda)
+#include "accesorio.hpp"
 
 class Bufanda : public Accesorio {
 private:
-    string material;
     bool esDeLana;
+
 public:
     // Constructor
-    Bufanda(string cod, string col, float precioV, int cant, Genero gen, Temporada temp, string mat, bool lana);
-    // Destructor virtual
+    Bufanda(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, bool lana);
+
+    // Destructor
     virtual ~Bufanda() = default;
-    
+
     // Getters y Setters
-    string getMaterial() const;
-    void setMaterial(string tip);
-    bool getEsDeLana() ;
-    void setEsDeLana(bool es_lana);
-    
+    bool getEsDeLana() const;
+    void setEsDeLana(bool lana);
+
     // Método que sobreescribe el de la clase padre
-    void mostrarInformacion() override;
+    void mostrarInformacion() const override;
 };
 
 #endif // BUFANDA_HPP

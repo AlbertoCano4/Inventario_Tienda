@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include <iostream>
+#include <cctype>
 
 void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles){
     
@@ -75,41 +76,48 @@ void menuConsultaInventario(const vector<string>& ciudadesDisponibles){
         cout << "-------------------------------------" << endl;
         
         switch (opcion) {
-                case 1:
-                    //consultarInventarioCompleto();
-                    break;
-                case 2:
-                    //consultarTodaLaRopa();
-                    break;
-                case 3:
-                    //consultarTodosLosAccesorios();
-                    break;
-                case 4:
-                    //consultarCamisetas();
-                    break;
-                case 5:
-                    //consultarSudaderas();
-                    break;
-                case 6:
-                    //consultarPantalones();
-                    break;
-                case 7:
-                    //consultarGafasDeSol();
-                    break;
-                case 8:
-                    //consultarBufandas();
-                    break;
-                case 9:
-                    //consultarGorras();
-                    break;
-                case 0:
-                    cout << "Volviendo al menú principal..." << endl;
-                    break;
-                default:
-                    cout << "Opción no válida. Inténtelo de nuevo." << endl;
-                }
-        
-        
+            case 1:
+                cout << "Mostrando inventario completo..." << endl;
+                // consultarInventarioCompleto();
+                break;
+            case 2:
+                cout << "Mostrando toda la ropa..." << endl;
+                // consultarTodaLaRopa();
+                break;
+            case 3:
+                cout << "Mostrando todos los accesorios..." << endl;
+                // consultarTodosLosAccesorios();
+                break;
+            case 4:
+                cout << "Mostrando camisetas..." << endl;
+                // consultarCamisetas();
+                break;
+            case 5:
+                cout << "Mostrando sudaderas..." << endl;
+                // consultarSudaderas();
+                break;
+            case 6:
+                cout << "Mostrando pantalones..." << endl;
+                // consultarPantalones();
+                break;
+            case 7:
+                cout << "Mostrando gafas de sol..." << endl;
+                // consultarGafasDeSol();
+                break;
+            case 8:
+                cout << "Mostrando bufandas..." << endl;
+                // consultarBufandas();
+                break;
+            case 9:
+                cout << "Mostrando gorras..." << endl;
+                // consultarGorras();
+                break;
+            case 0:
+                cout << "Volviendo al menú principal..." << endl;
+                break;
+            default:
+                cout << "Opción no válida. Inténtelo de nuevo." << endl;
+        }
     }while(opcion != 0);
     
 }
@@ -139,15 +147,19 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles) {
                 menuConsultaInventario(ciudadesDisponibles);
                 break;
             case 2:
+                cout << "Registrando venta..." << endl;
                 // registrarVenta();
                 break;
             case 3:
+                cout << "Ampliando inventario..." << endl;
                 // ampliarInventario();
                 break;
             case 4:
+                cout << "Procesando devolución..." << endl;
                 // devolucion();
                 break;
             case 5:
+                cout << "Realizando cambio..." << endl;
                 // cambio();
                 break;
             case 6:
@@ -159,7 +171,7 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles) {
             default:
                 cout << "Opción no válida. Inténtelo de nuevo." << endl;
         }
-        
+
     } while (opcion != 0);
 }
 

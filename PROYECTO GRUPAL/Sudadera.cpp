@@ -1,41 +1,35 @@
 #include "Sudadera.hpp"
-#include <iostream>
 
-using namespace std;
+Sudadera::Sudadera(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoSudadera tip, string mat, bool crem)
+    : Ropa(cod, precioV, cant, temp,gen, t), tipo(tip), material(mat), cremallera(crem) {}
 
-// Constructor
-Sudadera::Sudadera(string cod, float precioV, int cant, Genero gen, Talla t, TipoSudadera tip, string mat, bool crem)
-        : Ropa(cod, precioV, cant, gen, t), tipo(tip), material(mat), cremallera(crem) {}
-
-//Getters y setters
-TipoSudadera Sudadera::getTipoSudadera() const{
+TipoSudadera Sudadera::getTipoSudadera() const {
     return tipo;
-  }
+}
 
-void Sudadera::setTipoSudadera(TipoSudadera tip){
+void Sudadera::setTipoSudadera(TipoSudadera tip) {
     tipo = tip;
-  }
+}
 
-string Sudadera::getMaterial() const{
+string Sudadera::getMaterial() const {
     return material;
-  }
+}
 
-void Sudadera::setMaterial(string mat) {
+void Sudadera::setMaterial(std::string mat) {
     material = mat;
-  }
+}
 
-bool Sudadera::getCremallera(){
+bool Sudadera::getCremallera() const {
     return cremallera;
-  }
+}
 
 void Sudadera::setCremallera(bool crem) {
     cremallera = crem;
-  }
+}
 
-//Método que muestra la info de las camisetas y que hereda la info que muestra la clase principal Ropa
-void Sudadera::mostrarInformacion(){
+void Sudadera::mostrarInformacion() const {
     Ropa::mostrarInformacion();
-    cout << "Tipo de Sudadera: " << static_cast<int>(tipo) << endl;
-    cout << "Material: " << material << endl;
-    cout << "Cremallera: " << (cremallera ? "Sí" : "No") << endl;
+    cout << "Tipo: " << static_cast<int>(tipo) << "\n"
+         << "Material: " << material << "\n"
+         << "Cremallera: " << (cremallera ? "Sí" : "No") << endl;
 }

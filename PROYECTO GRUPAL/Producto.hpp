@@ -1,54 +1,49 @@
 #ifndef PRODUCTO_HPP
 #define PRODUCTO_HPP
 
-using namespace std;
-
 #include <iostream>
 #include <string>
+using namespace std;
 
 // Enumeraciones
 enum class Genero { MUJER, HOMBRE };
-enum class Talla { S, M, L, XL, XXL };
-enum class TipoCamiseta { MANGA_LARGA, MANGA_CORTA, TIRANTES };
-enum class TipoSudadera { CREWNECK, HOODIE };
-enum class TipoPantalon { LARGO, CORTO };
 enum class Temporada { INVIERNO, VERANO, ANUAL };
 
-// Clase producto de la que herarán Ropa y Accesorios
+// Clase base Producto
 class Producto {
-//Atributos clase Producto
 protected:
-    string codProducto;     // Clave Primaria
-    float precioVenta;
-    int cantidad;
-    bool disponible;
-    Genero genero;
-    
+    string codProducto;     // Clave primaria
+    float precioVenta;      // Precio del producto
+    int cantidad;           // Cantidad en inventario
+    Temporada temporada;    // Temporada asociada al producto
+    Genero genero;          // Género del producto (Mujer, Hombre)
+
 public:
     // Constructor clase Producto
-    Producto(string cod, float precioV, int cant, Genero gen);
-    
+    Producto(string cod, float precioV, int cant, Temporada temp, Genero gen);
+
     // Destructor virtual para permitir herencia
     virtual ~Producto() = default;
-    
+
     // Getters y Setters
     string getCodProducto() const;
-    void setCodProducto(string cod_prod);
+    void setCodProducto(const string& cod_prod);
     float getPrecioVenta() const;
     void setPrecioVenta(float precio_venta);
     int getCantidad() const;
     void setCantidad(int cant);
-    bool isDisponible() const;
-    void setDisponible(bool disp);
     Genero getGenero() const;
     void setGenero(Genero gen);
-    
+    Temporada getTemporada() const;
+    void setTemporada(Temporada temp);
+
+    // Métodos virtuales
+    virtual void mostrarInformacion() const; // Método virtual puro (obliga a las subclases a implementarlo)
+
     // Métodos de gestión de inventario
-    virtual void mostrarInformacion();  // Método virtual
-    void venderProducto();
-    void aniadirProductoATienda();
-    void devolucionProducto();
-    void cambioProducto();
+    void venderProducto(int cantidadVendida);
+    void aniadirProductoATienda(int cantidadAnadida);
+    void devolucionProducto(int cantidadDevuelta);
 };
 
 #endif // PRODUCTO_HPP

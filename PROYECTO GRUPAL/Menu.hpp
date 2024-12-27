@@ -6,8 +6,8 @@ using namespace std;
 #include <vector>
 #include <string>
 
-#include "producto.hpp"
-#include "ropa.hpp"
+#include "Producto.hpp"
+#include "Ropa.hpp"
 #include "camiseta.hpp"
 #include "sudadera.hpp"
 #include "pantalon.hpp"
