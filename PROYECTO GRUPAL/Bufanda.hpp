@@ -1,7 +1,7 @@
 #ifndef BUFANDA_HPP
 #define BUFANDA_HPP
 
-#include "accesorio.hpp"
+#include "Accesorio.hpp"
 
 class Bufanda : public Accesorio {
 private:

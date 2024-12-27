@@ -1,21 +1,21 @@
-/*
 #ifndef INVENTARIO_HPP
 #define INVENTARIO_HPP
 
+#include "Producto.hpp"
+#include "Warehouse.hpp" // Incluye directamente Warehouse.hpp
+#include <vector>
 using namespace std;
 
-#include <iostream>
-#include <string>
+class Inventario {
+private:
+    vector<Producto> productos;
 
-class Inventario{
-    
-protected:
-    vector<Producto> productos; // Vector para almacenar productos en el inventario.
 public:
-    Inventario(Producto productos);
-    void cambiarTienda();
-    
+    void ampliarInventario(const Warehouse& warehouse);
+    void mostrarProductos();
+    void venderProducto(const string& codigo, int cantidad);
+    void aniadirStock(const string& codigo, int cantidad);
+    void devolverProducto(const string& codigo, int cantidad);
 };
 
 #endif // INVENTARIO_HPP
-*/

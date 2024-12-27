@@ -12,7 +12,7 @@ protected:
 
 public:
     // Constructor
-    Accesorio(string cod, float precioV, int cant, Temporada temp, Genero gen ,Estilo est);
+    Accesorio(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen ,Estilo est);
 
     // Destructor virtual
     virtual ~Accesorio() = default;

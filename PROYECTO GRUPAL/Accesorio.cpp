@@ -4,8 +4,8 @@
 using namespace std;
 
 // Constructor de la clase Accesorio
-Accesorio::Accesorio(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est)
-    : Producto(cod, precioV, cant, temp, gen), estilo(est) {}
+Accesorio::Accesorio(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est)
+    : Producto(tipoProducto, cod, precioV, cant, temp, gen), estilo(est) {}
 
 // Getter de Estilo
 Estilo Accesorio::getEstilo() const {

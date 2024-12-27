@@ -2,8 +2,8 @@
 #include <iostream>
 
 // Implementación de la clase Ropa
-Ropa::Ropa(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t)
-: Producto(cod, precioV, cant, temp, gen), talla(t) {}
+Ropa::Ropa(string tipoProducto, string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t)
+: Producto(tipoProducto, cod, precioV, cant, temp, gen), talla(t) {}
 
 Ropa::~Ropa() {} // Destructor puro debe tener una implementación vacía
 
@@ -14,7 +14,6 @@ Talla Ropa::getTalla() const {
 void Ropa::setTalla(Talla t) {
     talla = t;
 }
-
 
 // Implementación del método mostrarInformacion
 void Ropa::mostrarInformacion() const {

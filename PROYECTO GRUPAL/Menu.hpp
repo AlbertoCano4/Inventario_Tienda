@@ -15,13 +15,15 @@ using namespace std;
 #include "gorra.hpp"
 #include "gafasdesol.hpp"
 #include "bufanda.hpp"
+#include "Inventario.hpp"
+#include "Warehouse.hpp"
 
 
 
 // Funciones Del MENU
 void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles);
 void menuConsultaInventario(const vector<string>& ciudadesDisponibles);
-void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles);
+void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Warehouse& warehouse, Inventario& inventario);
 void iniciarPrograma();
 
 

@@ -11,7 +11,7 @@ protected:
 
 public:
     // Constructor
-    Ropa(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t);
+    Ropa(string tipoProducto, string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t);
 
     // Destructor virtual puro
     virtual ~Ropa() = 0;

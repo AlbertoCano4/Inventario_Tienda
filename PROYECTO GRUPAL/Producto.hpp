@@ -12,6 +12,7 @@ enum class Temporada { INVIERNO, VERANO, ANUAL };
 // Clase base Producto
 class Producto {
 protected:
+    string tipo;            // Tipo de producto (Camiseta, Pantalon, etc.) - Primer atributo
     string codProducto;     // Clave primaria
     float precioVenta;      // Precio del producto
     int cantidad;           // Cantidad en inventario
@@ -20,10 +21,16 @@ protected:
 
 public:
     // Constructor clase Producto
-    Producto(string cod, float precioV, int cant, Temporada temp, Genero gen);
+    Producto(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen);
 
     // Destructor virtual para permitir herencia
     virtual ~Producto() = default;
+
+    // Métodos virtuales
+    virtual void mostrarInformacion() const; // Método virtual puro (obliga a las subclases a implementarlo)
+
+    // Getter para el tipo
+    string getTipoProducto() const;
 
     // Getters y Setters
     string getCodProducto() const;
@@ -36,9 +43,6 @@ public:
     void setGenero(Genero gen);
     Temporada getTemporada() const;
     void setTemporada(Temporada temp);
-
-    // Métodos virtuales
-    virtual void mostrarInformacion() const; // Método virtual puro (obliga a las subclases a implementarlo)
 
     // Métodos de gestión de inventario
     void venderProducto(int cantidadVendida);

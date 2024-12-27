@@ -1,8 +1,13 @@
 #include "Producto.hpp"
 
 // Constructor
-Producto::Producto(string cod, float precioV, int cant, Temporada temp, Genero gen)
-    : codProducto(cod), precioVenta(precioV), cantidad(cant), temporada(temp),genero(gen) {}
+Producto::Producto(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen)
+    : tipo(tipoProducto), codProducto(cod), precioVenta(precioV), cantidad(cant), temporada(temp), genero(gen) {}
+
+// Getter para el tipo
+string Producto::getTipoProducto() const {
+    return tipo;
+}
 
 // Getters y Setters
 string Producto::getCodProducto() const {
@@ -47,6 +52,7 @@ void Producto::setTemporada(Temporada temp) {
 
 // Método mostrarInformacion
 void Producto::mostrarInformacion() const {
+    cout << "Tipo: " << tipo << endl;
     cout << "Código del Producto: " << codProducto << endl;
     cout << "Precio de Venta: " << precioVenta << endl;
     cout << "Cantidad en Inventario: " << cantidad << endl;

@@ -1,9 +1,9 @@
 #include "Pantalon.hpp"
 
 Pantalon::Pantalon(string cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoPantalon tip, bool carg)
-    : Ropa(cod, precioV, cant, temp, gen, t), tipo(tip), cargo(carg) {}
+    : Ropa("Pantalon",cod, precioV, cant, temp, gen, t), tipo(tip), cargo(carg) {}
 
-TipoPantalon Pantalon::getTipo() const {
+TipoPantalon Pantalon::getTipoPantalon() const {
     return tipo;
 }
 
@@ -18,6 +18,7 @@ bool Pantalon::getCargo() const {
 void Pantalon::setCargo(bool carg) {
     cargo = carg;
 }
+
 
 void Pantalon::mostrarInformacion() const {
     Ropa::mostrarInformacion();

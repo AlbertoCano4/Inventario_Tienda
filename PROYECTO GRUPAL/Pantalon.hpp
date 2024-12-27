@@ -18,7 +18,7 @@ public:
     virtual ~Pantalon() = default;
 
     // Getters y Setters
-    TipoPantalon getTipo() const;
+    TipoPantalon getTipoPantalon() const;
     void setTipo(TipoPantalon t);
     bool getCargo() const;
     void setCargo(bool carg);

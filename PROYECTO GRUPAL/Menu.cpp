@@ -2,6 +2,17 @@
 #include <iostream>
 #include <cctype>
 
+void iniciarPrograma(){
+    int codigo = 1234567890; // Código correcto
+    vector<string> ciudades = {"Madrid", "Barcelona", "Valencia", "Sevilla", "Bilbao"}; // Lista de ciudades disponibles
+    
+    Warehouse warehouse;
+    Inventario inventario;
+    
+    menuInicioDeSesion(codigo, ciudades);
+    menuPrincipal(codigo, ciudades, warehouse, inventario);
+}
+
 void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles){
     
     int codigo2;
@@ -122,7 +133,7 @@ void menuConsultaInventario(const vector<string>& ciudadesDisponibles){
     
 }
 
-void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles) {
+void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Warehouse& warehouse, Inventario& inventario) {
     int opcion;
     
     do {
@@ -147,16 +158,13 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles) {
                 menuConsultaInventario(ciudadesDisponibles);
                 break;
             case 2:
-                cout << "Registrando venta..." << endl;
-                // registrarVenta();
+                
                 break;
             case 3:
-                cout << "Ampliando inventario..." << endl;
-                // ampliarInventario();
+                inventario.ampliarInventario(warehouse);
                 break;
             case 4:
-                cout << "Procesando devolución..." << endl;
-                // devolucion();
+                
                 break;
             case 5:
                 cout << "Realizando cambio..." << endl;
@@ -171,14 +179,8 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles) {
             default:
                 cout << "Opción no válida. Inténtelo de nuevo." << endl;
         }
-
+        
     } while (opcion != 0);
 }
 
-void iniciarPrograma(){
-    int codigo = 1234567890; // Código correcto
-    vector<string> ciudades = {"Madrid", "Barcelona", "Valencia", "Sevilla", "Bilbao"}; // Lista de ciudades disponibles
 
-    menuInicioDeSesion(codigo, ciudades);
-    menuPrincipal(codigo, ciudades);
-}

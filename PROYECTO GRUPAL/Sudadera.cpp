@@ -1,7 +1,7 @@
 #include "Sudadera.hpp"
 
 Sudadera::Sudadera(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoSudadera tip, string mat, bool crem)
-    : Ropa(cod, precioV, cant, temp,gen, t), tipo(tip), material(mat), cremallera(crem) {}
+    : Ropa("Sudadera",cod, precioV, cant, temp,gen, t), tipo(tip), material(mat), cremallera(crem) {}
 
 TipoSudadera Sudadera::getTipoSudadera() const {
     return tipo;

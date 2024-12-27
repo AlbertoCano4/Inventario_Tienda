@@ -2,7 +2,7 @@
 #include <iostream>
 
 Gorra::Gorra(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string tip, string mat)
-    : Accesorio(cod, precioV, cant, temp, gen, est), tipo(tip), material(mat) {}
+    : Accesorio("Gorra",cod, precioV, cant, temp, gen, est), tipo(tip), material(mat) {}
 
 string Gorra::getTipo() const {
     return tipo;

@@ -1,9 +1,9 @@
 #include "Camiseta.hpp"
 
 Camiseta::Camiseta(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoCamiseta tip, string mat, bool est)
-: Ropa(cod, precioV, cant, temp ,gen, t), tipo(tip), material(mat), estampado(est) {}
+: Ropa("Camiseta",cod, precioV, cant, temp ,gen, t), tipo(tip), material(mat), estampado(est) {}
 
-TipoCamiseta Camiseta::getTipo() const {
+TipoCamiseta Camiseta::getTipoCamiseta() const {
     return tipo;
 }
 
