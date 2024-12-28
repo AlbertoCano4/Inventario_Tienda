@@ -1,11 +1,13 @@
 COSAS QUE AÑADIR:
- 1. Hacer que la clase Inventario reconozca que existen varias tiendas
- 2. Permitir que una tienda pueda pasar ropa a otra
+ 1. Permitir que una tienda pueda pasar ropa a otra
       (Ej: Tienda de madrid sold out de producto x y a la tienda de Barcelona le sobra ese producto x,
       hacer una función que permita mandar ropa de una tienda a otra (restar a Barcelona y Sumar a madrid))
- 3. Hacer que funcione bien
-      3.1    cambiarProducto: falta que si vendo 4 y pongo ese codigo para hacer el cambio, pueda elegir cuantas de esas 4 quiero descambiar
-      3.2    devolverProducto: Falta todo
-      3.3    RegistrarVentaEnArchivo: No se guardan los detalles de la venta en ningun archivo.txt
- 4. Hacer la BBDD, que cada vez que cierre el programa las transacciones realizadas, los productos añadidos... se guarden de una sesion a otra
- 5. OTRAS MODFICACIONES PARA HACERLO MEJOR
+  
+ 2. Hacer la BBDD,
+       2.1 Guardar en ventas.txt todas las transacciones de las 5 tiendas y que si se hace una devolución o cambio se actualicen los datos xq si devuelvo 3 de 5 y luego cambio con el mismo codigo me saldra que puedo cambiar 5 cuando solo puedo cambiar 2 ya que hay 3 que estan devueltos
+       2.2 Guardar el inventario de cada tienda en su archivo txt y que cada vez que haya una ampliación, venta, cambio o devolución, se actualice al instante en el archivo inventario(Tienda).txt
+       2.3
+
+ 3. Añadir más productos (directamente en la clase) o (más complejo: crear un archivo productos.txt o un txt para cada tipo de producto para poder añadir manuealmente los productos que queramos) 
+
+ 4. OTRAS MODFICACIONES PARA HACERLO MEJOR
