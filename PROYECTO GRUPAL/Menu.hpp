@@ -17,13 +17,14 @@ using namespace std;
 #include "bufanda.hpp"
 #include "Inventario.hpp"
 #include "Warehouse.hpp"
+#include "Tienda.hpp"
 
 
 
 // Funciones Del MENU
 void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles);
 void menuConsultaInventario(const vector<string>& ciudadesDisponibles);
-void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Warehouse& warehouse, Inventario& inventario);
+void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario);
 void iniciarPrograma();
 
 

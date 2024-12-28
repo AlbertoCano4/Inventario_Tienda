@@ -1,67 +1,19 @@
 #include "Menu.hpp"
 #include <iostream>
-#include <cctype>
 
-void iniciarPrograma(){
-    int codigo = 1234567890; // Código correcto
-    vector<string> ciudades = {"Madrid", "Barcelona", "Valencia", "Sevilla", "Bilbao"}; // Lista de ciudades disponibles
-    
+void iniciarPrograma() {
+    Tienda tienda;
     Warehouse warehouse;
     Inventario inventario;
-        
-    menuInicioDeSesion(codigo, ciudades);
-    menuPrincipal(codigo, ciudades, warehouse, inventario);
-}
 
-void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles){
-    
-    int codigo2;
-    string ciudadIntroducida;
-    
     cout << "--------------------------------------" << endl;
-    cout << "-BIENVENIDO AL INVENTARIO DE XXXXXXXX-" << endl;
+    cout << "- BIENVENIDO AL INVENTARIO DE XXXXXXXX -" << endl;
     cout << "--------------------------------------" << endl;
-    
-    bool ciudadValida = false;
-    
-    do{
-        cout << "DE QUE TIENDA QUIERES CONOCER LOS DATOS: ";
-        cin >> ciudadIntroducida;
-        
-        // Formatear la ciudad introducida
-        ciudadIntroducida[0] = toupper(ciudadIntroducida[0]);
-        for (size_t i = 1; i < ciudadIntroducida.length(); i++) {
-            ciudadIntroducida[i] = tolower(ciudadIntroducida[i]);
-        }
-        
-        // Verificar si la ciudad está en el vector de ciudades disponibles usando un bucle
-        ciudadValida = false;  // Reiniciar la validación antes de cada verificación
-        for (const string& ciudad : ciudadesDisponibles) {
-            if (ciudadIntroducida == ciudad) {
-                ciudadValida = true;
-                break;  // Si se encuentra, detener el bucle
-            }
-        }
-        
-        if (!ciudadValida) {
-            cout << "No tenemos tiendas en esa ciudad. Inténtelo de nuevo." << endl;
-        } else {
-            cout << ciudadIntroducida << " es una tienda del grupo XXXXXX." << endl;
-        }
-        
-    } while (!ciudadValida);
-    
-    do {
-        cout << "Ingrese credenciales para acceder al inventario:" << endl;
-        cin >> codigo2;
-        
-        if (codigo2 != codigo) {
-            cout << "Código incorrecto. Inténtelo de nuevo." << endl;
-        }
-        
-    } while (codigo2 != codigo); // Repite el bucle hasta que el código sea correcto
-    
-    cout << "Acceso permitido." << endl;
+    // Selección inicial de tienda
+    tienda.seleccionarTienda();
+
+    // Entrar al menú principal
+    menuPrincipal(tienda, warehouse, inventario);
 }
 
 void menuConsultaInventario(Inventario& inventario) {
@@ -81,7 +33,7 @@ void menuConsultaInventario(Inventario& inventario) {
         cout << "9. CONSULTAR GORRA" << endl;
         cout << "0. VOLVER AL MENÚ PRINCIPAL" << endl;
         cout << "-------------------------------------" << endl;
-        cout << "QUE QUIERES HACER:" << endl;
+        cout << "¿QUÉ QUIERES HACER? ";
         cin >> opcion;
         cout << "-------------------------------------" << endl;
 
@@ -122,13 +74,12 @@ void menuConsultaInventario(Inventario& inventario) {
     } while (opcion != 0);
 }
 
-
-void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Warehouse& warehouse, Inventario& inventario) {
+void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario) {
     int opcion;
-    
+
     do {
         cout << "-------------------------------------" << endl;
-        cout << "GESTIONES DEL INVENTARIO DE XXXXXXXX"  << endl;
+        cout << "GESTIONES DEL INVENTARIO - TIENDA " << tienda.getNombreTienda() << endl;
         cout << "-------------------------------------" << endl;
         cout << "POSIBLES OPCIONES:" << endl;
         cout << "1. CONSULTAR INVENTARIO" << endl;
@@ -139,10 +90,10 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
         cout << "6. CAMBIAR DE TIENDA" << endl;
         cout << "0. CERRAR SESIÓN" << endl;
         cout << "-------------------------------------" << endl;
-        cout << "QUE QUIERES HACER:" << endl;
+        cout << "¿QUÉ QUIERES HACER? ";
         cin >> opcion;
         cout << "-------------------------------------" << endl;
-        
+
         switch (opcion) {
             case 1:
                 menuConsultaInventario(inventario);
@@ -154,13 +105,16 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
                 inventario.ampliarInventario(warehouse);
                 break;
             case 4:
-                
+                cout << "Funcionalidad de devoluciones no implementada aún." << endl;
                 break;
             case 5:
                 inventario.realizarCambio();
                 break;
             case 6:
-                menuInicioDeSesion(codigo, ciudadesDisponibles);
+                cout << "Cambiando de tienda..." << endl;
+                tienda.seleccionarTienda(); // Volver a seleccionar la tienda
+                inventario = Inventario();  // Reiniciar el inventario
+                tienda.cargarInventario();  // Cargar el inventario de la
                 break;
             case 0:
                 cout << "Cerrando sesión..." << endl;
@@ -168,7 +122,5 @@ void menuPrincipal(int codigo, const vector<string>& ciudadesDisponibles, Wareho
             default:
                 cout << "Opción no válida. Inténtelo de nuevo." << endl;
         }
-        
     } while (opcion != 0);
 }
-

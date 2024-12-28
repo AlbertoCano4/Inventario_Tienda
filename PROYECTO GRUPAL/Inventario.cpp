@@ -333,12 +333,8 @@ void Inventario::realizarCambio() {
 }
 
 void Inventario::registrarVentaEnArchivo(const string& codigoProducto, int cantidad, float precioTotal) {
-    ofstream archivo("ventas.txt", ios::app);
-
-    if (!archivo.is_open()) {
-        cout << "Error al abrir o crear el archivo ventas.txt." << endl;
-        return;
-    }
+    ofstream archivo;
+    archivo.open("ventas.txt");
 
     // Generar un código único personalizado
     string codigoTransaccion = generarCodigoTransaccion(codigoProducto);
@@ -354,14 +350,20 @@ void Inventario::registrarVentaEnArchivo(const string& codigoProducto, int canti
               << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
               << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
               << setw(2) << setfill('0') << tiempoLocal->tm_sec;
-
-    // Escribir la transacción en el archivo
-    archivo << "Código de transacción: " << codigoTransaccion << endl;
-    archivo << "Fecha y hora: " << fechaHora.str() << endl;
-    archivo << "Código de producto: " << codigoProducto << endl;
-    archivo << "Cantidad: " << cantidad << endl;
-    archivo << "Precio total: " << precioTotal << "€" << endl;
-    archivo << "--------------------------------------" << endl;
+    
+    if (archivo.is_open()) {
+        // Escribir la transacción en el archivo
+        archivo << "Código de transacción: " << codigoTransaccion << endl;
+        archivo << "Fecha y hora: " << fechaHora.str() << endl;
+        archivo << "Código de producto: " << codigoProducto << endl;
+        archivo << "Cantidad: " << cantidad << endl;
+        archivo << "Precio total: " << precioTotal << "€" << endl;
+        archivo << "--------------------------------------" << endl;
+    }
+    else{
+        cout << "Error al abrir o crear el archivo ventas.txt." << endl;
+        return;
+    }
 
     archivo.close();
 
