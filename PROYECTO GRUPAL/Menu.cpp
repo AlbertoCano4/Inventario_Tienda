@@ -105,7 +105,7 @@ void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario)
                 inventario.ampliarInventario(warehouse);
                 break;
             case 4:
-                cout << "Funcionalidad de devoluciones no implementada aún." << endl;
+                inventario.devolucion();
                 break;
             case 5:
                 inventario.realizarCambio();
@@ -113,8 +113,8 @@ void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario)
             case 6:
                 cout << "Cambiando de tienda..." << endl;
                 tienda.seleccionarTienda(); // Volver a seleccionar la tienda
-                inventario = Inventario();  // Reiniciar el inventario
-                tienda.cargarInventario();  // Cargar el inventario de la
+                // inventario = Inventario();  // Reiniciar el inventario
+                // tienda.cargarInventario();  // Cargar el inventario de la
                 break;
             case 0:
                 cout << "Cerrando sesión..." << endl;

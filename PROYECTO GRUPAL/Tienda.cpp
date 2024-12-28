@@ -1,5 +1,6 @@
 #include "Tienda.hpp"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -46,7 +47,7 @@ void Tienda::seleccionarTienda() {
             cin >> codigoIngresado;
 
             if (codigoIngresado == codigosAcceso[indice]) {
-                cargarInventario(); // Cargar el inventario después de validar el código
+                //cargarInventario(); // Cargar el inventario después de validar el código
                 return;             // Salir del método una vez que todo esté correcto
             } else {
                 cout << "Código incorrecto." << endl;
@@ -74,9 +75,56 @@ const string& Tienda::getNombreTienda() const {
     return nombresTienda[static_cast<int>(tiendaSeleccionada)];
 }
 
-// Cargar el inventario (simulado)
+/*
 void Tienda::cargarInventario() {
-    cout << "Cargando inventario para la tienda " << getNombreTienda() << "..." << endl;
-    // Aquí se implementaría la lógica para cargar los datos del inventario desde archivo
-    cout << "Inventario cargado correctamente." << endl;
+    if (tiendaSeleccionada == TiendaEnum::None) {
+        cout << "No se ha seleccionado ninguna tienda. Por favor, selecciona una tienda primero." << endl;
+        return;
+    }
+
+    ifstream archivo; // Declarar variable de tipo archivo para lectura
+    string archivoInventario = "Inventario" + getNombreTienda() + ".txt";
+    archivo.open(archivoInventario); // Abrir el archivo
+
+    if (archivo.is_open()) {
+        
+        for(Inventario : inventario){
+            
+        }
+
+        cout << "Datos cargados desde " << archivoInventario << " correctamente." << endl;
+    } else {
+        cout << "El archivo " << archivoInventario << " no se ha podido abrir." << endl;
+    }
+
+    archivo.close(); // Cerrar el archivo
 }
+
+void Tienda::actualizarInventario() {
+    if (tiendaSeleccionada == TiendaEnum::None) {
+        cout << "No se ha seleccionado ninguna tienda. Por favor, selecciona una tienda primero." << endl;
+        return;
+    }
+
+    ofstream archivo; // Declarar variable de tipo archivo para escritura
+    string archivoInventario = "Inventario" + getNombreTienda() + ".txt";
+    archivo.open(archivoInventario); // Abrir el archivo
+
+    if (archivo.is_open()) {
+        const vector<Producto>& productos = inventario.getProductos(); // Obtener los productos del inventario
+
+        for (const auto& producto : productos) {
+            archivo << producto.id << ','
+                    << producto.nombre << ','
+                    << producto.cantidad << ','
+                    << producto.precio << endl;
+        }
+
+        cout << "Datos guardados en " << archivoInventario << " correctamente." << endl;
+    } else {
+        cout << "El archivo " << archivoInventario << " no se ha podido abrir." << endl;
+    }
+
+    archivo.close(); // Cerrar el archivo
+}
+*/

@@ -76,10 +76,10 @@ void Inventario::ampliarInventario(const Warehouse& warehouse) {
     switch (opcion) {
         case 1: tipoProducto = "Camiseta"; break;
         case 2: tipoProducto = "Pantalon"; break;
-        case 3: tipoProducto = "Sudaderas"; break;
-        case 4: tipoProducto = "Bufandas"; break;
-        case 5: tipoProducto = "Gorras"; break;
-        case 6: tipoProducto = "Gafas de Sol"; break;
+        case 3: tipoProducto = "Sudadera"; break;
+        case 4: tipoProducto = "Bufanda"; break;
+        case 5: tipoProducto = "Gorra"; break;
+        case 6: tipoProducto = "Gafas de sol"; break;
         default:
             cout << "Opción no válida." << endl;
             return;
@@ -154,6 +154,7 @@ void Inventario::mostrarProductos() const {
     consultarInventarioCompleto();
 }
 
+// Registrar una venta
 void Inventario::registrarVenta() {
     if (productos.empty()) {
         cout << "El inventario está vacío. No se pueden realizar ventas." << endl;
@@ -166,48 +167,82 @@ void Inventario::registrarVenta() {
 
     for (auto& producto : productos) {
         if (producto.getCodProducto() == codigoProducto) {
-            cout << "Producto encontrado:" << endl;
             producto.mostrarInformacion();
             cout << "Cantidad disponible: " << producto.getCantidad() << endl;
-            cout << "Precio unitario: " << producto.getPrecioVenta() << "€" << endl;
+            cout << "Precio unitario: " << fixed << setprecision(2) << producto.getPrecioVenta() << " €" << endl;
 
             cout << "Ingrese la cantidad que desea vender: ";
             int cantidad;
             cin >> cantidad;
 
-            if (cantidad <= 0) {
-                cout << "Cantidad no válida." << endl;
-                return;
-            }
-
-            if (cantidad > producto.getCantidad()) {
-                cout << "Stock insuficiente. Sólo hay " << producto.getCantidad() << " unidades disponibles." << endl;
+            if (cantidad <= 0 || cantidad > producto.getCantidad()) {
+                cout << "Cantidad no válida. Debe ser entre 1 y " << producto.getCantidad() << "." << endl;
                 return;
             }
 
             float precioTotal = cantidad * producto.getPrecioVenta();
-            cout << "Precio total: " << precioTotal << "€" << endl;
+            string codigoTransaccion = generarCodigoTransaccion(codigoProducto);
 
-            cout << "¿Desea realizar la venta? (s/n): ";
-            char confirmacion;
-            cin >> confirmacion;
+            // Actualizar inventario
+            producto.setCantidad(producto.getCantidad() - cantidad);
 
-            if (tolower(confirmacion) == 's') {
-                restarCantidad(codigoProducto, cantidad);
-                cout << "Venta registrada con éxito. " << cantidad << " unidades vendidas del producto \"" << codigoProducto << "\"." << endl;
-                cout << "Precio total: " << precioTotal << "€" << endl;
+            // Registrar la transacción como una cadena
+            string transaccion = codigoTransaccion + "," + codigoProducto + "," +
+                                 producto.getTipoProducto() + "," + to_string(cantidad);
+            transacciones.push_back(transaccion);
 
-                // Registrar en el archivo
-                registrarVentaEnArchivo(codigoProducto, cantidad, precioTotal);
-            } else {
-                cout << "Venta cancelada." << endl;
-            }
+            cout << "Venta realizada con éxito." << endl;
+            cout << "Detalles de la venta:" << endl;
+            cout << " - Tipo de producto: " << producto.getTipoProducto() << endl;
+            cout << " - Código del producto: " << producto.getCodProducto() << endl;
+            cout << " - Cantidad vendida: " << cantidad << endl;
+            cout << " - Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+            cout << " - Código de transacción: " << codigoTransaccion << endl;
+
             return;
         }
     }
 
     cout << "El producto con código \"" << codigoProducto << "\" no se encuentra en el inventario." << endl;
 }
+
+/*
+// Registrar la venta en el archivo ventas.txt
+void Inventario::registrarVentaEnArchivo(const string& tienda, const string& codigoProducto, int cantidad, float precioTotal) {
+    // Generar un código único para la transacción
+    string codigoTransaccion = generarCodigoTransaccion(codigoProducto);
+
+    // Obtener la fecha y hora actual
+    time_t ahora = time(nullptr);
+    tm* tiempoLocal = localtime(&ahora);
+
+    stringstream fechaHora;
+    fechaHora << tiempoLocal->tm_year + 1900 << "-"
+              << setw(2) << setfill('0') << tiempoLocal->tm_mon + 1 << "-"
+              << setw(2) << setfill('0') << tiempoLocal->tm_mday << " "
+              << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
+              << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
+              << setw(2) << setfill('0') << tiempoLocal->tm_sec;
+
+    // Abrir el archivo en modo de agregar (append)
+    ofstream archivo("ventas.txt", ios::app);
+    if (archivo.is_open()) {
+        archivo << "Código de transacción: " << codigoTransaccion << endl;
+        archivo << "Fecha y hora: " << fechaHora.str() << endl;
+        archivo << "Tienda: " << tienda << endl;
+        archivo << "Código de producto: " << codigoProducto << endl;
+        archivo << "Cantidad: " << cantidad << endl;
+        archivo << "Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        archivo << "--------------------------------------" << endl;
+        archivo.close();
+
+        cout << "Venta registrada correctamente en el archivo ventas.txt." << endl;
+    } else {
+        cerr << "Error: No se pudo abrir el archivo ventas.txt para registrar la venta." << endl;
+    }
+}
+*/
+
 
 void Inventario::restarCantidad(const string& codigo, int cantidad) {
     for (auto& producto : productos) {
@@ -220,64 +255,52 @@ void Inventario::restarCantidad(const string& codigo, int cantidad) {
     cout << "El producto con código \"" << codigo << "\" no se encuentra en el inventario." << endl;
 }
 
-void Inventario::realizarCambio() {
+void Inventario::devolucion() {
+    // Solicitar el código de la transacción
     cout << "Ingrese el código de la transacción: ";
     string codigoTransaccion;
     cin >> codigoTransaccion;
 
-    // Abrir el archivo de ventas
-    ifstream archivo("ventas.txt");
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo de ventas.txt." << endl;
-        return;
-    }
-
-    string linea;
-    bool encontrado = false;
-    string codigoProducto;
-    int cantidadVendida = 0;
-
-    // Buscar la transacción en el archivo
-    while (getline(archivo, linea)) {
-        if (linea.find("Código de transacción: " + codigoTransaccion) != string::npos) {
-            encontrado = true;
-
-            // Leer las líneas siguientes para obtener los detalles
-            for (int i = 0; i < 4; ++i) {
-                getline(archivo, linea);
-                if (linea.find("Código de producto:") != string::npos) {
-                    codigoProducto = linea.substr(linea.find(":") + 2);
-                } else if (linea.find("Cantidad:") != string::npos) {
-                    cantidadVendida = stoi(linea.substr(linea.find(":") + 2));
-                }
-            }
+    // Buscar la transacción en el vector
+    string transaccionEncontrada;
+    for (const auto& transaccion : transacciones) {
+        if (transaccion.find(codigoTransaccion + ",") == 0) {
+            transaccionEncontrada = transaccion;
             break;
         }
     }
 
-    archivo.close();
-
-    if (!encontrado) {
+    if (transaccionEncontrada.empty()) {
         cout << "No se encontró la transacción con el código: " << codigoTransaccion << endl;
         return;
     }
 
-    cout << "Producto vendido: " << codigoProducto << endl;
-    cout << "Cantidad vendida: " << cantidadVendida << endl;
+    // Extraer los datos de la transacción
+    stringstream ss(transaccionEncontrada);
+    string codigoProducto, tipoProducto;
+    int cantidadVendida;
+    float precioUnitario;
+    getline(ss, codigoTransaccion, ',');
+    getline(ss, codigoProducto, ',');
+    getline(ss, tipoProducto, ',');
+    ss >> cantidadVendida;
 
-    // Buscar el producto en el inventario
-    Producto* producto = nullptr;
-    for (auto& prod : productos) {
-        if (prod.getCodProducto() == codigoProducto) {
-            producto = &prod;
+    // Calcular el precio total de la transacción
+    for (const auto& producto : productos) {
+        if (producto.getCodProducto() == codigoProducto) {
+            precioUnitario = producto.getPrecioVenta();
             break;
         }
     }
 
-    if (!producto) {
-        cout << "El producto no se encuentra en el inventario para realizar el cambio." << endl;
-        return;
-    }
+    float precioTotal = cantidadVendida * precioUnitario;
+
+    // Mostrar los detalles de la transacción
+    cout << "Detalles de la transacción:" << endl;
+    cout << " - Código del producto: " << codigoProducto << endl;
+    cout << " - Tipo de producto: " << tipoProducto << endl;
+    cout << " - Cantidad vendida: " << cantidadVendida << endl;
+    cout << " - Precio total de la transacción: " << fixed << setprecision(2) << precioTotal << " €" << endl;
 
     // Solicitar la cantidad que se desea devolver
     cout << "Ingrese la cantidad que desea devolver (máximo " << cantidadVendida << "): ";
@@ -285,21 +308,80 @@ void Inventario::realizarCambio() {
     cin >> cantidadDevolver;
 
     if (cantidadDevolver <= 0 || cantidadDevolver > cantidadVendida) {
-        cout << "Cantidad no válida." << endl;
+        cout << "Error: Cantidad no válida." << endl;
         return;
     }
 
-    // Buscar productos del mismo tipo
-    string tipoProducto = producto->getTipoProducto();
-    vector<Producto*> productosMismoTipo;
-    for (auto& prod : productos) {
+    // Actualizar el inventario
+    for (auto& producto : productos) {
+        if (producto.getCodProducto() == codigoProducto) {
+            producto.setCantidad(producto.getCantidad() + cantidadDevolver);
+            break;
+        }
+    }
+
+    // Calcular el importe a devolver
+    float importeDevolucion = cantidadDevolver * precioUnitario;
+
+    // Mostrar el mensaje final
+    cout << "Devolución realizada con éxito." << endl;
+    cout << "Se han devuelto " << cantidadDevolver << " unidades al inventario." << endl;
+    cout << "Se ha reembolsado un total de " << fixed << setprecision(2) << importeDevolucion << " €." << endl;
+}
+
+
+void Inventario::realizarCambio() {
+    cout << "Ingrese el código de la transacción: ";
+    string codigoTransaccion;
+    cin >> codigoTransaccion;
+
+    // Buscar la transacción en el vector
+    string transaccionEncontrada;
+    for (const auto& transaccion : transacciones) {
+        if (transaccion.find(codigoTransaccion + ",") == 0) {
+            transaccionEncontrada = transaccion;
+            break;
+        }
+    }
+
+    if (transaccionEncontrada.empty()) {
+        cout << "No se encontró la transacción con el código: " << codigoTransaccion << endl;
+        return;
+    }
+
+    // Extraer los datos de la transacción
+    stringstream ss(transaccionEncontrada);
+    string codigoProducto, tipoProducto;
+    int cantidadVendida;
+    getline(ss, codigoTransaccion, ',');
+    getline(ss, codigoProducto, ',');
+    getline(ss, tipoProducto, ',');
+    ss >> cantidadVendida;
+
+    cout << "Producto vendido: " << codigoProducto << endl;
+    cout << "Categoría del producto: " << tipoProducto << endl;
+    cout << "Cantidad vendida: " << cantidadVendida << endl;
+
+    // Solicitar la cantidad que se desea devolver
+    cout << "Ingrese la cantidad que desea devolver (máximo " << cantidadVendida << "): ";
+    int cantidadDevolver;
+    cin >> cantidadDevolver;
+
+    if (cantidadDevolver <= 0 || cantidadDevolver > cantidadVendida) {
+        cout << "Error: Cantidad no válida." << endl;
+        return;
+    }
+
+    // Buscar productos del mismo tipo para el cambio
+    vector<Producto> productosMismoTipo;
+    for (const auto& prod : productos) {
         if (prod.getTipoProducto() == tipoProducto && prod.getCodProducto() != codigoProducto) {
-            productosMismoTipo.push_back(&prod);
+            productosMismoTipo.push_back(prod);
         }
     }
 
     if (productosMismoTipo.empty()) {
-        cout << "No hay productos disponibles del mismo tipo para realizar el cambio." << endl;
+        cout << "No hay productos disponibles de la misma categoría para realizar el cambio." << endl;
         return;
     }
 
@@ -307,65 +389,49 @@ void Inventario::realizarCambio() {
     cout << "Seleccione el producto por el que desea cambiarlo:" << endl;
     for (size_t i = 0; i < productosMismoTipo.size(); ++i) {
         cout << i + 1 << ". ";
-        productosMismoTipo[i]->mostrarInformacion();
+        productosMismoTipo[i].mostrarInformacion();
     }
 
     int seleccionNuevo;
     cin >> seleccionNuevo;
 
     if (seleccionNuevo < 1 || seleccionNuevo > static_cast<int>(productosMismoTipo.size())) {
-        cout << "Selección no válida." << endl;
+        cout << "Error: Selección no válida." << endl;
         return;
     }
 
-    Producto* productoNuevo = productosMismoTipo[seleccionNuevo - 1];
+    Producto& productoNuevo = productosMismoTipo[seleccionNuevo - 1];
+
+    // Validar si hay suficiente stock del producto nuevo para realizar el cambio
+    if (productoNuevo.getCantidad() < cantidadDevolver) {
+        cout << "Error: No hay suficiente stock del producto seleccionado para realizar el cambio." << endl;
+        return;
+    }
 
     // Realizar el cambio
     cout << "Realizando cambio por " << cantidadDevolver << " unidades..." << endl;
 
-    producto->setCantidad(producto->getCantidad() + cantidadDevolver);
-    productoNuevo->setCantidad(productoNuevo->getCantidad() - cantidadDevolver);
+    // Actualizar inventario
+    for (auto& producto : productos) {
+        if (producto.getCodProducto() == codigoProducto) {
+            producto.setCantidad(producto.getCantidad() + cantidadDevolver); // Devolver al stock original
+        }
+        if (producto.getCodProducto() == productoNuevo.getCodProducto()) {
+            producto.setCantidad(producto.getCantidad() - cantidadDevolver); // Restar del nuevo producto
+        }
+    }
 
     cout << "Cambio realizado con éxito." << endl;
-    cout << "Stock actualizado:" << endl;
-    producto->mostrarInformacion();
-    productoNuevo->mostrarInformacion();
-}
-
-void Inventario::registrarVentaEnArchivo(const string& codigoProducto, int cantidad, float precioTotal) {
-    ofstream archivo;
-    archivo.open("ventas.txt");
-
-    // Generar un código único personalizado
-    string codigoTransaccion = generarCodigoTransaccion(codigoProducto);
-
-    // Registrar fecha y hora
-    time_t ahora = time(nullptr);
-    tm* tiempoLocal = localtime(&ahora);
-
-    stringstream fechaHora;
-    fechaHora << tiempoLocal->tm_year + 1900 << "-"
-              << setw(2) << setfill('0') << tiempoLocal->tm_mon + 1 << "-"
-              << setw(2) << setfill('0') << tiempoLocal->tm_mday << " "
-              << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
-              << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
-              << setw(2) << setfill('0') << tiempoLocal->tm_sec;
-    
-    if (archivo.is_open()) {
-        // Escribir la transacción en el archivo
-        archivo << "Código de transacción: " << codigoTransaccion << endl;
-        archivo << "Fecha y hora: " << fechaHora.str() << endl;
-        archivo << "Código de producto: " << codigoProducto << endl;
-        archivo << "Cantidad: " << cantidad << endl;
-        archivo << "Precio total: " << precioTotal << "€" << endl;
-        archivo << "--------------------------------------" << endl;
+    cout << "Producto original (devolución):" << endl;
+    for (const auto& producto : productos) {
+        if (producto.getCodProducto() == codigoProducto) {
+            producto.mostrarInformacion();
+        }
     }
-    else{
-        cout << "Error al abrir o crear el archivo ventas.txt." << endl;
-        return;
+    cout << "Producto nuevo (entregado):" << endl;
+    for (const auto& producto : productos) {
+        if (producto.getCodProducto() == productoNuevo.getCodProducto()) {
+            producto.mostrarInformacion();
+        }
     }
-
-    archivo.close();
-
-    cout << "Venta registrada con el código de transacción: " << codigoTransaccion << endl;
 }

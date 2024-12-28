@@ -25,8 +25,11 @@ public:
 
     // Métodos de gestión
     void seleccionarTienda();                // Seleccionar tienda y validar código
-    void cargarInventario();                 // Cargar el inventario de la tienda
-    const string& getNombreTienda() const;   // Obtener el nombre de la tienda seleccionada
+    const string& getNombreTienda() const; // Obtener el nombre de la tienda seleccionada
+    /*
+    void cargarInventario();
+    void actualizarInventario();
+     */
 };
 
 #endif // TIENDA_HPP
