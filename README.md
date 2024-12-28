@@ -11,3 +11,7 @@ COSAS QUE AÑADIR:
  3. Añadir más productos (directamente en la clase) o (más complejo: crear un archivo productos.txt o un txt para cada tipo de producto para poder añadir manuealmente los productos que queramos) 
 
  4. OTRAS MODFICACIONES PARA HACERLO MEJOR
+
+ 5. Poner comentarios
+
+ 6. Hacer algunos metodos mas simples
