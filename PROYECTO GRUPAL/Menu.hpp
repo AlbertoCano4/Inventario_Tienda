@@ -22,7 +22,6 @@ using namespace std;
 
 
 // Funciones Del MENU
-void menuInicioDeSesion(int codigo, const vector<string>& ciudadesDisponibles);
 void menuConsultaInventario(const vector<string>& ciudadesDisponibles);
 void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario);
 void iniciarPrograma();

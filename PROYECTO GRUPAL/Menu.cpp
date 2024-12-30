@@ -23,14 +23,12 @@ void menuConsultaInventario(Inventario& inventario) {
         cout << "CONSULTAR INVENTARIO" << endl;
         cout << "-------------------------------------" << endl;
         cout << "1. CONSULTAR INVENTARIO COMPLETO" << endl;
-        cout << "2. CONSULTAR TODA LA ROPA" << endl;
-        cout << "3. CONSULTAR TODOS LOS ACCESORIOS" << endl;
-        cout << "4. CONSULTAR CAMISETAS" << endl;
-        cout << "5. CONSULTAR SUDADERAS" << endl;
-        cout << "6. CONSULTAR PANTALONES" << endl;
-        cout << "7. CONSULTAR GAFAS DE SOL" << endl;
-        cout << "8. CONSULTAR BUFANDAS" << endl;
-        cout << "9. CONSULTAR GORRA" << endl;
+        cout << "2. CONSULTAR CAMISETAS" << endl;
+        cout << "3. CONSULTAR SUDADERAS" << endl;
+        cout << "4. CONSULTAR PANTALONES" << endl;
+        cout << "5. CONSULTAR GAFAS DE SOL" << endl;
+        cout << "6. CONSULTAR BUFANDAS" << endl;
+        cout << "7. CONSULTAR GORRA" << endl;
         cout << "0. VOLVER AL MENÚ PRINCIPAL" << endl;
         cout << "-------------------------------------" << endl;
         cout << "¿QUÉ QUIERES HACER? ";
@@ -42,27 +40,21 @@ void menuConsultaInventario(Inventario& inventario) {
                 inventario.consultarInventarioCompleto();
                 break;
             case 2:
-                inventario.consultarPorCategoria("Ropa");
-                break;
-            case 3:
-                inventario.consultarPorCategoria("Accesorio");
-                break;
-            case 4:
                 inventario.consultarPorCategoria("Camiseta");
                 break;
-            case 5:
+            case 3:
                 inventario.consultarPorCategoria("Sudadera");
                 break;
-            case 6:
+            case 4:
                 inventario.consultarPorCategoria("Pantalon");
                 break;
-            case 7:
-                inventario.consultarPorCategoria("GafasDeSol");
+            case 5:
+                inventario.consultarPorCategoria("Gafas de sol");
                 break;
-            case 8:
+            case 6:
                 inventario.consultarPorCategoria("Bufanda");
                 break;
-            case 9:
+            case 7:
                 inventario.consultarPorCategoria("Gorra");
                 break;
             case 0:

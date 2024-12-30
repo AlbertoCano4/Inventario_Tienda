@@ -191,6 +191,9 @@ void Inventario::registrarVenta() {
                                  producto.getTipoProducto() + "," + to_string(cantidad);
             transacciones.push_back(transaccion);
 
+            // Registrar la venta en el archivo
+            registrarVentaEnArchivo("Tienda", codigoProducto, cantidad, precioTotal);
+
             cout << "Venta realizada con éxito." << endl;
             cout << "Detalles de la venta:" << endl;
             cout << " - Tipo de producto: " << producto.getTipoProducto() << endl;
@@ -206,7 +209,6 @@ void Inventario::registrarVenta() {
     cout << "El producto con código \"" << codigoProducto << "\" no se encuentra en el inventario." << endl;
 }
 
-/*
 // Registrar la venta en el archivo ventas.txt
 void Inventario::registrarVentaEnArchivo(const string& tienda, const string& codigoProducto, int cantidad, float precioTotal) {
     // Generar un código único para la transacción
@@ -225,8 +227,10 @@ void Inventario::registrarVentaEnArchivo(const string& tienda, const string& cod
               << setw(2) << setfill('0') << tiempoLocal->tm_sec;
 
     // Abrir el archivo en modo de agregar (append)
-    ofstream archivo("ventas.txt", ios::app);
+    ofstream archivo;
+    archivo.open("ventas.txt", ios::app);
     if (archivo.is_open()) {
+        cout << "SE HA CREADO EL ARCHIVO" << endl;
         archivo << "Código de transacción: " << codigoTransaccion << endl;
         archivo << "Fecha y hora: " << fechaHora.str() << endl;
         archivo << "Tienda: " << tienda << endl;
@@ -241,7 +245,6 @@ void Inventario::registrarVentaEnArchivo(const string& tienda, const string& cod
         cerr << "Error: No se pudo abrir el archivo ventas.txt para registrar la venta." << endl;
     }
 }
-*/
 
 
 void Inventario::restarCantidad(const string& codigo, int cantidad) {
