@@ -1,6 +1,7 @@
 #ifndef TIENDA_HPP
 #define TIENDA_HPP
 
+#include "Tienda.hpp"
 #include "Producto.hpp"
 #include "Camiseta.hpp"
 #include "Bufanda.hpp"
@@ -8,6 +9,8 @@
 #include "sudadera.hpp"
 #include "gorra.hpp"
 #include "gafasdesol.hpp"
+#include "Ropa.hpp"
+#include "Accesorio.hpp"
 
 #include <vector>
 #include <string>

@@ -60,7 +60,7 @@ void Inventario::consultarPorCategoria(const std::string& categoria) const {
     }
 }
 
-void Inventario::ampliarInventario(const Warehouse& warehouse) {
+void Inventario::ampliarInventario(const Warehouse& warehouse, Tienda& tienda) {
     cout << "Seleccione el tipo de producto que desea añadir al inventario:" << endl;
     cout << "1. Camisetas" << endl;
     cout << "2. Pantalones" << endl;
@@ -124,6 +124,10 @@ void Inventario::ampliarInventario(const Warehouse& warehouse) {
         if (producto.getCodProducto() == productoSeleccionado.getCodProducto()) {
             producto.setCantidad(producto.getCantidad() + cantidad);
             cout << "Stock actualizado: " << cantidad << " unidades añadidas." << endl;
+
+            // Sincronizar inventario con la tienda y guardar
+            tienda.getInventario() = productos;
+            tienda.guardarInventario();
             return;
         }
     }
@@ -131,6 +135,12 @@ void Inventario::ampliarInventario(const Warehouse& warehouse) {
     // Si no existe, agregarlo como nuevo producto
     productoSeleccionado.setCantidad(cantidad);
     agregarProducto(productoSeleccionado);
+
+    // Sincronizar inventario con la tienda y guardar
+    tienda.getInventario() = productos;
+    tienda.guardarInventario();
+
+    cout << "Producto añadido correctamente." << endl;
 }
 
 void Inventario::aniadirStock(const string& codigo, int cantidad) {

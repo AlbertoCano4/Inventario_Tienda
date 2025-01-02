@@ -9,8 +9,10 @@ void iniciarPrograma() {
     cout << "--------------------------------------" << endl;
     cout << "- BIENVENIDO AL INVENTARIO DE XXXXXXXX -" << endl;
     cout << "--------------------------------------" << endl;
+
     // Selección inicial de tienda
     tienda.seleccionarTienda();
+    // tienda.cargarInventario(); // Cargar el inventario de la tienda seleccionada
 
     // Entrar al menú principal
     menuPrincipal(tienda, warehouse, inventario);
@@ -94,7 +96,7 @@ void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario)
                 inventario.registrarVenta();
                 break;
             case 3:
-                inventario.ampliarInventario(warehouse);
+                inventario.ampliarInventario(warehouse, tienda);
                 break;
             case 4:
                 inventario.devolucion();
@@ -104,9 +106,8 @@ void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario)
                 break;
             case 6:
                 cout << "Cambiando de tienda..." << endl;
-                tienda.seleccionarTienda(); // Volver a seleccionar la tienda
-                // inventario = Inventario();  // Reiniciar el inventario
-                // tienda.cargarInventario();  // Cargar el inventario de la
+                tienda.seleccionarTienda();  // Volver a seleccionar la tienda
+                // tienda.cargarInventario();  // Cargar el inventario de la nueva tienda
                 break;
             case 0:
                 cout << "Cerrando sesión..." << endl;

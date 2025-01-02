@@ -76,12 +76,63 @@ const string& Tienda::getNombreTienda() const {
     return nombresTienda[static_cast<int>(tiendaSeleccionada)];
 }
 
+std::string temporadaToString(Temporada temporada) {
+    switch (temporada) {
+        case Temporada::INVIERNO: return "Invierno";
+        case Temporada::VERANO: return "Verano";
+        case Temporada::ANUAL: return "Anual";
+        default: return "Desconocida";
+    }
+}
+std::string generoToString(Genero genero) {
+    return genero == Genero::MUJER ? "Mujer" : "Hombre";
+}
+std::string estiloToString(Estilo estilo) {
+    switch (estilo) {
+        case Estilo::MODERNO: return "Moderno";
+        case Estilo::CLASICO: return "Clasico";
+        case Estilo::DEPORTIVO: return "Deportivo";
+        case Estilo::CASUAL: return "Casual";
+        default: return "Desconocido";
+    }
+}
+std::string tipoCamisetaToString(TipoCamiseta tipo) {
+    switch (tipo) {
+        case TipoCamiseta::MANGA_LARGA: return "Manga Larga";
+        case TipoCamiseta::MANGA_CORTA: return "Manga Corta";
+        case TipoCamiseta::TIRANTES: return "Tirantes";
+        default: return "Desconocido";
+    }
+}
+std::string tipoPantalonToString(TipoPantalon tipo) {
+    switch (tipo) {
+        case TipoPantalon::LARGO: return "Largo";
+        case TipoPantalon::CORTO: return "Corto";
+        default: return "Desconocido";
+    }
+}
+std::string tallaToString(Talla talla) {
+    switch (talla) {
+        case Talla::S: return "S";
+        case Talla::M: return "M";
+        case Talla::L: return "L";
+        case Talla::XL: return "XL";
+        case Talla::XXL: return "XXL";
+        default: return "Desconocido";
+    }
+}
+std::string tipoSudaderaToString(TipoSudadera tipo) {
+    switch (tipo) {
+        case TipoSudadera::CREWNECK: return "Crewneck";
+        case TipoSudadera::HOODIE: return "Hoodie";
+        default: return "Desconocido";
+    }
+}
 
 
-/*
 // Cargar el inventario desde el archivo
-void Tienda::cargarInventario(){
-    string archivoInventario = "Inventario_" + getNombreTienda() + ".txt";
+void Tienda::cargarInventario() {
+    string archivoInventario = "Inventario" + getNombreTienda() + ".txt";
     ifstream archivo(archivoInventario);
     
     if (!archivo.is_open()) {
@@ -93,79 +144,81 @@ void Tienda::cargarInventario(){
     inventario.clear();
     
     string tipoSeccion;
-    archivo.ignore(100, '\n'); // Ignorar la primera línea ("Inventario de la tienda...")
     
-    while (archivo >> tipoSeccion) {
+    while (getline(archivo, tipoSeccion)) {
         if (tipoSeccion == "Camisetas:") {
-            for (int i = 0; i < 10; i++) { // Cambia 10 por el número esperado de productos
-                string cod, temporada, genero, talla, manga, material;
+            while (archivo.peek() != '\n' && !archivo.eof()) { //verifica si se puede seguir leyendo líneas dentro de camisetas
+                string cod, material;
+                string temporada, genero, talla, tipoCamiseta;
                 float precio;
                 int cantidad;
                 bool estampado;
                 
-                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> manga >> material >> estampado;
+                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> tipoCamiseta >> material >> estampado;
                 
-                // Crear una camiseta
                 Camiseta c(cod, precio, cantidad,
-                           temporada == "VERANO" ? Temporada::VERANO :
-                           temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                           genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
+                           temporada == "Invierno" ? Temporada::INVIERNO :
+                           temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                           genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
                            talla == "S" ? Talla::S :
                            talla == "M" ? Talla::M :
                            talla == "L" ? Talla::L :
                            talla == "XL" ? Talla::XL : Talla::XXL,
-                           manga == "MANGA_CORTA" ? TipoCamiseta::MANGA_CORTA :
-                           manga == "MANGA_LARGA" ? TipoCamiseta::MANGA_LARGA : TipoCamiseta::TIRANTES,
+                           tipoCamiseta == "Manga Corta" ? TipoCamiseta::MANGA_CORTA :
+                           tipoCamiseta == "Manga Larga" ? TipoCamiseta::MANGA_LARGA : TipoCamiseta::TIRANTES,
                            material, estampado);
                 
                 inventario.push_back(c);
             }
         } else if (tipoSeccion == "Sudaderas:") {
-            for (int i = 0; i < 10; i++) {
-                string cod, temporada, genero, talla, tipo, material;
+            while (archivo.peek() != '\n' && !archivo.eof()) {
+                string cod, material;
+                string temporada, genero, talla, tipoSudadera;
                 float precio;
                 int cantidad;
                 bool cremallera;
                 
-                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> tipo >> material >> cremallera;
+                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> tipoSudadera >> material >> cremallera;
                 
                 Sudadera s(cod, precio, cantidad,
-                           temporada == "VERANO" ? Temporada::VERANO :
-                           temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                           genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
+                           temporada == "Invierno" ? Temporada::INVIERNO :
+                           temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                           genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
                            talla == "S" ? Talla::S :
                            talla == "M" ? Talla::M :
                            talla == "L" ? Talla::L :
                            talla == "XL" ? Talla::XL : Talla::XXL,
-                           tipo == "HOODIE" ? TipoSudadera::HOODIE : TipoSudadera::CREWNECK,
+                           tipoSudadera == "Crewneck" ? TipoSudadera::CREWNECK : TipoSudadera::HOODIE,
                            material, cremallera);
                 
                 inventario.push_back(s);
             }
         } else if (tipoSeccion == "Pantalones:") {
-            for (int i = 0; i < 10; i++) {
-                string cod, temporada, genero, talla, tipo;
+            while (archivo.peek() != '\n' && !archivo.eof()) {
+                string cod, tipoPantalon;
+                string temporada, genero, talla;
                 float precio;
                 int cantidad;
                 bool cargo;
                 
-                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> tipo >> cargo;
+                archivo >> cod >> precio >> cantidad >> temporada >> genero >> talla >> tipoPantalon >> cargo;
                 
                 Pantalon p(cod, precio, cantidad,
-                           temporada == "VERANO" ? Temporada::VERANO :
-                           temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                           genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
+                           temporada == "Invierno" ? Temporada::INVIERNO :
+                           temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                           genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
                            talla == "S" ? Talla::S :
                            talla == "M" ? Talla::M :
                            talla == "L" ? Talla::L :
                            talla == "XL" ? Talla::XL : Talla::XXL,
-                           tipo == "LARGO" ? TipoPantalon::LARGO : TipoPantalon::CORTO, cargo);
+                           tipoPantalon == "Largo" ? TipoPantalon::LARGO : TipoPantalon::CORTO, cargo);
                 
                 inventario.push_back(p);
             }
         } else if (tipoSeccion == "Bufandas:") {
-            for (int i = 0; i < 10; i++) {
-                string cod, temporada, genero, estilo;
+            while (archivo.peek() != '\n' && !archivo.eof()) {
+                string cod, estilo;
+                string temporada, genero;
                 float precio;
                 int cantidad;
                 bool esDeLana;
@@ -173,38 +226,41 @@ void Tienda::cargarInventario(){
                 archivo >> cod >> precio >> cantidad >> temporada >> genero >> estilo >> esDeLana;
                 
                 Bufanda b(cod, precio, cantidad,
-                          temporada == "VERANO" ? Temporada::VERANO :
-                          temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                          genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
-                          estilo == "MODERNO" ? Estilo::MODERNO :
-                          estilo == "CLASICO" ? Estilo::CLASICO :
-                          estilo == "DEPORTIVO" ? Estilo::DEPORTIVO : Estilo::CASUAL,
+                          temporada == "Invierno" ? Temporada::INVIERNO :
+                          temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                          genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
+                          estilo == "Moderno" ? Estilo::MODERNO :
+                          estilo == "Clasico" ? Estilo::CLASICO :
+                          estilo == "Deportivo" ? Estilo::DEPORTIVO : Estilo::CASUAL,
                           esDeLana);
                 
                 inventario.push_back(b);
             }
         } else if (tipoSeccion == "Gorras:") {
-            for (int i = 0; i < 10; i++) {
-                string cod, temporada, genero, estilo, tipo, material;
+            while (archivo.peek() != '\n' && !archivo.eof()) {
+                string cod, estilo, tipoGorra;
+                string temporada, genero;
                 float precio;
                 int cantidad;
+                string material;
                 
-                archivo >> cod >> precio >> cantidad >> temporada >> genero >> estilo >> tipo >> material;
+                archivo >> cod >> precio >> cantidad >> temporada >> genero >> estilo >> tipoGorra >> material;
                 
                 Gorra g(cod, precio, cantidad,
-                        temporada == "VERANO" ? Temporada::VERANO :
-                        temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                        genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
-                        estilo == "MODERNO" ? Estilo::MODERNO :
-                        estilo == "CLASICO" ? Estilo::CLASICO :
-                        estilo == "DEPORTIVO" ? Estilo::DEPORTIVO : Estilo::CASUAL,
-                        tipo, material);
+                        temporada == "Invierno" ? Temporada::INVIERNO :
+                        temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                        genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
+                        estilo == "Moderno" ? Estilo::MODERNO :
+                        estilo == "Clasico" ? Estilo::CLASICO :
+                        estilo == "Deportivo" ? Estilo::DEPORTIVO : Estilo::CASUAL,
+                        tipoGorra, material);
                 
                 inventario.push_back(g);
             }
         } else if (tipoSeccion == "GafasDeSol:") {
-            for (int i = 0; i < 10; i++) {
-                string cod, temporada, genero, estilo, formaLente;
+            while (archivo.peek() != '\n' && !archivo.eof()) {
+                string cod, estilo, formaLente;
+                string temporada, genero;
                 float precio;
                 int cantidad;
                 bool proteccionUV;
@@ -212,151 +268,166 @@ void Tienda::cargarInventario(){
                 archivo >> cod >> precio >> cantidad >> temporada >> genero >> estilo >> formaLente >> proteccionUV;
                 
                 GafasDeSol gs(cod, precio, cantidad,
-                              temporada == "VERANO" ? Temporada::VERANO :
-                              temporada == "INVIERNO" ? Temporada::INVIERNO : Temporada::ANUAL,
-                              genero == "HOMBRE" ? Genero::HOMBRE : Genero::MUJER,
-                              estilo == "MODERNO" ? Estilo::MODERNO :
-                              estilo == "CLASICO" ? Estilo::CLASICO :
-                              estilo == "DEPORTIVO" ? Estilo::DEPORTIVO : Estilo::CASUAL,
+                              temporada == "Invierno" ? Temporada::INVIERNO :
+                              temporada == "Verano" ? Temporada::VERANO : Temporada::ANUAL,
+                              genero == "Hombre" ? Genero::HOMBRE : Genero::MUJER,
+                              estilo == "Moderno" ? Estilo::MODERNO :
+                              estilo == "Clasico" ? Estilo::CLASICO :
+                              estilo == "Deportivo" ? Estilo::DEPORTIVO : Estilo::CASUAL,
                               formaLente, proteccionUV);
                 
                 inventario.push_back(gs);
             }
         }
-        
-        archivo.close();
-        cout << "Inventario cargado correctamente para la tienda " << getNombreTienda() << "." << endl;
     }
     
+    archivo.close();
+    cout << "Inventario cargado correctamente para la tienda " << getNombreTienda() << "." << endl;
+}
+
     // Guardar el inventario en el archivo
-    void Tienda::guardarInventario(){
-        if (tiendaSeleccionada == TiendaEnum::None) {
-            cout << "No se ha seleccionado ninguna tienda. Por favor, selecciona una tienda primero." << endl;
-            return;
-        }
-        
-        string archivoInventario = "Inventario_" + getNombreTienda() + ".txt";
-        ofstream archivo(archivoInventario);
-        
-        if (!archivo.is_open()) {
-            cout << "El archivo no se pudo abrir." << endl;
-            return;
-        }
-        
-        // Escribir encabezado
-        archivo << "Inventario de la tienda de " << getNombreTienda() << endl;
-        
-        // Categorías y su correspondiente escritura en el archivo
-        archivo << "Camisetas:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "Camiseta") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getTalla() << " "
-                << producto.getTipoEspecifico() << " "
-                << producto.getMaterial() << " "
-                << producto.tieneCaracteristicaExtra() << endl;
-            }
-        }
-        
-        archivo << "Sudaderas:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "Sudadera") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getTalla() << " "
-                << producto.getTipoEspecifico() << " "
-                << producto.getMaterial() << " "
-                << producto.tieneCaracteristicaExtra() << endl;
-            }
-        }
-        
-        archivo << "Pantalones:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "Pantalon") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getTalla() << " "
-                << producto.getTipoEspecifico() << " "
-                << producto.tieneCaracteristicaExtra() << endl;
-            }
-        }
-        
-        archivo << "Bufandas:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "Bufanda") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getEstilo() << " "
-                << producto.tieneCaracteristicaExtra() << endl;
-            }
-        }
-        
-        archivo << "Gorras:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "Gorra") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getEstilo() << " "
-                << producto.getTipoEspecifico() << " "
-                << producto.getMaterial() << endl;
-            }
-        }
-        
-        archivo << "GafasDeSol:" << endl;
-        for (const auto& producto : inventario) {
-            if (producto.getTipoProducto() == "GafasDeSol") {
-                archivo << producto.getCodProducto() << " "
-                << producto.getPrecioVenta() << " "
-                << producto.getCantidad() << " "
-                << producto.getTemporada() << " "
-                << producto.getGenero() << " "
-                << producto.getEstilo() << " "
-                << producto.getTipoEspecifico() << " "
-                << producto.tieneCaracteristicaExtra() << endl;
-            }
-        }
-        
-        archivo.close();
-        cout << "Inventario guardado correctamente para la tienda " << getNombreTienda() << "." << endl;
+void Tienda::guardarInventario() {
+    string archivoInventario = "Inventario" + getNombreTienda() + ".txt";
+    ofstream archivo(archivoInventario);
+    
+    if (!archivo.is_open()) {
+        cerr << "Error: No se pudo abrir el archivo para guardar el inventario." << endl;
+        return;
     }
+    
+    // Escribir encabezado
+    archivo << "Inventario de la tienda de " << getNombreTienda() << endl;
+    
+    // Escribir las categorías de productos
+    archivo << "Camisetas:" << endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Camiseta") {
+            const Camiseta* camiseta = dynamic_cast<const Camiseta*>(&producto);
+            if (camiseta) {
+                archivo << camiseta->getCodProducto() << " "
+                << camiseta->getPrecioVenta() << " "
+                << camiseta->getCantidad() << " "
+                << temporadaToString(camiseta->getTemporada()) << " "
+                << generoToString(camiseta->getGenero()) << " "
+                << tallaToString(camiseta->getTalla()) << " "
+                << tipoCamisetaToString(camiseta->getTipoCamiseta()) << " "
+                << camiseta->getMaterial() << " "
+                << (camiseta->getEstampado() ? "Sí" : "No") << endl;
+            }
+        }
+    }
+    
+    archivo << "Sudaderas:" << endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Sudadera") {
+            const Sudadera* sudadera = dynamic_cast<const Sudadera*>(&producto);
+            if (sudadera) {
+                archivo << sudadera->getCodProducto() << " "
+                << sudadera->getPrecioVenta() << " "
+                << sudadera->getCantidad() << " "
+                << temporadaToString(sudadera->getTemporada()) << " "
+                << generoToString(sudadera->getGenero()) << " "
+                << tallaToString(sudadera->getTalla()) << " "
+                << tipoSudaderaToString(sudadera->getTipoSudadera()) << " "
+                << sudadera->getMaterial() << " "
+                << (sudadera->getCremallera() ? "Sí" : "No") << endl;
+            }
+        }
+    }
+    
+    archivo << "Pantalones:" << std::endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Pantalon") {
+            const Pantalon* pantalon = dynamic_cast<const Pantalon*>(&producto);
+            if (pantalon) {
+                archivo << pantalon->getCodProducto() << " "
+                << pantalon->getPrecioVenta() << " "
+                << pantalon->getCantidad() << " "
+                << temporadaToString(pantalon->getTemporada()) << " " // Convierte Temporada a texto
+                << generoToString(pantalon->getGenero()) << " "      // Convierte Genero a texto
+                << tallaToString(pantalon->getTalla()) << " "        // Convierte Talla a texto
+                << tipoPantalonToString(pantalon->getTipoPantalon()) << " " // Convierte TipoPantalon a texto
+                << (pantalon->getCargo() ? "Sí" : "No")               // Convierte bool a texto
+                << std::endl;
+            }
+        }
+    }
+    
+    archivo << "Bufandas:" << std::endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Bufanda") {
+            const Bufanda* bufanda = dynamic_cast<const Bufanda*>(&producto);
+            if (bufanda) {
+                archivo << bufanda->getCodProducto() << " "
+                << bufanda->getPrecioVenta() << " "
+                << bufanda->getCantidad() << " "
+                << temporadaToString(bufanda->getTemporada()) << " " // Convierte Temporada a texto
+                << generoToString(bufanda->getGenero()) << " "      // Convierte Genero a texto
+                << estiloToString(bufanda->getEstilo()) << " "      // Convierte Estilo a texto
+                << (bufanda->getEsDeLana() ? "Sí" : "No")              // Convierte bool a texto
+                << std::endl;
+            }
+        }
+    }
+    
+    archivo << "Gorras:" << std::endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Gorra") {
+            const Gorra* gorra = dynamic_cast<const Gorra*>(&producto);
+            if (gorra) {
+                archivo << gorra->getCodProducto() << " "
+                << gorra->getPrecioVenta() << " "
+                << gorra->getCantidad() << " "
+                << temporadaToString(gorra->getTemporada()) << " " // Convierte Temporada a texto
+                << generoToString(gorra->getGenero()) << " "      // Convierte Genero a texto
+                << estiloToString(gorra->getEstilo()) << " "      // Convierte Estilo a texto
+                << gorra->getMaterial() <<
+                std::endl;
+            }
+        }
+    }
+    
+    archivo << "Gafas de sol:" << std::endl;
+    for (const auto& producto : inventario) {
+        if (producto.getTipoProducto() == "Gafas de sol") {
+            const GafasDeSol* gafas = dynamic_cast<const GafasDeSol*>(&producto);
+            if (gafas) {
+                archivo << gafas->getCodProducto() << " "
+                << gafas->getPrecioVenta() << " "
+                << gafas->getCantidad() << " "
+                << temporadaToString(gafas->getTemporada()) << " " // Convierte Temporada a texto
+                << generoToString(gafas->getGenero()) << " "      // Convierte Genero a texto
+                << estiloToString(gafas->getEstilo()) << " "      // Convierte Estilo a texto
+                << gafas->getFormaLente() << " "
+                << (gafas->getProteccionUV() ? "Sí" : "No")     // Convierte bool a texto
+                << std::endl;
+            }
+        }
+    }
+    
+    
+    archivo.close();
+    cout << "Inventario guardado correctamente para la tienda " << getNombreTienda() << "." << endl;
 }
     
     
     
-    
     // Mostrar el inventario completo
-    void Tienda::mostrarInventario() const {
-        if (inventario.empty()) {
-            cout << "El inventario está vacío." << endl;
-            return;
-        }
-        
-        cout << "Inventario de la tienda " << getNombreTienda() << ":" << endl;
-        for (const auto& producto : inventario) {
-            producto.mostrarInformacion();
-            cout << "-------------------------" << endl;
-        }
+void Tienda::mostrarInventario() const {
+    if (inventario.empty()) {
+        cout << "El inventario está vacío." << endl;
+        return;
     }
+    
+    cout << "Inventario de la tienda " << getNombreTienda() << ":" << endl;
+    for (const auto& producto : inventario) {
+        producto.mostrarInformacion();
+        cout << "-------------------------" << endl;
+    }
+}
     
     // Obtener referencia al inventario
-    vector<Producto>& Tienda::getInventario() {
-        return inventario;
-    }
+vector<Producto>& Tienda::getInventario() {
+    return inventario;
+}
 
-*/

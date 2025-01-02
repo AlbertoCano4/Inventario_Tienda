@@ -1,0 +1,7 @@
+Inventario de la tienda de Barcelona
+Camisetas:
+Sudaderas:
+Pantalones:
+Bufandas:
+Gorras:
+Gafas de sol:

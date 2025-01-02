@@ -3,7 +3,7 @@
 
 #include "Ropa.hpp"
 
-enum class TipoCamiseta { MANGA_LARGA, MANGA_CORTA, TIRANTES };
+enum class TipoCamiseta { MANGA_LARGA, MANGA_CORTA, TIRANTES};
 
 class Camiseta : public Ropa {
 private:
