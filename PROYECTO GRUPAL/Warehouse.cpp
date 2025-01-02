@@ -2,9 +2,9 @@
 #include "Camiseta.hpp"
 #include "Bufanda.hpp"
 #include "Pantalon.hpp"
-#include "sudadera.hpp"
-#include "gorra.hpp"
-#include "gafasdesol.hpp"
+#include "Sudadera.hpp"
+#include "Gorra.hpp"
+#include "Gafasdesol.hpp"
 
 #include <iostream>
 using namespace std;
