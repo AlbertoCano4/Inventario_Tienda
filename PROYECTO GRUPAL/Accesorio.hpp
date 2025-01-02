@@ -1,7 +1,7 @@
 #ifndef ACCESORIO_HPP
 #define ACCESORIO_HPP
 
-#include "producto.hpp"  // Clase base Producto
+#include "Producto.hpp"  // Clase base Producto
 
 enum class Estilo { MODERNO, CLASICO, DEPORTIVO, CASUAL };
 
