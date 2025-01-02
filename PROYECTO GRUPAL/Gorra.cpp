@@ -1,4 +1,4 @@
-#include "gorra.hpp"
+#include "Gorra.hpp"
 #include <iostream>
 
 Gorra::Gorra(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string tip, string mat)
