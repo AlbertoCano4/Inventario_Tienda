@@ -1,10 +1,10 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-using namespace std;
-
 #include <vector>
 #include <string>
+
+using namespace std;
 
 #include "Producto.hpp"
 #include "Ropa.hpp"
