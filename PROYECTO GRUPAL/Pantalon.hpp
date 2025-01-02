@@ -1,7 +1,7 @@
 #ifndef PANTALON_HPP
 #define PANTALON_HPP
 
-#include "ropa.hpp"
+#include "Ropa.hpp"
 
 enum class TipoPantalon { LARGO, CORTO };
 
