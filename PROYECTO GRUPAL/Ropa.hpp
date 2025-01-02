@@ -1,7 +1,7 @@
 #ifndef ROPA_HPP
 #define ROPA_HPP
 
-#include "producto.hpp"
+#include "Producto.hpp"
 
 enum class Talla { S, M, L, XL, XXL };
 
