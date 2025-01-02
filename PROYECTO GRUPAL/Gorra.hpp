@@ -1,7 +1,7 @@
 #ifndef GORRA_HPP
 #define GORRA_HPP
 
-#include "accesorio.hpp"
+#include "Accesorio.hpp"
 
 class Gorra : public Accesorio {
 private:
