@@ -1,7 +1,7 @@
 #ifndef GAFASDESOL_HPP
 #define GAFASDESOL_HPP
 
-#include "accesorio.hpp"
+#include "Accesorio.hpp"
 
 class GafasDeSol : public Accesorio {
 private:
