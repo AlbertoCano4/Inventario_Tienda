@@ -1,4 +1,4 @@
-#include "gafasdesol.hpp"
+#include "Gafasdesol.hpp"
 #include <iostream>
 
 GafasDeSol::GafasDeSol(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string forma, bool uv)
