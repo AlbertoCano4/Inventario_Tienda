@@ -42,7 +42,7 @@ public:
     void cargarInventario();                 // Cargar inventario desde un archivo
     void guardarInventario();                // Guardar inventario en un archivo
     void mostrarInventario() const;          // Mostrar el inventario completo
-
+    
     // Métodos auxiliares
     std::vector<Producto>& getInventario();  // Obtener referencia al inventario
 };

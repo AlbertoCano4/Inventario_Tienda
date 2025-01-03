@@ -18,6 +18,7 @@ private:
 public:
     // Constructor por defecto
     Inventario();
+    void actualizarArchivoInventario(Tienda& tienda);
 
     // Métodos de consulta
     void consultarInventarioCompleto() const;                // Consultar todo el inventario
@@ -26,7 +27,7 @@ public:
     // Métodos de gestión de inventario
     void ampliarInventario(const Warehouse& warehouse, Tienda& tienda); // Ampliar inventario y guardar cambios
     void agregarProducto(const Producto& nuevoProducto);                // Añadir un nuevo producto al inventario
-    void aniadirStock(const std::string& codigo, int cantidad);         // Aumentar stock de un producto
+    void aniadirStock(const string& codigo, int cantidad, Tienda& tienda);         // Aumentar stock de un producto
     void restarCantidad(const std::string& codigo, int cantidad);       // Reducir stock de un producto
     void realizarCambio();                                              // Realizar un cambio de producto
     void devolucion();                                                  // Registrar una devolución

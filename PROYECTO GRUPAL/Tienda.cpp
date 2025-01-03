@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -288,130 +289,115 @@ void Tienda::cargarInventario() {
     // Guardar el inventario en el archivo
 void Tienda::guardarInventario() {
     string archivoInventario = "Inventario" + getNombreTienda() + ".txt";
-    ofstream archivo(archivoInventario);
-    
+    ofstream archivo(archivoInventario, ios::trunc); // Sobreescribir el archivo
+
     if (!archivo.is_open()) {
         cerr << "Error: No se pudo abrir el archivo para guardar el inventario." << endl;
         return;
     }
-    
+
     // Escribir encabezado
     archivo << "Inventario de la tienda de " << getNombreTienda() << endl;
-    
+
+    // Función auxiliar para escribir productos por categoría
+    auto escribirProductosPorCategoria = [&](const string& categoria, const auto& isProductoDeCategoria, const auto& escribirAtributos) {
+        archivo << categoria << ":" << endl;
+        for (const auto& producto : inventario) {
+            if (isProductoDeCategoria(producto)) {
+                archivo << producto.getCodProducto() << " "
+                        << producto.getPrecioVenta() << " "
+                        << producto.getCantidad() << " "
+                        << temporadaToString(producto.getTemporada()) << " "
+                        << generoToString(producto.getGenero()) << " ";
+                escribirAtributos(producto, archivo);
+                archivo << endl;
+            }
+        }
+    };
+
     // Escribir las categorías de productos
-    archivo << "Camisetas:" << endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Camiseta") {
-            const Camiseta* camiseta = dynamic_cast<const Camiseta*>(&producto);
+    escribirProductosPorCategoria(
+        "Camisetas",
+        [](const auto& p) { return p.getTipoProducto() == "Camiseta"; },
+        [](const auto& p, ofstream& archivo) {
+            const Camiseta* camiseta = dynamic_cast<const Camiseta*>(&p);
             if (camiseta) {
-                archivo << camiseta->getCodProducto() << " "
-                << camiseta->getPrecioVenta() << " "
-                << camiseta->getCantidad() << " "
-                << temporadaToString(camiseta->getTemporada()) << " "
-                << generoToString(camiseta->getGenero()) << " "
-                << tallaToString(camiseta->getTalla()) << " "
-                << tipoCamisetaToString(camiseta->getTipoCamiseta()) << " "
-                << camiseta->getMaterial() << " "
-                << (camiseta->getEstampado() ? "Sí" : "No") << endl;
+                archivo << tallaToString(camiseta->getTalla()) << " "
+                        << tipoCamisetaToString(camiseta->getTipoCamiseta()) << " "
+                        << camiseta->getMaterial() << " "
+                        << (camiseta->getEstampado() ? "Sí" : "No");
             }
         }
-    }
-    
-    archivo << "Sudaderas:" << endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Sudadera") {
-            const Sudadera* sudadera = dynamic_cast<const Sudadera*>(&producto);
+    );
+
+    escribirProductosPorCategoria(
+        "Sudaderas",
+        [](const auto& p) { return p.getTipoProducto() == "Sudadera"; },
+        [](const auto& p, ofstream& archivo) {
+            const Sudadera* sudadera = dynamic_cast<const Sudadera*>(&p);
             if (sudadera) {
-                archivo << sudadera->getCodProducto() << " "
-                << sudadera->getPrecioVenta() << " "
-                << sudadera->getCantidad() << " "
-                << temporadaToString(sudadera->getTemporada()) << " "
-                << generoToString(sudadera->getGenero()) << " "
-                << tallaToString(sudadera->getTalla()) << " "
-                << tipoSudaderaToString(sudadera->getTipoSudadera()) << " "
-                << sudadera->getMaterial() << " "
-                << (sudadera->getCremallera() ? "Sí" : "No") << endl;
+                archivo << tallaToString(sudadera->getTalla()) << " "
+                        << tipoSudaderaToString(sudadera->getTipoSudadera()) << " "
+                        << sudadera->getMaterial() << " "
+                        << (sudadera->getCremallera() ? "Sí" : "No");
             }
         }
-    }
-    
-    archivo << "Pantalones:" << std::endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Pantalon") {
-            const Pantalon* pantalon = dynamic_cast<const Pantalon*>(&producto);
+    );
+
+    escribirProductosPorCategoria(
+        "Pantalones",
+        [](const auto& p) { return p.getTipoProducto() == "Pantalon"; },
+        [](const auto& p, ofstream& archivo) {
+            const Pantalon* pantalon = dynamic_cast<const Pantalon*>(&p);
             if (pantalon) {
-                archivo << pantalon->getCodProducto() << " "
-                << pantalon->getPrecioVenta() << " "
-                << pantalon->getCantidad() << " "
-                << temporadaToString(pantalon->getTemporada()) << " " // Convierte Temporada a texto
-                << generoToString(pantalon->getGenero()) << " "      // Convierte Genero a texto
-                << tallaToString(pantalon->getTalla()) << " "        // Convierte Talla a texto
-                << tipoPantalonToString(pantalon->getTipoPantalon()) << " " // Convierte TipoPantalon a texto
-                << (pantalon->getCargo() ? "Sí" : "No")               // Convierte bool a texto
-                << std::endl;
+                archivo << tallaToString(pantalon->getTalla()) << " "
+                        << tipoPantalonToString(pantalon->getTipoPantalon()) << " "
+                        << (pantalon->getCargo() ? "Sí" : "No");
             }
         }
-    }
-    
-    archivo << "Bufandas:" << std::endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Bufanda") {
-            const Bufanda* bufanda = dynamic_cast<const Bufanda*>(&producto);
+    );
+
+    escribirProductosPorCategoria(
+        "Bufandas",
+        [](const auto& p) { return p.getTipoProducto() == "Bufanda"; },
+        [](const auto& p, ofstream& archivo) {
+            const Bufanda* bufanda = dynamic_cast<const Bufanda*>(&p);
             if (bufanda) {
-                archivo << bufanda->getCodProducto() << " "
-                << bufanda->getPrecioVenta() << " "
-                << bufanda->getCantidad() << " "
-                << temporadaToString(bufanda->getTemporada()) << " " // Convierte Temporada a texto
-                << generoToString(bufanda->getGenero()) << " "      // Convierte Genero a texto
-                << estiloToString(bufanda->getEstilo()) << " "      // Convierte Estilo a texto
-                << (bufanda->getEsDeLana() ? "Sí" : "No")              // Convierte bool a texto
-                << std::endl;
+                archivo << estiloToString(bufanda->getEstilo()) << " "
+                        << (bufanda->getEsDeLana() ? "Sí" : "No");
             }
         }
-    }
-    
-    archivo << "Gorras:" << std::endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Gorra") {
-            const Gorra* gorra = dynamic_cast<const Gorra*>(&producto);
+    );
+
+    escribirProductosPorCategoria(
+        "Gorras",
+        [](const auto& p) { return p.getTipoProducto() == "Gorra"; },
+        [](const auto& p, ofstream& archivo) {
+            const Gorra* gorra = dynamic_cast<const Gorra*>(&p);
             if (gorra) {
-                archivo << gorra->getCodProducto() << " "
-                << gorra->getPrecioVenta() << " "
-                << gorra->getCantidad() << " "
-                << temporadaToString(gorra->getTemporada()) << " " // Convierte Temporada a texto
-                << generoToString(gorra->getGenero()) << " "      // Convierte Genero a texto
-                << estiloToString(gorra->getEstilo()) << " "      // Convierte Estilo a texto
-                << gorra->getMaterial() <<
-                std::endl;
+                archivo << estiloToString(gorra->getEstilo()) << " "
+                        << gorra->getMaterial();
             }
         }
-    }
-    
-    archivo << "Gafas de sol:" << std::endl;
-    for (const auto& producto : inventario) {
-        if (producto.getTipoProducto() == "Gafas de sol") {
-            const GafasDeSol* gafas = dynamic_cast<const GafasDeSol*>(&producto);
+    );
+
+    escribirProductosPorCategoria(
+        "Gafas de sol",
+        [](const auto& p) { return p.getTipoProducto() == "Gafas de sol"; },
+        [](const auto& p, ofstream& archivo) {
+            const GafasDeSol* gafas = dynamic_cast<const GafasDeSol*>(&p);
             if (gafas) {
-                archivo << gafas->getCodProducto() << " "
-                << gafas->getPrecioVenta() << " "
-                << gafas->getCantidad() << " "
-                << temporadaToString(gafas->getTemporada()) << " " // Convierte Temporada a texto
-                << generoToString(gafas->getGenero()) << " "      // Convierte Genero a texto
-                << estiloToString(gafas->getEstilo()) << " "      // Convierte Estilo a texto
-                << gafas->getFormaLente() << " "
-                << (gafas->getProteccionUV() ? "Sí" : "No")     // Convierte bool a texto
-                << std::endl;
+                archivo << estiloToString(gafas->getEstilo()) << " "
+                        << gafas->getFormaLente() << " "
+                        << (gafas->getProteccionUV() ? "Sí" : "No");
             }
         }
-    }
-    
-    
+    );
+
     archivo.close();
     cout << "Inventario guardado correctamente para la tienda " << getNombreTienda() << "." << endl;
 }
-    
-    
-    
+
     // Mostrar el inventario completo
 void Tienda::mostrarInventario() const {
     if (inventario.empty()) {

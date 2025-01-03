@@ -30,6 +30,14 @@ Inventario::Inventario() {
     productos = {};
 }
 
+void Inventario::actualizarArchivoInventario(Tienda& tienda) {
+    // Sincronizar el inventario de la tienda con el actual
+    tienda.getInventario() = productos;
+
+    // Delegar la tarea de guardar el inventario al método de la tienda
+    tienda.guardarInventario();
+}
+
 void Inventario::consultarInventarioCompleto() const {
     if (productos.empty()) {
         cout << "El inventario está vacío." << endl;
@@ -125,9 +133,8 @@ void Inventario::ampliarInventario(const Warehouse& warehouse, Tienda& tienda) {
             producto.setCantidad(producto.getCantidad() + cantidad);
             cout << "Stock actualizado: " << cantidad << " unidades añadidas." << endl;
 
-            // Sincronizar inventario con la tienda y guardar
-            tienda.getInventario() = productos;
-            tienda.guardarInventario();
+            // Actualizar el archivo del inventario
+            actualizarArchivoInventario(tienda);
             return;
         }
     }
@@ -136,24 +143,27 @@ void Inventario::ampliarInventario(const Warehouse& warehouse, Tienda& tienda) {
     productoSeleccionado.setCantidad(cantidad);
     agregarProducto(productoSeleccionado);
 
-    // Sincronizar inventario con la tienda y guardar
-    tienda.getInventario() = productos;
-    tienda.guardarInventario();
+    // Actualizar el archivo del inventario
+    actualizarArchivoInventario(tienda);
 
     cout << "Producto añadido correctamente." << endl;
 }
 
-void Inventario::aniadirStock(const string& codigo, int cantidad) {
+void Inventario::aniadirStock(const string& codigo, int cantidad, Tienda& tienda) {
     for (auto& producto : productos) {
         if (producto.getCodProducto() == codigo) {
             producto.setCantidad(producto.getCantidad() + cantidad);
             cout << "Stock actualizado: " << cantidad << " unidades añadidas." << endl;
+
+            // Actualizar el archivo del inventario
+            actualizarArchivoInventario(tienda);
             return;
         }
     }
 
     cout << "El producto con código \"" << codigo << "\" no está en el inventario. Añádelo como un nuevo producto." << endl;
 }
+
 
 void Inventario::agregarProducto(const Producto& nuevoProducto) {
     productos.push_back(nuevoProducto);
