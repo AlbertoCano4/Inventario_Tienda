@@ -21,12 +21,12 @@ void Tienda::seleccionarTienda() {
         string entrada;
         cout << "¿Al inventario de qué tienda quieres acceder?: ";
         cin >> entrada;
-
+        
         // Formatear la entrada a "Primera Letra Mayúscula"
         for (size_t i = 0; i < entrada.length(); ++i) {
             entrada[i] = (i == 0) ? toupper(entrada[i]) : tolower(entrada[i]);
         }
-
+        
         // Verificar si la entrada coincide con alguna tienda
         int indice = -1;
         for (int i = 0; i < 5; ++i) {
@@ -36,35 +36,54 @@ void Tienda::seleccionarTienda() {
                 break;
             }
         }
-
+        
         if (indice == -1) {
             cout << "La tienda \"" << entrada << "\" no existe. Inténtalo de nuevo." << endl;
             continue;
         }
 
-        // Solicitar el código de acceso
+        // Solicitar el código de acceso con manejo de excepciones
         while (true) {
-            int codigoIngresado;
-            cout << "Introduce el código de acceso para la tienda " << nombresTienda[indice] << ": ";
-            cin >> codigoIngresado;
+            try {
+                int codigoIngresado;
+                cout << "Introduce el código de acceso para la tienda " << nombresTienda[indice] << ": ";
+                
+                cin >> codigoIngresado;
 
-            if (codigoIngresado == codigosAcceso[indice]) {
-                //cargarInventario(); // Cargar el inventario después de validar el código
-                return;             // Salir del método una vez que todo esté correcto
-            } else {
-                cout << "Código incorrecto." << endl;
-                cout << "1. Intentar de nuevo\n2. Cambiar de tienda\n3. Salir del programa" << endl;
-                int opcion;
-                cin >> opcion;
-
-                if (opcion == 2) {
-                    break; // Rompe el bucle del código y regresa al menú de selección de tienda
-                } else if (opcion == 3) {
-                    cout << "Saliendo del programa..." << endl;
-                    exit(0);
+                // Verificar si la entrada es válida
+                if (cin.fail()) {
+                    cin.clear(); // Limpiar el estado de error de cin
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descartar la entrada incorrecta
+                    throw invalid_argument("Error: Has introducido un valor no numérico.");
                 }
+
+                // Validar el código de acceso
+                if (codigoIngresado == codigosAcceso[indice]) {
+                    //cargarInventario(); // Cargar el inventario después de validar el código
+                    return;             // Salir del método una vez que todo esté correcto
+                } else {
+                    cout << "Código incorrecto." << endl;
+                    cout << "1. Intentar de nuevo" << endl;
+                    cout << "2. Cambiar de tienda" << endl;
+                    cout << "3. Salir del programa" << endl;
+                    cout << "Que opción eliges: " << endl;
+                    int opcion;
+                    cin >> opcion;
+                    
+                    if (opcion == 2) {
+                        break; // Rompe el bucle del código y regresa al menú de selección de tienda
+                    } else if (opcion == 3) {
+                        cout << "Saliendo del programa..." << endl;
+                        exit(0);
+                    }
+                }
+            } catch (const invalid_argument e) {
+                // Manejo de la excepción
+                cout << e.what() << endl;
+                cout << "Por favor, introduce un código válido." << endl;
             }
         }
+
     }
 }
 

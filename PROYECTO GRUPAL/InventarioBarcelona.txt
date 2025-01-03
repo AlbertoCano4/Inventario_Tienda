@@ -1,8 +1,8 @@
 Inventario de la tienda de Barcelona
 Camisetas:
-C001 19.99 3 Verano Hombre 
 Sudaderas:
 Pantalones:
+P001 29.99 12 Invierno Mujer 
 Bufandas:
 Gorras:
 Gafas de sol:

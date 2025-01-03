@@ -1,2 +1,9 @@
 Inventario de la tienda de Madrid
-C001 19.99 1 Verano Hombre 
+Camisetas:
+C001 19.99 12 Verano Hombre 
+C002 19.99 23 Invierno Mujer 
+Sudaderas:
+Pantalones:
+Bufandas:
+Gorras:
+Gafas de sol:

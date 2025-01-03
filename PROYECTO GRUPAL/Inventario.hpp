@@ -33,8 +33,8 @@ public:
     void devolucion();                                                  // Registrar una devolución
 
     // Métodos relacionados con ventas
-    void registrarVenta();                                   // Registrar una nueva venta
-    void registrarVentaEnArchivo(const std::string& tienda, const std::string& codigoProducto, int cantidad, float precioTotal); // Registrar una venta en el archivo
+    void registrarVenta(Tienda& tienda);                                   // Registrar una nueva venta
+    void registrarVentaEnArchivo(const std::string& tienda, const std::string& codigoProducto, int cantidad, float precioTotal, const string& codigoTransaccion); // Registrar una venta en el archivo
 
     // Métodos auxiliares
     void mostrarProductos() const;                          // Mostrar productos del inventario
