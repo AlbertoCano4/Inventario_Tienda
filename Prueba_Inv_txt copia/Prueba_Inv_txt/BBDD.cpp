@@ -3,6 +3,9 @@
 #include <vector>
 #include <fstream> // Para manejo de archivos
 #include <unordered_map>
+#include <ctime>    // Para time()
+#include <sstream>
+#include <algorithm> // Para transformar texto con toupper y tolower
 
 using namespace std;
 
@@ -892,6 +895,69 @@ public:
             gorrasEnInventario.emplace_back(codigo, precio, cantidad, temporada, genero, estilo, tipoGorra, materialGorra);
         }
     }
+    
+    void consultarPorCategoria(const string& categoria) const {
+        cout << "\n=== Consultando productos de la categoría: " << categoria << " ===\n";
+
+        if (categoria == "Camiseta") {
+            for (const auto& camiseta : camisetasEnInventario) {
+                camiseta.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else if (categoria == "Sudadera") {
+            for (const auto& sudadera : sudaderasEnInventario) {
+                sudadera.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else if (categoria == "Pantalon") {
+            for (const auto& pantalon : pantalonesEnInventario) {
+                pantalon.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else if (categoria == "Bufanda") {
+            for (const auto& bufanda : bufandasEnInventario) {
+                bufanda.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else if (categoria == "Gafas de sol") {
+            for (const auto& gafas : gafasDeSolEnInventario) {
+                gafas.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else if (categoria == "Gorra") {
+            for (const auto& gorra : gorrasEnInventario) {
+                gorra.mostrarInformacion();
+                cout << "-------------------\n";
+            }
+        } else {
+            cout << "Categoría no válida.\n";
+        }
+    }
+
+    
+    string generarCodigoTransaccion(const string& codigoProducto) {
+        // Inicializar la semilla de números aleatorios solo una vez
+        static bool semillaInicializada = false;
+        if (!semillaInicializada) {
+            srand(time(nullptr));
+            semillaInicializada = true;
+        }
+
+        string codigo = "TX-" + codigoProducto;
+        const char letras[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const int numeroAleatorio = rand() % 10; // Número entre 0 y 9
+
+        // Generar dos letras aleatorias
+        char letra1 = letras[rand() % (sizeof(letras) - 1)];
+        char letra2 = letras[rand() % (sizeof(letras) - 1)];
+
+        // Construir el código
+        codigo += letra1;
+        codigo += to_string(numeroAleatorio);
+        codigo += letra2;
+
+        return codigo;
+    }
 };
     
     // Clase Tienda
@@ -919,85 +985,175 @@ public:
     string getNombre() const { return nombre; }
 };
     
-    // Función para mostrar el menú de gestión del inventario
-void menuGestionInventario(Tienda& tienda, const Almacen& almacen) {
-    char opcion;
+void menuConsultaInventario(Inventario& inventario) {
+    int opcion;
     do {
-        cout << "\n--- Gestión del Inventario en " << tienda.getNombre() << " ---\n";
-        cout << "1. Añadir producto desde el almacén\n";
-        cout << "2. Mostrar inventario\n";
-        cout << "3. Salir\n";
-        cout << "Seleccione una opción: ";
+        cout << "-------------------------------------\n";
+        cout << "CONSULTAR INVENTARIO\n";
+        cout << "-------------------------------------\n";
+        cout << "1. CONSULTAR INVENTARIO COMPLETO\n";
+        cout << "2. CONSULTAR CAMISETAS\n";
+        cout << "3. CONSULTAR SUDADERAS\n";
+        cout << "4. CONSULTAR PANTALONES\n";
+        cout << "5. CONSULTAR GAFAS DE SOL\n";
+        cout << "6. CONSULTAR BUFANDAS\n";
+        cout << "7. CONSULTAR GORRAS\n";
+        cout << "0. VOLVER AL MENÚ PRINCIPAL\n";
+        cout << "-------------------------------------\n";
+        cout << "¿QUÉ QUIERES HACER? ";
         cin >> opcion;
-        
+        cout << "-------------------------------------\n";
+
         switch (opcion) {
-            case '1':
-                tienda.getInventario().anadirProductoDesdeAlmacen(almacen);
-                tienda.guardarInventario();
+            case 1:
+                inventario.mostrarInventario();
                 break;
-            case '2':
-                tienda.getInventario().mostrarInventario();
+            case 2:
+                inventario.consultarPorCategoria("Camiseta");
                 break;
-            case '3':
-                tienda.guardarInventario(); // Guardar automáticamente al salir
-                cout << "Saliendo de la gestión del inventario en " << tienda.getNombre() << ".\n";
+            case 3:
+                inventario.consultarPorCategoria("Sudadera");
+                break;
+            case 4:
+                inventario.consultarPorCategoria("Pantalon");
+                break;
+            case 5:
+                inventario.consultarPorCategoria("Gafas de sol");
+                break;
+            case 6:
+                inventario.consultarPorCategoria("Bufanda");
+                break;
+            case 7:
+                inventario.consultarPorCategoria("Gorra");
+                break;
+            case 0:
+                cout << "Volviendo al menú principal...\n";
                 break;
             default:
-                cout << "Opción no válida. Intente de nuevo.\n";
-                break;
+                cout << "Opción no válida. Inténtelo de nuevo.\n";
         }
-    } while (opcion != '3');
+    } while (opcion != 0);
 }
-    
-    
-    // Función principal para cambiar entre tiendas
+
+// Función para mostrar el menú de gestión del inventario
+void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
+    int opcion;
+    do {
+        cout << "-------------------------------------\n";
+        cout << "GESTIONES DEL INVENTARIO - TIENDA " << tienda.getNombre() << "\n";
+        cout << "-------------------------------------\n";
+        cout << "1. CONSULTAR INVENTARIO\n";
+        cout << "2. REGISTRAR VENTA\n";
+        cout << "3. AMPLIAR INVENTARIO\n";
+        cout << "4. DEVOLUCIONES\n";
+        cout << "5. CAMBIOS\n";
+        cout << "6. CAMBIAR DE TIENDA\n";
+        cout << "-------------------------------------\n";
+        cout << "¿QUÉ QUIERES HACER? ";
+        cin >> opcion;
+        cout << "-------------------------------------\n";
+
+        switch (opcion) {
+            case 1:
+                menuConsultaInventario(tienda.getInventario());
+                break;
+            case 2:
+                //tienda.getInventario().registrarVenta();
+                break;
+            case 3:
+                tienda.getInventario().anadirProductoDesdeAlmacen(almacen);
+                break;
+            case 4:
+                //tienda.getInventario().realizarDevolucion();
+                break;
+            case 5:
+                //tienda.getInventario().realizarCambio();
+                break;
+            case 6:
+                cout << "Saliendo del inventario de " << tienda.getNombre() << endl;
+                break;
+            default:
+                cout << "Opción no válida. Inténtelo de nuevo.\n";
+        }
+    } while (opcion != 6);
+}
+
+// Función principal para cambiar entre tiendas
 void menuTiendas(Tienda& madrid, Tienda& barcelona, const Almacen& almacen) {
     char opcion;
+    string codigoVerificacion;
+    Tienda* tiendaActual = nullptr;
+
     do {
-        cout << "\n--- Gestión de Tiendas ---\n";
-        cout << "1. Gestionar tienda Madrid\n";
-        cout << "2. Gestionar tienda Barcelona\n";
+        cout << "--------------------------------------" << endl;
+        cout << "- GESTIÓN INVENTARIO TIENDAS -" << endl;
+        cout << "--------------------------------------" << endl;
+        cout << "Seleccione una tienda:\n";
+        cout << "1. Madrid\n";
+        cout << "2. Barcelona\n";
         cout << "3. Salir\n";
-        cout << "Seleccione una opción: ";
+        cout << "Ingrese su opción: ";
         cin >> opcion;
-        
-        static Tienda* tiendaActual = nullptr;
-        
-        if (tiendaActual != nullptr) {
-            // Guardar inventario de la tienda actual antes de cambiar
-            tiendaActual->guardarInventario();
-        }
-        
+
         switch (opcion) {
-            case '1':
-                tiendaActual = &madrid;
-                menuGestionInventario(madrid, almacen);
+            case '1': // Madrid
+                cout << "Ingrese el código de verificación para Madrid: ";
+                cin >> codigoVerificacion;
+                if (codigoVerificacion == "1234") {
+                    tiendaActual = &madrid;
+                    menuPrincipal(*tiendaActual, almacen);
+                    tiendaActual->guardarInventario();
+                } else {
+                    cout << "Código de verificación incorrecto. Inténtelo de nuevo.\n";
+                }
                 break;
-            case '2':
-                tiendaActual = &barcelona;
-                menuGestionInventario(barcelona, almacen);
+
+            case '2': // Barcelona
+                cout << "Ingrese el código de verificación para Barcelona: ";
+                cin >> codigoVerificacion;
+                if (codigoVerificacion == "2345") {
+                    tiendaActual = &barcelona;
+                    menuPrincipal(*tiendaActual, almacen);
+                    tiendaActual->guardarInventario();
+                } else {
+                    cout << "Código de verificación incorrecto. Inténtelo de nuevo.\n";
+                }
                 break;
-            case '3':
+
+            case '3': // Salir
                 cout << "Saliendo del sistema de gestión de tiendas.\n";
-                break;
+                return;
+
             default:
                 cout << "Opción no válida. Intente de nuevo.\n";
                 break;
         }
-    } while (opcion != '3');
+
+    } while (true);
 }
-    
-    
-int main() {
+
+
+
+void iniciarPrograma(){
     // Crear el almacén
     Almacen almacen;
     
     // Crear las tiendas
     Tienda madrid("Madrid", "inventarioMadrid.txt");
     Tienda barcelona("Barcelona", "inventarioBarcelona.txt");
-    
+    //Tienda Valencia("Valencia", "inventarioValencia.txt");
+    //Tienda Sevilla("Sevilla", "inventarioSevilla.txt");
+    //Tienda Bilbao("Bilbao", "inventarioBilbao.txt");
+
+        
     // Mostrar el menú principal
     menuTiendas(madrid, barcelona, almacen);
+}
+    
+    
+int main() {
+    
+    iniciarPrograma();
     
     return 0;
 }
