@@ -421,8 +421,8 @@ private:
     vector<Bufanda> bufandasEnInventario;           // Bufandas
     vector<GafasDeSol> gafasDeSolEnInventario;      // Gafas de sol
     vector<Gorra> gorrasEnInventario;               // Gorra
-
-
+    
+    
 public:
     Inventario() {
         camisetasEnInventario.clear();
@@ -577,7 +577,7 @@ public:
                 }
             }
         }
-
+        
         if (!productoEncontrado) {
             for (const auto& gorra : almacen.getGorras()) {
                 if (gorra.getCodProducto() == codigo) {
@@ -590,8 +590,8 @@ public:
                 }
             }
         }
-
-
+        
+        
         if (!productoEncontrado) {
             cout << "Producto " << codigo << " no encontrado en el almacén.\n";
         }
@@ -617,7 +617,7 @@ public:
             pantalon.mostrarInformacion();
             cout << "-------------------\n";
         }
-
+        
         cout << "\n=== Bufandas ===\n";
         for (const auto& bufanda : bufandasEnInventario) {
             bufanda.mostrarInformacion();
@@ -629,7 +629,7 @@ public:
             gafas.mostrarInformacion();
             cout << "-------------------\n";
         }
-
+        
         cout << "\n=== Gorras ===\n";
         for (const auto& gorra : gorrasEnInventario) {
             gorra.mostrarInformacion();
@@ -674,56 +674,56 @@ public:
         archivo << "Sudaderas\n" << sudaderasEnInventario.size() << "\n";
         for (const auto& sudadera : sudaderasEnInventario) {
             archivo << sudadera.getCodProducto() << "\n"
-                    << sudadera.getCantidad() << "\n"
-                    << sudadera.getPrecioVenta() << "\n"
-                    << temporadaToString(sudadera.getTemporada()) << "\n"
-                    << generoToString(sudadera.getGenero()) << "\n"
-                    << tallaToString(sudadera.getTalla()) << "\n"
-                    << tipoSudaderaToString(sudadera.getTipoSudadera()) << "\n" // Enum convertido a string
-                    << sudadera.getMaterial() << "\n"
-                    << (sudadera.getCremallera() ? "Sí" : "No") << "\n";
+            << sudadera.getCantidad() << "\n"
+            << sudadera.getPrecioVenta() << "\n"
+            << temporadaToString(sudadera.getTemporada()) << "\n"
+            << generoToString(sudadera.getGenero()) << "\n"
+            << tallaToString(sudadera.getTalla()) << "\n"
+            << tipoSudaderaToString(sudadera.getTipoSudadera()) << "\n" // Enum convertido a string
+            << sudadera.getMaterial() << "\n"
+            << (sudadera.getCremallera() ? "Sí" : "No") << "\n";
         }
-
+        
         // Guardar cantidad de Pantalones
         archivo << "Pantalones\n" << pantalonesEnInventario.size() << "\n";
         for (const auto& pantalon : pantalonesEnInventario) {
             archivo << pantalon.getCodProducto() << "\n"
-                    << pantalon.getCantidad() << "\n"
-                    << pantalon.getPrecioVenta() << "\n"
-                    << temporadaToString(pantalon.getTemporada()) << "\n"
-                    << generoToString(pantalon.getGenero()) << "\n"
-                    << tallaToString(pantalon.getTalla()) << "\n"
-                    << tipoPantalonToString(pantalon.getTipoPantalon()) << "\n" // Enum convertido a string
-                    << (pantalon.getCargo() ? "Sí" : "No") << "\n";
+            << pantalon.getCantidad() << "\n"
+            << pantalon.getPrecioVenta() << "\n"
+            << temporadaToString(pantalon.getTemporada()) << "\n"
+            << generoToString(pantalon.getGenero()) << "\n"
+            << tallaToString(pantalon.getTalla()) << "\n"
+            << tipoPantalonToString(pantalon.getTipoPantalon()) << "\n" // Enum convertido a string
+            << (pantalon.getCargo() ? "Sí" : "No") << "\n";
         }
         
         // Guardar cantidad de Gafas de Sol
         archivo << "GafasDeSol\n" << gafasDeSolEnInventario.size() << "\n";
         for (const auto& gafas : gafasDeSolEnInventario) {
             archivo << gafas.getCodProducto() << "\n"
-                    << gafas.getCantidad() << "\n"
-                    << gafas.getPrecioVenta() << "\n"
-                    << temporadaToString(gafas.getTemporada()) << "\n"
-                    << generoToString(gafas.getGenero()) << "\n"
-                    << estiloTostring(gafas.getEstilo()) << "\n"
-                    << gafas.getFormaLente() << "\n"
-                    << (gafas.getProteccionUV() ? "Sí" : "No") << "\n";
+            << gafas.getCantidad() << "\n"
+            << gafas.getPrecioVenta() << "\n"
+            << temporadaToString(gafas.getTemporada()) << "\n"
+            << generoToString(gafas.getGenero()) << "\n"
+            << estiloTostring(gafas.getEstilo()) << "\n"
+            << gafas.getFormaLente() << "\n"
+            << (gafas.getProteccionUV() ? "Sí" : "No") << "\n";
         }
         
         // Guardar cantidad de Gorras
         archivo << "Gorras\n" << gorrasEnInventario.size() << "\n";
         for (const auto& gorra : gorrasEnInventario) {
             archivo << gorra.getCodProducto() << "\n"
-                    << gorra.getCantidad() << "\n"
-                    << gorra.getPrecioVenta() << "\n"
-                    << temporadaToString(gorra.getTemporada()) << "\n"
-                    << generoToString(gorra.getGenero()) << "\n"
-                    << estiloTostring(gorra.getEstilo()) << "\n"
-                    << gorra.getTipo() << "\n"
-                    << gorra.getMaterial() << "\n";
+            << gorra.getCantidad() << "\n"
+            << gorra.getPrecioVenta() << "\n"
+            << temporadaToString(gorra.getTemporada()) << "\n"
+            << generoToString(gorra.getGenero()) << "\n"
+            << estiloTostring(gorra.getEstilo()) << "\n"
+            << gorra.getTipo() << "\n"
+            << gorra.getMaterial() << "\n";
         }
-
-
+        
+        
         
         archivo.close();
         cout << "Inventario guardado en " << archivoNombre << "\n";
@@ -802,7 +802,7 @@ public:
         size_t numSudaderas;
         archivo >> numSudaderas;
         archivo.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        
         for (size_t i = 0; i < numSudaderas; i++) {
             getline(archivo, codigo);
             archivo >> cantidad >> precio;
@@ -813,13 +813,13 @@ public:
             getline(archivo, tipoSudaderaStr); // Leer tipo sudadera
             getline(archivo, material);
             getline(archivo, cremStr);
-
+            
             Temporada temporada = stringToTemporada(temporadaStr);
             Genero genero = stringToGenero(generoStr);
             Talla talla = stringToTalla(tallaStr);
             TipoSudadera tipoSudadera = stringToTipoSudadera(tipoSudaderaStr); // Conversión
             bool cremallera = (cremStr == "Sí");
-
+            
             sudaderasEnInventario.emplace_back(codigo, precio, cantidad, temporada, genero, talla, tipoSudadera, material, cremallera);
         }
         
@@ -828,7 +828,7 @@ public:
         size_t numPantalones;
         archivo >> numPantalones;
         archivo.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        
         for (size_t i = 0; i < numPantalones; i++) {
             getline(archivo, codigo);
             archivo >> cantidad >> precio;
@@ -838,22 +838,22 @@ public:
             getline(archivo, tallaStr);
             getline(archivo, tipoPantalonStr); // Leer tipo pantalón
             getline(archivo, cargoStr);
-
+            
             Temporada temporada = stringToTemporada(temporadaStr);
             Genero genero = stringToGenero(generoStr);
             Talla talla = stringToTalla(tallaStr);
             TipoPantalon tipoPantalon = stringToTipoPantalon(tipoPantalonStr); // Conversión
             bool cargo = (cargoStr == "Sí");
-
+            
             pantalonesEnInventario.emplace_back(codigo, precio, cantidad, temporada, genero, talla, tipoPantalon, cargo);
         }
         
         // Cargar gafas de sol
-            getline(archivo, linea); // "GafasDeSol"
-            size_t numGafasDeSol;
-            archivo >> numGafasDeSol;
-            archivo.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        getline(archivo, linea); // "GafasDeSol"
+        size_t numGafasDeSol;
+        archivo >> numGafasDeSol;
+        archivo.ignore(numeric_limits<streamsize>::max(), '\n');
+        
         for (size_t i = 0; i < numGafasDeSol; i++) {
             getline(archivo, codigo);
             archivo >> cantidad >> precio;
@@ -873,11 +873,11 @@ public:
         }
         
         // Cargar gorras
-            getline(archivo, linea); // "Gorras"
-            size_t numGorras;
-            archivo >> numGorras;
-            archivo.ignore(numeric_limits<streamsize>::max(), '\n');
-
+        getline(archivo, linea); // "Gorras"
+        size_t numGorras;
+        archivo >> numGorras;
+        archivo.ignore(numeric_limits<streamsize>::max(), '\n');
+        
         for (size_t i = 0; i < numGorras; i++) {
             getline(archivo, codigo);
             archivo >> cantidad >> precio;
@@ -898,7 +898,7 @@ public:
     
     void consultarPorCategoria(const string& categoria) const {
         cout << "\n=== Consultando productos de la categoría: " << categoria << " ===\n";
-
+        
         if (categoria == "Camiseta") {
             for (const auto& camiseta : camisetasEnInventario) {
                 camiseta.mostrarInformacion();
@@ -933,7 +933,6 @@ public:
             cout << "Categoría no válida.\n";
         }
     }
-
     
     string generarCodigoTransaccion(const string& codigoProducto) {
         // Inicializar la semilla de números aleatorios solo una vez
@@ -942,22 +941,149 @@ public:
             srand(time(nullptr));
             semillaInicializada = true;
         }
-
+        
         string codigo = "TX-" + codigoProducto;
         const char letras[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const int numeroAleatorio = rand() % 10; // Número entre 0 y 9
-
+        
         // Generar dos letras aleatorias
         char letra1 = letras[rand() % (sizeof(letras) - 1)];
         char letra2 = letras[rand() % (sizeof(letras) - 1)];
-
+        
         // Construir el código
         codigo += letra1;
         codigo += to_string(numeroAleatorio);
         codigo += letra2;
-
+        
         return codigo;
     }
+    
+    void registrarVenta(const string& tiendaNombre) {
+        string codigoProducto;
+        cout << "Ingrese el código del producto que desea vender: ";
+        cin >> codigoProducto;
+        
+        // Buscar el producto en cada contenedor
+        for (auto& camiseta : camisetasEnInventario) {
+            if (camiseta.getCodProducto() == codigoProducto) {
+                procesarVenta(camiseta, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& sudadera : sudaderasEnInventario) {
+            if (sudadera.getCodProducto() == codigoProducto) {
+                procesarVenta(sudadera, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& pantalon : pantalonesEnInventario) {
+            if (pantalon.getCodProducto() == codigoProducto) {
+                procesarVenta(pantalon, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& bufanda : bufandasEnInventario) {
+            if (bufanda.getCodProducto() == codigoProducto) {
+                procesarVenta(bufanda, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& gafas : gafasDeSolEnInventario) {
+            if (gafas.getCodProducto() == codigoProducto) {
+                procesarVenta(gafas, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& gorra : gorrasEnInventario) {
+            if (gorra.getCodProducto() == codigoProducto) {
+                procesarVenta(gorra, tiendaNombre);
+                return;
+            }
+        }
+        
+        // Si no se encontró el producto
+        cout << "El producto con código \"" << codigoProducto << "\" no se encuentra en el inventario." << endl;
+    }
+    
+    
+    void procesarVenta(Producto& producto, const string& tiendaNombre) {
+        producto.mostrarInformacion();
+        
+        int cantidad;
+        cout << "Ingrese la cantidad que desea vender: ";
+        cin >> cantidad;
+        
+        // Validar cantidad
+        if (cantidad <= 0 || cantidad > producto.getCantidad()) {
+            cout << "Cantidad no válida. Debe estar entre 1 y " << producto.getCantidad() << "." << endl;
+            return;
+        }
+        
+        // Calcular el precio total
+        float precioTotal = cantidad * producto.getPrecioVenta();
+        
+        // Confirmar la venta
+        cout << "El precio total es: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        cout << "¿Desea confirmar la venta? (s/n): ";
+        char confirmacion;
+        cin >> confirmacion;
+        
+        if (tolower(confirmacion) == 's') {
+            // Actualizar inventario
+            producto.setCantidad(producto.getCantidad() - cantidad);
+            
+            // Generar un código de transacción
+            string codigoTransaccion = generarCodigoTransaccion(producto.getCodProducto());
+            
+            // Registrar la venta en el archivo
+            registrarVentaEnArchivo("Venta", tiendaNombre, producto.getCodProducto(), cantidad, precioTotal, codigoTransaccion);
+            
+            // Confirmar al usuario
+            cout << "Venta registrada exitosamente." << endl;
+            cout << "Detalles de la transacción:" << endl;
+            cout << " - Código de transacción: " << codigoTransaccion << endl;
+            cout << " - Cantidad vendida: " << cantidad << endl;
+            cout << " - Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        } else {
+            cout << "Venta cancelada." << endl;
+        }
+    }
+    
+    void registrarVentaEnArchivo(const string& tipoOperacion, const string& tienda, const string& codigoProducto,
+                                 int cantidad, float precioTotal, const string& codigoTransaccion) {
+        ofstream archivo("transacciones.txt", ios::app);
+        if (!archivo) {
+            cerr << "Error al abrir el archivo transacciones.txt." << endl;
+            return;
+        }
+        
+        time_t ahora = time(nullptr);
+        tm* tiempoLocal = localtime(&ahora);
+        
+        archivo << "Código de transacción: " << codigoTransaccion << endl;
+        archivo << "Tipo de operación: " << tipoOperacion << endl;
+        archivo << "Fecha y hora: "
+        << tiempoLocal->tm_year + 1900 << "-"
+        << setw(2) << setfill('0') << tiempoLocal->tm_mon + 1 << "-"
+        << setw(2) << setfill('0') << tiempoLocal->tm_mday << " "
+        << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
+        << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
+        << setw(2) << setfill('0') << tiempoLocal->tm_sec << endl;
+        archivo << "Tienda: " << tienda << endl;
+        archivo << "Código de producto: " << codigoProducto << endl;
+        archivo << "Cantidad: " << cantidad << endl;
+        archivo << "Precio unitario: " << fixed << setprecision(2) << precioTotal / cantidad << " €" << endl;
+        archivo << "Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        archivo << "--------------------------------------" << endl;
+        
+        archivo.close();
+    }
+
 };
     
     // Clase Tienda
@@ -1058,7 +1184,7 @@ void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
                 menuConsultaInventario(tienda.getInventario());
                 break;
             case 2:
-                //tienda.getInventario().registrarVenta();
+                tienda.getInventario().registrarVenta(tienda.getNombre());
                 break;
             case 3:
                 tienda.getInventario().anadirProductoDesdeAlmacen(almacen);
@@ -1067,7 +1193,7 @@ void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
                 //tienda.getInventario().realizarDevolucion();
                 break;
             case 5:
-                //tienda.getInventario().realizarCambio();
+                //tienda.getInventario().realizarCambio(tienda.getNombre());
                 break;
             case 6:
                 cout << "Saliendo del inventario de " << tienda.getNombre() << endl;

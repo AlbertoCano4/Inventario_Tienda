@@ -1,7 +1,7 @@
 Camisetas
 2
 C001
-50
+55
 29.99
 Verano
 Hombre
@@ -65,7 +65,7 @@ L
 Largo
 No
 P002
-15
+13
 49.99
 Invierno
 Mujer
