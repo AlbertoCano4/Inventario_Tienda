@@ -9,6 +9,7 @@ Mejoras:
 3. Agregar más tiendas y productos
 4. añadir más funciones al menu principal, como pasar productos de una tienda a otra
 5. Poder consultar el inventario de forma mas personalizada (Cod producto)
+6. No tener que añadir primero al txt un producto para poder ampliar producto de ese tipo
 
 Si no se te actualiza el archivo.txt
 Configura el directorio de trabajo de tu proyecto para que sea una ubicación conocida (por ejemplo, la carpeta de tu repositorio):
