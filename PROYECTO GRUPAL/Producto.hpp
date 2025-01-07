@@ -4,6 +4,8 @@
 #include "Definiciones.hpp"
 #include <string>
 #include <iostream>
+#include <stdexcept> // Para manejar excepciones
+
 using namespace std;
 
 class Producto {
@@ -16,23 +18,28 @@ protected:
     Genero genero;
 
 public:
-    // Constructor Producto
-    Producto(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen)
-        : tipo(tipoProducto), codProducto(cod), precioVenta(precioV), cantidad(cant), temporada(temp), genero(gen) {}
+    // Constructor
+    Producto(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen);
 
-    virtual void mostrarInformacion() const = 0; // Método virtual puro
-
+    // Destructor virtual
     virtual ~Producto() {}
 
+    // Método virtual puro para mostrar información
+    virtual void mostrarInformacion() const = 0;
+
     // Getters
-    string getCodProducto() const { return codProducto; }
-    float getPrecioVenta() const { return precioVenta; }
-    int getCantidad() const { return cantidad; }
-    Temporada getTemporada() const { return temporada; }
-    Genero getGenero() const { return genero; }
+    string getCodProducto() const;
+    float getPrecioVenta() const;
+    int getCantidad() const;
+    Temporada getTemporada() const;
+    Genero getGenero() const;
 
     // Setters
-    void setCantidad(int cant) { cantidad = cant; }
+    void setCantidad(int cant);
+
+    // Operadores sobrecargados
+    Producto& operator+=(int cantidadAdicional); // Sumar cantidad al inventario
+    Producto& operator-=(int cantidadSalida);   // Restar cantidad del inventario
 };
 
 #endif // PRODUCTO_HPP

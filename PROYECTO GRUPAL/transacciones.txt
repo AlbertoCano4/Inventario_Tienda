@@ -99,3 +99,53 @@ Tienda: Madrid
 Código del producto cambiado: B001
 Código del producto llevado: C001
 --------------------------------------
+Código de transacción: TX-C001-B003Z2O
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 11:26:04
+Tienda: Madrid
+Código del producto cambiado: C001
+Código del producto llevado: B003
+--------------------------------------
+Código de transacción: TX-C001N6O
+Tipo de operación: Devolución
+Fecha y hora: 2025-01-07 11:58:16
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 4
+Precio unitario: 29.99 €
+Precio total: 119.96 €
+--------------------------------------
+Código de transacción: TX-C002H3E
+Tipo de operación: Venta
+Fecha y hora: 2025-01-07 12:22:27
+Tienda: Madrid
+Código de producto: C002
+Cantidad: 5
+Precio unitario: 35.50 €
+Precio total: 177.50 €
+--------------------------------------
+Código de transacción: TX-C002T9L
+Tipo de operación: Venta
+Fecha y hora: 2025-01-07 12:25:45
+Tienda: Barcelona
+Código de producto: C002
+Cantidad: 5
+Precio unitario: 35.50 €
+Precio total: 177.50 €
+--------------------------------------
+Código de transacción: TX-C002-GR002W7I
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 12:26:10
+Tienda: Barcelona
+Código del producto cambiado: C002
+Código del producto llevado: GR002
+--------------------------------------
+Código de transacción: TX-GR002U2U
+Tipo de operación: Devolución
+Fecha y hora: 2025-01-07 12:26:22
+Tienda: Barcelona
+Código de producto: GR002
+Cantidad: 1
+Precio unitario: 24.99 €
+Precio total: 24.99 €
+--------------------------------------

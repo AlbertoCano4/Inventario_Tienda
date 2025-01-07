@@ -8,7 +8,8 @@ Almacen::Almacen() {
         // Bufandas disponibles
         bufandasDisponibles.push_back(Bufanda("B001", 12.00, 50, Temporada::INVIERNO, Genero::HOMBRE, Estilo::CLASICO, true));
         bufandasDisponibles.push_back(Bufanda("B002", 8.00, 40, Temporada::INVIERNO, Genero::MUJER, Estilo::CASUAL, false));
-        
+        bufandasDisponibles.push_back(Bufanda("B003", 16.00, 40, Temporada::ANUAL, Genero::MUJER, Estilo::DEPORTIVO, true));
+
         // Sudaderas disponibles
         sudaderasDisponibles.push_back(Sudadera("S001", 45.99, 20, Temporada::INVIERNO, Genero::HOMBRE, Talla::L, TipoSudadera::CREWNECK, "Algodón", true));
         sudaderasDisponibles.push_back(Sudadera("S002", 40.50, 15, Temporada::VERANO, Genero::MUJER, Talla::M, TipoSudadera::HOODIE, "Poliéster", false));

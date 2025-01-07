@@ -15,161 +15,189 @@ void Inventario::anadirProductoDesdeAlmacen(const Almacen& almacen) {
     
     cout << "Ingrese el código del producto que desea añadir: ";
     cin >> codigo;
-    cout << "Ingrese la cantidad que desea añadir: ";
-    cin >> cantidad;
+    // Manejo de entrada y validación de cantidad
+    while (true) {
+        try {
+            cout << "Ingrese la cantidad que desea añadir: ";
+            cin >> cantidad;
+            
+            // Detectar entradas no numéricas
+            if (cin.fail()) {
+                cin.clear(); // Limpiar estado de error de cin
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descartar entrada incorrecta
+                throw invalid_argument("Error: Has introducido un valor no numérico.");
+            }
+            
+            // Validar si la cantidad es mayor a 0
+            if (cantidad <= 0) {
+                throw invalid_argument("Error: La cantidad debe ser mayor a 0.");
+            }
+            
+            break; // Salir del bucle si la entrada es válida
+        } catch (const invalid_argument& e) {
+            cout << e.what() << " Inténtelo de nuevo.\n";
+        }
+    }
     
-    // Limpiar el buffer del cin
+    // Limpiar el buffer de entrada
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    
     
     bool productoEncontrado = false;
     
-    // Buscar en las camisetas
-    for (auto& camiseta : camisetasEnInventario) {
-        if (camiseta.getCodProducto() == codigo) {
-            camiseta.setCantidad(camiseta.getCantidad() + cantidad);
-            cout << "Camiseta " << codigo << " actualizado. Nueva cantidad: " << camiseta.getCantidad() << "\n";
-            productoEncontrado = true;
-            break;
-        }
-    }
-    // Buscar en las Sudaderas
-    if (!productoEncontrado) {
-        for (auto& sudadera : sudaderasEnInventario) {
-            if (sudadera.getCodProducto() == codigo) {
-                sudadera.setCantidad(sudadera.getCantidad() + cantidad);
-                cout << "Sudadera " << codigo << " actualizada. Nueva cantidad: " << sudadera.getCantidad() << "\n";
-                productoEncontrado = true;
-                break;
-            }
-        }
-    }
-    // Buscar en los Pantalones
-    if (!productoEncontrado) {
-        for (auto& pantalon : pantalonesEnInventario) {
-            if (pantalon.getCodProducto() == codigo) {
-                pantalon.setCantidad(pantalon.getCantidad() + cantidad);
-                cout << "Pantalon " << codigo << " actualizada. Nueva cantidad: " << pantalon.getCantidad() << "\n";
-                productoEncontrado = true;
-                break;
-            }
-        }
-    }
-    // Buscar en las bufandas
-    if (!productoEncontrado) {
-        for (auto& bufanda : bufandasEnInventario) {
-            if (bufanda.getCodProducto() == codigo) {
-                bufanda.setCantidad(bufanda.getCantidad() + cantidad);
-                cout << "Bufanda " << codigo << " actualizada. Nueva cantidad: " << bufanda.getCantidad() << "\n";
-                productoEncontrado = true;
-                break;
-            }
-        }
-    }
-    // Buscar en las Gafas de Sol
-    if (!productoEncontrado) {
-        for (auto& gafasDeSol : gafasDeSolEnInventario) {
-            if (gafasDeSol.getCodProducto() == codigo) {
-                gafasDeSol.setCantidad(gafasDeSol.getCantidad() + cantidad);
-                cout << "gafas De Sol " << codigo << " actualizada. Nueva cantidad: " << gafasDeSol.getCantidad() << "\n";
-                productoEncontrado = true;
-                break;
-            }
-        }
-    }
-    // Buscar en las Gorras
-    if (!productoEncontrado) {
-        for (auto& gorra : gorrasEnInventario) {
-            if (gorra.getCodProducto() == codigo) {
-                gorra.setCantidad(gorra.getCantidad() + cantidad);
-                cout << "Gorra " << codigo << " actualizada. Nueva cantidad: " << gorra.getCantidad() << "\n";
-                productoEncontrado = true;
-                break;
-            }
-        }
-    }
-    
-    // Si no está en el inventario, buscar en el almacén
-    if (!productoEncontrado) {
-        for (const auto& camiseta : almacen.getCamisetas()) {
+    try {
+        // Buscar en las camisetas
+        for (auto& camiseta : camisetasEnInventario) {
             if (camiseta.getCodProducto() == codigo) {
-                Camiseta nuevaCamiseta = camiseta;
-                nuevaCamiseta.setCantidad(cantidad);
-                camisetasEnInventario.push_back(nuevaCamiseta);
-                cout << "Camiseta " << codigo << " añadido al inventario. Cantidad: " << cantidad << "\n";
+                camiseta.setCantidad(camiseta.getCantidad() + cantidad);
+                cout << "Camiseta " << codigo << " actualizado. Nueva cantidad: " << camiseta.getCantidad() << "\n";
                 productoEncontrado = true;
                 break;
             }
         }
-    }
-    
-    if (!productoEncontrado) {
-        for (const auto& sudadera : almacen.getSudaderas()) {
-            if (sudadera.getCodProducto() == codigo) {
-                Sudadera nuevaSudadera = sudadera;
-                nuevaSudadera.setCantidad(cantidad);
-                sudaderasEnInventario.push_back(nuevaSudadera);
-                cout << "Sudadera " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
-                productoEncontrado = true;
-                break;
+        // Buscar en las Sudaderas
+        if (!productoEncontrado) {
+            for (auto& sudadera : sudaderasEnInventario) {
+                if (sudadera.getCodProducto() == codigo) {
+                    sudadera.setCantidad(sudadera.getCantidad() + cantidad);
+                    cout << "Sudadera " << codigo << " actualizada. Nueva cantidad: " << sudadera.getCantidad() << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
             }
         }
-    }
-    
-    if (!productoEncontrado) {
-        for (const auto& pantalon : almacen.getPantalones()) {
-            if (pantalon.getCodProducto() == codigo) {
-                Pantalon nuevoPantalon = pantalon;
-                nuevoPantalon.setCantidad(cantidad);
-                pantalonesEnInventario.push_back(nuevoPantalon);
-                cout << "Pantalón " << codigo << " añadido al inventario. Cantidad: " << cantidad << "\n";
-                productoEncontrado = true;
-                break;
+        // Buscar en los Pantalones
+        if (!productoEncontrado) {
+            for (auto& pantalon : pantalonesEnInventario) {
+                if (pantalon.getCodProducto() == codigo) {
+                    pantalon.setCantidad(pantalon.getCantidad() + cantidad);
+                    cout << "Pantalon " << codigo << " actualizada. Nueva cantidad: " << pantalon.getCantidad() << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
             }
         }
-    }
-    
-    if (!productoEncontrado) {
-        for (const auto& bufanda : almacen.getBufandas()) {
-            if (bufanda.getCodProducto() == codigo) {
-                Bufanda nuevaBufanda = bufanda;
-                nuevaBufanda.setCantidad(cantidad);
-                bufandasEnInventario.push_back(nuevaBufanda);
-                cout << "Bufanda " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
-                productoEncontrado = true;
-                break;
+        // Buscar en las bufandas
+        if (!productoEncontrado) {
+            for (auto& bufanda : bufandasEnInventario) {
+                if (bufanda.getCodProducto() == codigo) {
+                    bufanda.setCantidad(bufanda.getCantidad() + cantidad);
+                    cout << "Bufanda " << codigo << " actualizada. Nueva cantidad: " << bufanda.getCantidad() << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
             }
         }
-    }
-    
-    if (!productoEncontrado) {
-        for (const auto& gafas : almacen.getGafasDeSol()) {
-            if (gafas.getCodProducto() == codigo) {
-                GafasDeSol nuevasGafas = gafas;
-                nuevasGafas.setCantidad(cantidad);
-                gafasDeSolEnInventario.push_back(nuevasGafas);
-                cout << "Gafas de Sol " << codigo << " añadidas al inventario. Cantidad: " << cantidad << "\n";
-                productoEncontrado = true;
-                break;
+        // Buscar en las Gafas de Sol
+        if (!productoEncontrado) {
+            for (auto& gafasDeSol : gafasDeSolEnInventario) {
+                if (gafasDeSol.getCodProducto() == codigo) {
+                    gafasDeSol.setCantidad(gafasDeSol.getCantidad() + cantidad);
+                    cout << "gafas De Sol " << codigo << " actualizada. Nueva cantidad: " << gafasDeSol.getCantidad() << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
             }
         }
-    }
-    
-    if (!productoEncontrado) {
-        for (const auto& gorra : almacen.getGorras()) {
-            if (gorra.getCodProducto() == codigo) {
-                Gorra nuevaGorra = gorra;
-                nuevaGorra.setCantidad(cantidad);
-                gorrasEnInventario.push_back(nuevaGorra);
-                cout << "Gorra " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
-                productoEncontrado = true;
-                break;
+        // Buscar en las Gorras
+        if (!productoEncontrado) {
+            for (auto& gorra : gorrasEnInventario) {
+                if (gorra.getCodProducto() == codigo) {
+                    gorra.setCantidad(gorra.getCantidad() + cantidad);
+                    cout << "Gorra " << codigo << " actualizada. Nueva cantidad: " << gorra.getCantidad() << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
             }
         }
-    }
-    
-    
-    if (!productoEncontrado) {
-        cout << "Producto " << codigo << " no encontrado en el almacén.\n";
+        
+        // Si no está en el inventario, buscar en el almacén
+        if (!productoEncontrado) {
+            for (const auto& camiseta : almacen.getCamisetas()) {
+                if (camiseta.getCodProducto() == codigo) {
+                    Camiseta nuevaCamiseta = camiseta;
+                    nuevaCamiseta.setCantidad(cantidad);
+                    camisetasEnInventario.push_back(nuevaCamiseta);
+                    cout << "Camiseta " << codigo << " añadido al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!productoEncontrado) {
+            for (const auto& sudadera : almacen.getSudaderas()) {
+                if (sudadera.getCodProducto() == codigo) {
+                    Sudadera nuevaSudadera = sudadera;
+                    nuevaSudadera.setCantidad(cantidad);
+                    sudaderasEnInventario.push_back(nuevaSudadera);
+                    cout << "Sudadera " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!productoEncontrado) {
+            for (const auto& pantalon : almacen.getPantalones()) {
+                if (pantalon.getCodProducto() == codigo) {
+                    Pantalon nuevoPantalon = pantalon;
+                    nuevoPantalon.setCantidad(cantidad);
+                    pantalonesEnInventario.push_back(nuevoPantalon);
+                    cout << "Pantalón " << codigo << " añadido al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!productoEncontrado) {
+            for (const auto& bufanda : almacen.getBufandas()) {
+                if (bufanda.getCodProducto() == codigo) {
+                    Bufanda nuevaBufanda = bufanda;
+                    nuevaBufanda.setCantidad(cantidad);
+                    bufandasEnInventario.push_back(nuevaBufanda);
+                    cout << "Bufanda " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!productoEncontrado) {
+            for (const auto& gafas : almacen.getGafasDeSol()) {
+                if (gafas.getCodProducto() == codigo) {
+                    GafasDeSol nuevasGafas = gafas;
+                    nuevasGafas.setCantidad(cantidad);
+                    gafasDeSolEnInventario.push_back(nuevasGafas);
+                    cout << "Gafas de Sol " << codigo << " añadidas al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!productoEncontrado) {
+            for (const auto& gorra : almacen.getGorras()) {
+                if (gorra.getCodProducto() == codigo) {
+                    Gorra nuevaGorra = gorra;
+                    nuevaGorra.setCantidad(cantidad);
+                    gorrasEnInventario.push_back(nuevaGorra);
+                    cout << "Gorra " << codigo << " añadida al inventario. Cantidad: " << cantidad << "\n";
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+        }
+        
+        
+        if (!productoEncontrado) {
+            throw runtime_error("Error: Producto no encontrado en el inventario ni en el almacén.");
+        }
+    } catch (const runtime_error& e) {
+        cout << e.what() << "\n";
+    } catch (const exception& e) {
+        cout << "Error inesperado: " << e.what() << "\n";
     }
 }
 
@@ -610,6 +638,12 @@ void Inventario::registrarCambio(const string& tiendaNombre) {
         cout << "El producto con código \"" << codigoProductoCambio << "\" no se encuentra en el inventario." << endl;
         return;
     }
+    
+    // Verificar disponibilidad del producto que la tienda quiere dar
+    if (productoEntrante->getCantidad() == 0) {
+        cout << "El producto \"" << productoEntrante->getCodProducto() << "\" no tiene existencias en el inventario. No se puede realizar el cambio." << endl;
+        return;
+    }
 
     // Comparar precios
     float precioSaliente = productoSaliente->getPrecioVenta();
@@ -745,36 +779,51 @@ void Inventario::registrarDevolucion(const string& tiendaNombre) {
 
 void Inventario::procesarDevolucion(Producto& producto, const string& tiendaNombre) {
     producto.mostrarInformacion();
-    
+
     int cantidad;
-    cout << "Ingrese la cantidad que desea devolver: ";
-    cin >> cantidad;
-    
-    // Validar cantidad
-    if (cantidad <= 0 || cantidad > producto.getCantidad()) {
-        cout << "Cantidad no válida. Debe estar entre 1 y " << producto.getCantidad() << "." << endl;
-        return;
+    while (true) {
+        try {
+            cout << "Ingrese la cantidad que desea devolver: ";
+            cin >> cantidad;
+
+            // Validar si la entrada es un número válido
+            if (cin.fail()) {
+                cin.clear(); // Limpiar el estado de error de cin
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descartar la entrada incorrecta
+                throw invalid_argument("Error: La cantidad debe ser un número entero válido.");
+            }
+
+            // Validar rango de cantidad
+            if (cantidad <= 0 || cantidad > producto.getCantidad()) {
+                throw out_of_range("Cantidad no válida. Debe estar entre 1 y " + to_string(producto.getCantidad()) + ".");
+            }
+
+            // Si la cantidad es válida, salir del bucle
+            break;
+        } catch (const exception& e) {
+            cout << e.what() << " Inténtelo de nuevo.\n";
+        }
     }
-    
+
     // Calcular el precio total
     float precioTotal = cantidad * producto.getPrecioVenta();
-    
+
     // Confirmar la devolución
     cout << "El precio total es: " << fixed << setprecision(2) << precioTotal << " €" << endl;
     cout << "¿Desea confirmar la devolución? (s/n): ";
     char confirmacion;
     cin >> confirmacion;
-    
+
     if (tolower(confirmacion) == 's') {
         // Actualizar inventario
         producto.setCantidad(producto.getCantidad() + cantidad);
-        
+
         // Generar un código de transacción
         string codigoTransaccion = generarCodigoTransaccion(producto.getCodProducto());
-        
+
         // Registrar la devolución en el archivo
         registrarDevolucionEnArchivo("Devolución", tiendaNombre, producto.getCodProducto(), cantidad, precioTotal, codigoTransaccion);
-        
+
         // Confirmar al usuario
         cout << "Devolución registrada exitosamente." << endl;
         cout << "Detalles de la transacción:" << endl;
@@ -785,6 +834,7 @@ void Inventario::procesarDevolucion(Producto& producto, const string& tiendaNomb
         cout << "Devolución cancelada." << endl;
     }
 }
+
 
 void Inventario::registrarDevolucionEnArchivo(const string& tipoOperacion, const string& tienda, const string& codigoProducto,
                              int cantidad, float precioTotal, const string& codigoTransaccion) {
@@ -871,6 +921,12 @@ void Inventario::registrarVenta(const string& tiendaNombre) {
 
 void Inventario::procesarVenta(Producto& producto, const string& tiendaNombre) {
     producto.mostrarInformacion();
+    
+    // Verificar si el inventario está vacío para el producto
+    if (producto.getCantidad() == 0) {
+        cout << "El producto \"" << producto.getCodProducto() << "\" no tiene unidades disponibles en el inventario." << endl;
+        return;
+    }
     
     int cantidad;
     cout << "Ingrese la cantidad que desea vender: ";

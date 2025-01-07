@@ -10,7 +10,7 @@ Sin Mangas
 Algodón
 Sí
 C002
-30
+36
 35.5
 Invierno
 Mujer
@@ -19,7 +19,7 @@ Sin Mangas
 Poliéster
 No
 Bufandas
-2
+3
 B001
 50
 12
@@ -33,6 +33,13 @@ B002
 Invierno
 Mujer
 Casual
+No
+B003
+0
+16
+Anual
+Mujer
+Deportivo
 No
 Sudaderas
 2

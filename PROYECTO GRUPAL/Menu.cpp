@@ -3,6 +3,11 @@
 
 using namespace std;
 
+// Constantes de configuración
+const string CODIGO_MADRID = "MAD20";
+const string CODIGO_BARCELONA = "BCN22";
+const int LIMITE_INTENTOS = 3;
+
 void menuConsultaInventario(Inventario& inventario) {
     int opcion;
     do {
@@ -89,9 +94,12 @@ void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
                 break;
             case 6:
                 cout << "Saliendo del inventario de " << tienda.getNombre() << endl;
+                tienda.guardarInventario(); // Guardar inventario antes de cambiar de tienda
                 return; // Volver al menú de tiendas
             case 0:
                 cout << "Saliendo del sistema de gestión de tiendas" << endl;
+                cout << "Guardando inventario de " << tienda.getNombre() << "...\n";
+                tienda.guardarInventario(); // Guardar inventario antes de salir
                 cout << "Cerrando sesión...\n";
                 exit(0); // Terminar el programa
             default:
@@ -100,9 +108,29 @@ void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
     } while (true);
 }
 
+bool verificarCodigo(const string& tienda, const string& codigoCorrecto) {
+    string codigoIngresado;
+    int intentosRestantes = LIMITE_INTENTOS;
+
+    while (intentosRestantes > 0) {
+        cout << "Ingrese el código de verificación para " << tienda << ": ";
+        cin >> codigoIngresado;
+
+        if (codigoIngresado == codigoCorrecto) {
+            cout << "Código correcto. Accediendo a la tienda " << tienda << ".\n";
+            return true;
+        } else {
+            intentosRestantes--;
+            cout << "Código incorrecto. Intentos restantes: " << intentosRestantes << "\n";
+        }
+    }
+
+    cout << "Demasiados intentos fallidos. Bloqueando el acceso al sistema.\n";
+    exit(0); // Terminar el programa después de superar el límite de intentos
+}
+
 void menuTiendas(Tienda& madrid, Tienda& barcelona, const Almacen& almacen) {
     char opcion;
-    string codigoVerificacion;
     Tienda* tiendaActual = nullptr;
 
     do {
@@ -118,26 +146,18 @@ void menuTiendas(Tienda& madrid, Tienda& barcelona, const Almacen& almacen) {
 
         switch (opcion) {
             case '1': // Madrid
-                cout << "Ingrese el código de verificación para Madrid: ";
-                cin >> codigoVerificacion;
-                if (codigoVerificacion == "MAD20") {
+                if (verificarCodigo("Madrid", CODIGO_MADRID)) {
                     tiendaActual = &madrid;
                     menuPrincipal(*tiendaActual, almacen);
                     tiendaActual->guardarInventario();
-                } else {
-                    cout << "Código de verificación incorrecto. Inténtelo de nuevo.\n";
                 }
                 break;
 
             case '2': // Barcelona
-                cout << "Ingrese el código de verificación para Barcelona: ";
-                cin >> codigoVerificacion;
-                if (codigoVerificacion == "BCN22") {
+                if (verificarCodigo("Barcelona", CODIGO_BARCELONA)) {
                     tiendaActual = &barcelona;
                     menuPrincipal(*tiendaActual, almacen);
                     tiendaActual->guardarInventario();
-                } else {
-                    cout << "Código de verificación incorrecto. Inténtelo de nuevo.\n";
                 }
                 break;
 
@@ -160,9 +180,6 @@ void iniciarPrograma() {
     // Crear las tiendas
     Tienda madrid("Madrid", "inventarioMadrid.txt");
     Tienda barcelona("Barcelona", "inventarioBarcelona.txt");
-    //Tienda Valencia("Valencia", "inventarioValencia.txt");
-    //Tienda Sevilla("Sevilla", "inventarioSevilla.txt");
-    //Tienda Bilbao("Bilbao", "inventarioBilbao.txt");
 
     // Mostrar el menú principal de tiendas
     menuTiendas(madrid, barcelona, almacen);
