@@ -1,8 +1,0 @@
-Inventario de la tienda de Barcelona
-Camisetas:
-Sudaderas:
-Pantalones:
-P001 29.99 12 Invierno Mujer 
-Bufandas:
-Gorras:
-Gafas de sol:
