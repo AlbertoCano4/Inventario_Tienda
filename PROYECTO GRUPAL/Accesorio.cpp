@@ -1,11 +1,19 @@
 #include "Accesorio.hpp"
-#include <iostream>
 
-using namespace std;
-
-// Constructor de la clase Accesorio
+// Constructor
 Accesorio::Accesorio(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est)
     : Producto(tipoProducto, cod, precioV, cant, temp, gen), estilo(est) {}
+
+// Implementación del método mostrarInformacion
+void Accesorio::mostrarInformacion() const {
+    cout << "Tipo: " << tipo << "\n";
+    cout << "Código del Producto: " << codProducto << "\n";
+    cout << "Precio de Venta: " << precioVenta << "\n";
+    cout << "Cantidad en Inventario: " << cantidad << "\n";
+    cout << "Temporada: " << temporadaToString(temporada) << "\n";
+    cout << "Género: " << generoToString(genero) << "\n";
+    cout << "Estilo: " << estiloTostring(estilo) << endl;
+}
 
 // Getter de Estilo
 Estilo Accesorio::getEstilo() const {
@@ -17,9 +25,5 @@ void Accesorio::setEstilo(Estilo est) {
     estilo = est;
 }
 
-// Implementación del método mostrarInformacion
-void Accesorio::mostrarInformacion() const {
-    Producto::mostrarInformacion(); // Llama al método base
-    cout << "Estilo: "
-         << (estilo == Estilo::MODERNO ? "Moderno" : estilo == Estilo::CLASICO ? "Clásico" : estilo == Estilo::DEPORTIVO ? "Deportivo" : "Casual") << endl;
-}
+// Destructor
+Accesorio::~Accesorio() {}

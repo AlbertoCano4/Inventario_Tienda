@@ -3,25 +3,21 @@
 
 #include "Producto.hpp"
 
-enum class Talla { S, M, L, XL, XXL };
-
 class Ropa : public Producto {
 protected:
     Talla talla;
 
 public:
-    // Constructor
-    Ropa(string tipoProducto, string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t);
+    // Constructor Ropa
+    Ropa(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t);
 
-    // Destructor virtual puro
-    virtual ~Ropa() = 0;
+    // Función para mostrar la información de la ropa
+    void mostrarInformacion() const override;
 
-    // Getters y Setters
+    // Getter de Talla
     Talla getTalla() const;
-    void setTalla(Talla t);
 
-    // Método que sobreescribe el de la clase padre
-    virtual void mostrarInformacion() const = 0;
+    virtual ~Ropa();
 };
 
 #endif // ROPA_HPP

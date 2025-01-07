@@ -10,19 +10,21 @@ private:
 
 public:
     // Constructor
-    GafasDeSol(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string forma, bool uv);
+    GafasDeSol(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, const string& forma, bool uv);
 
-    // Destructor
-    virtual ~GafasDeSol() = default;
-
-    // Getters y Setters
+    // Getters
     string getFormaLente() const;
-    void setFormaLente(string forma);
     bool getProteccionUV() const;
+
+    // Setters
+    void setFormaLente(const string& forma);
     void setProteccionUV(bool uv);
 
-    // Método que sobreescribe el de la clase padre
+    // Mostrar información
     void mostrarInformacion() const override;
+
+    // Destructor
+    virtual ~GafasDeSol();
 };
 
 #endif // GAFASDESOL_HPP

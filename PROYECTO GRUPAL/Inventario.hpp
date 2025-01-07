@@ -2,42 +2,67 @@
 #define INVENTARIO_HPP
 
 #include "Producto.hpp"
-#include "Warehouse.hpp"
-#include "Tienda.hpp" // Incluimos Tienda para poder interactuar con ella
+#include "Almacen.hpp"
+#include "Camiseta.hpp"
+#include "Bufanda.hpp"
+#include "Pantalon.hpp"
+#include "Sudadera.hpp"
+#include "Gorra.hpp"
+#include "GafasDeSol.hpp"
+#include "Definiciones.hpp"
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <limits>
+#include <iomanip>
+#include <ctime>
+
+using namespace std;
 
 class Inventario {
 private:
-    std::vector<std::string> transacciones;  // Almacena cada transacción como una cadena
-    std::vector<Producto> productos;         // Almacena objetos de productos
-
-    // Método privado para generar códigos de transacción únicos
-    std::string generarCodigoTransaccion(const std::string& codigoProducto);
+    vector<Camiseta> camisetasEnInventario;
+    vector<Sudadera> sudaderasEnInventario;
+    vector<Pantalon> pantalonesEnInventario;
+    vector<Bufanda> bufandasEnInventario;
+    vector<GafasDeSol> gafasDeSolEnInventario;
+    vector<Gorra> gorrasEnInventario;
 
 public:
-    // Constructor por defecto
     Inventario();
-    void actualizarArchivoInventario(Tienda& tienda);
 
-    // Métodos de consulta
-    void consultarInventarioCompleto() const;                // Consultar todo el inventario
-    void consultarPorCategoria(const std::string& categoria) const; // Consultar productos por categoría
+    void anadirProductoDesdeAlmacen(const Almacen& almacen);
 
-    // Métodos de gestión de inventario
-    void ampliarInventario(const Warehouse& warehouse, Tienda& tienda); // Ampliar inventario y guardar cambios
-    void agregarProducto(const Producto& nuevoProducto);                // Añadir un nuevo producto al inventario
-    void aniadirStock(const string& codigo, int cantidad, Tienda& tienda);         // Aumentar stock de un producto
-    void restarCantidad(const std::string& codigo, int cantidad);       // Reducir stock de un producto
-    void realizarCambio();                                              // Realizar un cambio de producto
-    void devolucion();                                                  // Registrar una devolución
+    void mostrarInventario() const;
 
-    // Métodos relacionados con ventas
-    void registrarVenta(Tienda& tienda);                                   // Registrar una nueva venta
-    void registrarVentaEnArchivo(const std::string& tienda, const std::string& codigoProducto, int cantidad, float precioTotal, const string& codigoTransaccion); // Registrar una venta en el archivo
+    void guardarInventario(const string& archivoNombre) const;
 
-    // Métodos auxiliares
-    void mostrarProductos() const;                          // Mostrar productos del inventario
+    void cargarInventario(const string& archivoNombre);
+
+    void consultarPorCategoria(const string& categoria) const;
+
+    string generarCodigoTransaccion(const string& codigoProducto);
+
+    void registrarCambio(const string& tiendaNombre);
+
+    void registrarDevolucion(const string& tiendaNombre);
+
+    void registrarVenta(const string& tiendaNombre);
+
+private:
+    void procesarDevolucion(Producto& producto, const string& tiendaNombre);
+
+    void registrarDevolucionEnArchivo(const string& tipoOperacion, const string& tienda, const string& codigoProducto,
+                                      int cantidad, float precioTotal, const string& codigoTransaccion);
+
+    void procesarVenta(Producto& producto, const string& tiendaNombre);
+
+    void registrarVentaEnArchivo(const string& tipoOperacion, const string& tienda, const string& codigoProducto,
+                                 int cantidad, float precioTotal, const string& codigoTransaccion);
+
+    void registrarCambioEnArchivo(const string& tienda, const string& codigoProductoSaliente,
+                                   const string& codigoProductoEntrante, const string& codigoTransaccion);
 };
 
 #endif // INVENTARIO_HPP

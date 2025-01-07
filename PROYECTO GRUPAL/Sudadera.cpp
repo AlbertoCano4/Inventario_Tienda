@@ -1,35 +1,43 @@
 #include "Sudadera.hpp"
 
-Sudadera::Sudadera(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoSudadera tip, string mat, bool crem)
-    : Ropa("Sudadera",cod, precioV, cant, temp,gen, t), tipo(tip), material(mat), cremallera(crem) {}
+// Constructor
+Sudadera::Sudadera(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t,
+                   TipoSudadera tip, const string& mat, bool crem)
+    : Ropa("Sudadera", cod, precioV, cant, temp, gen, t), tipo(tip), material(mat), cremallera(crem) {}
 
+// Getters
 TipoSudadera Sudadera::getTipoSudadera() const {
     return tipo;
-}
-
-void Sudadera::setTipoSudadera(TipoSudadera tip) {
-    tipo = tip;
 }
 
 string Sudadera::getMaterial() const {
     return material;
 }
 
-void Sudadera::setMaterial(std::string mat) {
-    material = mat;
-}
-
 bool Sudadera::getCremallera() const {
     return cremallera;
+}
+
+// Setters
+void Sudadera::setTipoSudadera(TipoSudadera tip) {
+    tipo = tip;
+}
+
+void Sudadera::setMaterial(const string& mat) {
+    material = mat;
 }
 
 void Sudadera::setCremallera(bool crem) {
     cremallera = crem;
 }
 
+// Mostrar información
 void Sudadera::mostrarInformacion() const {
     Ropa::mostrarInformacion();
-    cout << "Tipo: " << static_cast<int>(tipo) << "\n"
-         << "Material: " << material << "\n"
-         << "Cremallera: " << (cremallera ? "Sí" : "No") << endl;
+    cout << "Tipo de Sudadera: " << tipoSudaderaToString(tipo) << "\n";
+    cout << "Material: " << material << "\n";
+    cout << "Cremallera: " << (cremallera ? "Sí" : "No") << "\n";
 }
+
+// Destructor
+Sudadera::~Sudadera() {}

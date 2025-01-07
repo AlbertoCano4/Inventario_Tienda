@@ -3,28 +3,28 @@
 
 #include "Ropa.hpp"
 
-enum class TipoPantalon { LARGO, CORTO };
-
 class Pantalon : public Ropa {
 private:
     TipoPantalon tipo;
-    bool cargo;
+    bool cargo; // Indica si tiene bolsillos estilo cargo
 
 public:
     // Constructor
-    Pantalon(string cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoPantalon tip, bool carg);
+    Pantalon(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoPantalon tip, bool carg);
 
-    // Destructor
-    virtual ~Pantalon() = default;
-
-    // Getters y Setters
+    // Getters
     TipoPantalon getTipoPantalon() const;
-    void setTipo(TipoPantalon t);
     bool getCargo() const;
+
+    // Setters
+    void setTipo(TipoPantalon t);
     void setCargo(bool carg);
 
-    // Método que sobreescribe el de la clase padre
+    // Mostrar información
     void mostrarInformacion() const override;
+
+    // Destructor
+    virtual ~Pantalon();
 };
 
 #endif // PANTALON_HPP

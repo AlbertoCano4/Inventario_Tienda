@@ -1,0 +1,101 @@
+
+Código de transacción: TX-C001E2N
+Tipo de operación: Venta
+Fecha y hora: 2025-01-05 16:43:23
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 5
+Precio unitario: 29.99 €
+Precio total: 149.95 €
+--------------------------------------
+Código de transacción: TX-C001X2O
+Tipo de operación: Venta
+Fecha y hora: 2025-01-05 16:45:43
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 5
+Precio unitario: 29.99 €
+Precio total: 149.95 €
+--------------------------------------
+Código de transacción: TX-C001C2D
+Tipo de operación: Venta
+Fecha y hora: 2025-01-05 16:47:43
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 5
+Precio unitario: 29.99 €
+Precio total: 149.95 €
+--------------------------------------
+Código de transacción: TX-P002U6T
+Tipo de operación: Venta
+Fecha y hora: 2025-01-05 17:06:25
+Tienda: Madrid
+Código de producto: P002
+Cantidad: 2
+Precio unitario: 49.99 €
+Precio total: 99.98 €
+--------------------------------------
+Código de transacción: TX-C001E8I
+Tipo de operación: Devolución
+Fecha y hora: 2025-01-07 00:13:42
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 5
+Precio unitario: 29.99 €
+Precio total: 149.95 €
+--------------------------------------
+Código de transacción: TX-B001-GR002F8G
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 00:14:25
+Tienda: Madrid
+Código del producto cambiado: B001
+Código del producto llevado: GR002
+--------------------------------------
+Código de transacción: TX-C002S2L
+Tipo de operación: Venta
+Fecha y hora: 2025-01-07 00:14:52
+Tienda: Barcelona
+Código de producto: C002
+Cantidad: 2
+Precio unitario: 35.50 €
+Precio total: 71.00 €
+--------------------------------------
+Código de transacción: TX-C002Q8R
+Tipo de operación: Venta
+Fecha y hora: 2025-01-07 09:54:32
+Tienda: Madrid
+Código de producto: C002
+Cantidad: 5
+Precio unitario: 35.50 €
+Precio total: 177.50 €
+--------------------------------------
+Código de transacción: TX-C001S0Z
+Tipo de operación: Devolución
+Fecha y hora: 2025-01-07 09:55:36
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 3
+Precio unitario: 29.99 €
+Precio total: 89.97 €
+--------------------------------------
+Código de transacción: TX-C001-B002Q9W
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 09:56:29
+Tienda: Barcelona
+Código del producto cambiado: C001
+Código del producto llevado: B002
+--------------------------------------
+Código de transacción: TX-C001-B002F1O
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 10:00:51
+Tienda: Madrid
+Código del producto cambiado: C001
+Código del producto llevado: B002
+--------------------------------------
+Código de transacción: TX-B001-C001G1K
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-07 10:01:05
+Tienda: Madrid
+Código del producto cambiado: B001
+Código del producto llevado: C001
+--------------------------------------

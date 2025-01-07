@@ -11,15 +11,17 @@ public:
     // Constructor
     Bufanda(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, bool lana);
 
-    // Destructor
-    virtual ~Bufanda() = default;
+    // Mostrar información
+    void mostrarInformacion() const override;
 
-    // Getters y Setters
+    // Getters
     bool getEsDeLana() const;
+
+    // Setters
     void setEsDeLana(bool lana);
 
-    // Método que sobreescribe el de la clase padre
-    void mostrarInformacion() const override;
+    // Destructor
+    ~Bufanda();
 };
 
 #endif // BUFANDA_HPP

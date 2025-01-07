@@ -5,24 +5,26 @@
 
 class Gorra : public Accesorio {
 private:
-    string tipo;
-    string material;
+    string tipo;    // Tipo de gorra
+    string material; // Material de la gorra
 
 public:
     // Constructor
-    Gorra(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, string tip, string mat);
+    Gorra(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, const string& tip, const string& mat);
+
+    // Getters
+    string getTipo() const;
+    string getMaterial() const;
+
+    // Setters
+    void setTipo(const string& tip);
+    void setMaterial(const string& mat);
+
+    // Mostrar información
+    void mostrarInformacion() const override;
 
     // Destructor
-    virtual ~Gorra() = default;
-
-    // Getters y Setters
-    string getTipo() const;
-    void setTipo(string tip);
-    string getMaterial() const;
-    void setMaterial(string mat);
-
-    // Método que sobreescribe el de la clase padre
-    void mostrarInformacion() const override;
+    virtual ~Gorra();
 };
 
 #endif // GORRA_HPP

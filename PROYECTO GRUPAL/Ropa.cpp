@@ -1,22 +1,24 @@
 #include "Ropa.hpp"
-#include <iostream>
 
-// Implementación de la clase Ropa
-Ropa::Ropa(string tipoProducto, string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t)
-: Producto(tipoProducto, cod, precioV, cant, temp, gen), talla(t) {}
+// Constructor Ropa
+Ropa::Ropa(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t)
+    : Producto(tipoProducto, cod, precioV, cant, temp, gen), talla(t) {}
 
-Ropa::~Ropa() {} // Destructor puro debe tener una implementación vacía
+// Función para mostrar la información de la ropa
+void Ropa::mostrarInformacion() const {
+    cout << "Tipo: " << tipo << "\n";
+    cout << "Código del Producto: " << codProducto << "\n";
+    cout << "Precio de Venta: " << precioVenta << "\n";
+    cout << "Cantidad en Inventario: " << cantidad << "\n";
+    cout << "Temporada: " << temporadaToString(temporada) << "\n";
+    cout << "Género: " << generoToString(genero) << "\n";
+    cout << "Talla: " << tallaToString(talla) << "\n";
+}
 
+// Getter de Talla
 Talla Ropa::getTalla() const {
     return talla;
 }
 
-void Ropa::setTalla(Talla t) {
-    talla = t;
-}
-
-// Implementación del método mostrarInformacion
-void Ropa::mostrarInformacion() const {
-    Producto::mostrarInformacion(); // Llama al método base
-    cout << "Talla: " << (talla == Talla::S ? "S" : talla == Talla::M ? "M" : talla == Talla::L ? "L" : talla == Talla::XL ? "XL" : "XXL") << endl;
-}
+// Destructor
+Ropa::~Ropa() {}

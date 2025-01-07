@@ -1,10 +1,14 @@
 #include "Bufanda.hpp"
-#include <iostream>
-using namespace std;
 
-// Constructor de la clase Bufanda
+// Constructor
 Bufanda::Bufanda(string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, bool lana)
     : Accesorio("Bufanda", cod, precioV, cant, temp, gen, est), esDeLana(lana) {}
+
+// Mostrar información
+void Bufanda::mostrarInformacion() const {
+    Accesorio::mostrarInformacion();
+    cout << "Lana: " << (esDeLana ? "Sí" : "No") << "\n";
+}
 
 // Getter de esDeLana
 bool Bufanda::getEsDeLana() const {
@@ -16,8 +20,5 @@ void Bufanda::setEsDeLana(bool lana) {
     esDeLana = lana;
 }
 
-// Implementación de mostrarInformacion
-void Bufanda::mostrarInformacion() const {
-    Accesorio::mostrarInformacion(); // Llama al método de la clase padre
-    cout << "Es de lana: " << (esDeLana ? "Sí" : "No") << endl;
-}
+// Destructor
+Bufanda::~Bufanda() { }

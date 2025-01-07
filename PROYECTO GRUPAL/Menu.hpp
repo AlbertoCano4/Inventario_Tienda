@@ -1,30 +1,16 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include <vector>
-#include <string>
-
-using namespace std;
-
-#include "Producto.hpp"
-#include "Ropa.hpp"
-#include "camiseta.hpp"
-#include "sudadera.hpp"
-#include "pantalon.hpp"
-#include "accesorio.hpp"
-#include "gorra.hpp"
-#include "gafasdesol.hpp"
-#include "bufanda.hpp"
 #include "Inventario.hpp"
-#include "Warehouse.hpp"
 #include "Tienda.hpp"
+#include "Almacen.hpp"
+#include "Producto.hpp"
 
 
-
-// Funciones Del MENU
-void menuConsultaInventario(const vector<string>& ciudadesDisponibles);
-void menuPrincipal(Tienda& tienda, Warehouse& warehouse, Inventario& inventario);
+// Prototipos de funciones de menú
+void menuConsultaInventario(Inventario& inventario);
+void menuPrincipal(Tienda& tienda, const Almacen& almacen);
+void menuTiendas(Tienda& madrid, Tienda& barcelona, const Almacen& almacen);
 void iniciarPrograma();
 
-
-#endif
+#endif // MENU_HPP

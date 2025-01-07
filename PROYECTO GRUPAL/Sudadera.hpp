@@ -3,8 +3,6 @@
 
 #include "Ropa.hpp"
 
-enum class TipoSudadera { CREWNECK, HOODIE };
-
 class Sudadera : public Ropa {
 private:
     TipoSudadera tipo;
@@ -13,21 +11,24 @@ private:
 
 public:
     // Constructor
-    Sudadera(string cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoSudadera tip, string mat, bool crem);
+    Sudadera(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t,
+             TipoSudadera tip, const string& mat, bool crem);
 
-    // Destructor
-    virtual ~Sudadera() = default;
-
-    // Getters y Setters
+    // Getters
     TipoSudadera getTipoSudadera() const;
-    void setTipoSudadera(TipoSudadera tip);
     string getMaterial() const;
-    void setMaterial(string mat);
     bool getCremallera() const;
+
+    // Setters
+    void setTipoSudadera(TipoSudadera tip);
+    void setMaterial(const string& mat);
     void setCremallera(bool crem);
 
-    // Método que sobreescribe el de la clase padre
+    // Mostrar información
     void mostrarInformacion() const override;
+
+    // Destructor
+    virtual ~Sudadera();
 };
 
 #endif // SUDADERA_HPP

@@ -3,33 +3,29 @@
 
 #include "Ropa.hpp"
 
-enum class TipoCamiseta { MANGA_LARGA, MANGA_CORTA, TIRANTES};
-
 class Camiseta : public Ropa {
 private:
     TipoCamiseta tipo;
-    std::string material;
+    string material;
     bool estampado;
 
 public:
-    // Constructor
-    Camiseta(string cod, float precioV, int cant, Temporada temp,Genero gen, Talla t, TipoCamiseta tip, string mat, bool est);
+    // Constructor Camiseta
+    Camiseta(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoCamiseta tip, const string& mat, bool est);
 
-    // Destructor
-    virtual ~Camiseta() = default;
-
-    // Getters y Setters
-    TipoCamiseta getTipoCamiseta() const;
-    void setTipo(TipoCamiseta t);
-    string getMaterial() const;
-    void setMaterial(std::string mat);
-    bool getEstampado() const;
-    void setEstampado(bool est);
-    
-    // Método que sobreescribe el de la clase padre
+    // Método para mostrar la información
     void mostrarInformacion() const override;
 
+    // Getters
+    TipoCamiseta getTipo() const;
+    string getMaterial() const;
+    bool getEstampado() const;
 
+    // Setters
+    void setMaterial(const string& mat);
+    void setEstampado(bool est);
+
+    ~Camiseta();
 };
 
 #endif // CAMISETA_HPP
