@@ -1,15 +1,14 @@
 Cosas que faltan:
-1. Try catch
-2. Sobrecarga de operadores
-3. Test
+1. Test
 
 Mejoras:
-1. Hacer una sola función en venta, cambio y devolución que reconozcá si existe el producto en el inventario y llamar a la función que hace la venta, cambio o devolución
+1. Hacer una sola función en venta, cambio y devolución que reconozcá si existe el producto en el inventario y llamar a la función que hace la venta, cambio o devolución (if, else if, else)
 2. En cambio y devolución leer el codigo de transacción y hacer la operación aunque sea en otra tienda (Crear clase Transaccion)
 3. Agregar más tiendas y productos
 4. añadir más funciones al menu principal, como pasar productos de una tienda a otra
 5. Poder consultar el inventario de forma mas personalizada (Cod producto)
 6. No tener que añadir primero al txt un producto para poder ampliar producto de ese tipo
+7. En una venta poder vender mas de un tipo de producto y registrarlo en transacciones
 
 Si no se te actualiza el archivo.txt
 Configura el directorio de trabajo de tu proyecto para que sea una ubicación conocida (por ejemplo, la carpeta de tu repositorio):
