@@ -1,7 +1,7 @@
 Camisetas
 2
 C001
-55
+60
 29.99
 Verano
 Hombre
@@ -21,7 +21,7 @@ No
 Bufandas
 2
 B001
-50
+51
 12
 Invierno
 Hombre
@@ -101,7 +101,7 @@ Casual
 Snapback
 Algodón
 GR002
-43
+42
 24.99
 Verano
 Mujer

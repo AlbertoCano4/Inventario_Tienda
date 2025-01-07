@@ -29,6 +29,7 @@ protected:
     Genero genero;
 
 public:
+    // Constructor Producto
     Producto(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen)
         : tipo(tipoProducto), codProducto(cod), precioVenta(precioV), cantidad(cant), temporada(temp), genero(gen) {}
 
@@ -53,9 +54,11 @@ protected:
     Talla talla;
 
 public:
+    // Constructor Ropa
     Ropa(const string& tipoProducto, const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t)
         : Producto(tipoProducto, cod, precioV, cant, temp, gen), talla(t) {}
-
+    
+    // Función para mostrar la información de la ropa
     void mostrarInformacion() const override {
         cout << "Tipo: " << tipo << "\n";
         cout << "Código del Producto: " << codProducto << "\n";
@@ -68,6 +71,7 @@ public:
 
     virtual ~Ropa() {}
 
+    //Getter de Talla
     Talla getTalla() const { return talla; }
 };
 
@@ -76,6 +80,7 @@ protected:
     Estilo estilo; // Estilo del accesorio
 
 public:
+    // Constructor
     Accesorio(string tipoProducto, string cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est)
         : Producto(tipoProducto, cod, precioV, cant, temp, gen), estilo(est) {}
 
@@ -92,9 +97,12 @@ public:
 
     virtual ~Accesorio() {}
 
+    // Getter de Estilo
     Estilo getEstilo() const {
         return estilo;
     }
+    
+    // Setter de Estilo
     void setEstilo(Estilo est) { estilo = est;}
 
 };
@@ -107,11 +115,15 @@ private:
     bool estampado;
 
 public:
+    // Constructor camiseta
     Camiseta(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoCamiseta tip, const string& mat, bool est)
         : Ropa("Camiseta", cod, precioV, cant, temp, gen, t), tipo(tip), material(mat), estampado(est) {}
 
+    // Método mostrar la información
     void mostrarInformacion() const override {
+        // Llamamos al método de la clase base para imprimir información general
         Ropa::mostrarInformacion();
+        // Añadimos los datos específicos de camiseta
         cout << "Tipo de Camiseta: " << (tipo == TipoCamiseta::MANGA_CORTA ? "Manga Corta" : tipo == TipoCamiseta::MANGA_LARGA ? "Manga Larga" : "Sin Mangas") << "\n";
         cout << "Material: " << material << "\n";
         cout << "Estampado: " << (estampado ? "Sí" : "No") << "\n";
@@ -958,6 +970,275 @@ public:
         return codigo;
     }
     
+    void registrarCambio(const string& tiendaNombre) {
+        string codigoProductoCambiado, codigoProductoCambio;
+
+        // Solicitar código del producto que se cambia
+        cout << "Ingrese el código del producto que se cambia: ";
+        cin >> codigoProductoCambiado;
+
+        // Solicitar código del producto por el que se cambia
+        cout << "Ingrese el código del producto por el que se cambia: ";
+        cin >> codigoProductoCambio;
+
+        Producto* productoSaliente = nullptr;
+        Producto* productoEntrante = nullptr;
+
+        // Buscar ambos productos en el inventario
+        for (auto& camiseta : camisetasEnInventario) {
+            if (camiseta.getCodProducto() == codigoProductoCambiado) {
+                productoSaliente = &camiseta;
+            }
+            if (camiseta.getCodProducto() == codigoProductoCambio) {
+                productoEntrante = &camiseta;
+            }
+        }
+
+        for (auto& sudadera : sudaderasEnInventario) {
+            if (sudadera.getCodProducto() == codigoProductoCambiado) {
+                productoSaliente = &sudadera;
+            }
+            if (sudadera.getCodProducto() == codigoProductoCambio) {
+                productoEntrante = &sudadera;
+            }
+        }
+        
+        for (auto& pantalon : pantalonesEnInventario) {
+                if (pantalon.getCodProducto() == codigoProductoCambiado) {
+                    productoSaliente = &pantalon;
+                }
+                if (pantalon.getCodProducto() == codigoProductoCambio) {
+                    productoEntrante = &pantalon;
+                }
+            }
+
+        for (auto& bufanda : bufandasEnInventario) {
+            if (bufanda.getCodProducto() == codigoProductoCambiado) {
+                productoSaliente = &bufanda;
+            }
+            if (bufanda.getCodProducto() == codigoProductoCambio) {
+                productoEntrante = &bufanda;
+            }
+        }
+
+        for (auto& gafas : gafasDeSolEnInventario) {
+            if (gafas.getCodProducto() == codigoProductoCambiado) {
+                productoSaliente = &gafas;
+            }
+            if (gafas.getCodProducto() == codigoProductoCambio) {
+                productoEntrante = &gafas;
+            }
+        }
+
+        for (auto& gorra : gorrasEnInventario) {
+            if (gorra.getCodProducto() == codigoProductoCambiado) {
+                productoSaliente = &gorra;
+            }
+            if (gorra.getCodProducto() == codigoProductoCambio) {
+                productoEntrante = &gorra;
+            }
+        }
+
+        // Validar si ambos productos exsiten
+        if (!productoSaliente) {
+            cout << "El producto con código \"" << codigoProductoCambiado << "\" no se encuentra en el inventario." << endl;
+            return;
+        }
+
+        if (!productoEntrante) {
+            cout << "El producto con código \"" << codigoProductoCambio << "\" no se encuentra en el inventario." << endl;
+            return;
+        }
+
+        // Mostrar información de ambos productos
+        cout << "--------------------------------------" << endl;
+        cout << "Producto que se devuelve:" << endl;
+        productoSaliente->mostrarInformacion();
+        cout << "--------------------------------------" << endl;
+        cout << "Producto que se lleva:" << endl;
+        productoEntrante->mostrarInformacion();
+
+        // Confirmar el cambio
+        cout << "¿Desea confirmar el cambio? (s/n): ";
+        char confirmacion;
+        cin >> confirmacion;
+
+        if (tolower(confirmacion) == 's') {
+            // Ajustar cantidades
+            productoSaliente->setCantidad(productoSaliente->getCantidad() + 1);
+            productoEntrante->setCantidad(productoEntrante->getCantidad() - 1);
+
+            // Generar un código de transacción
+            string codigoTransaccion = generarCodigoTransaccion(productoSaliente->getCodProducto() + "-" + productoEntrante->getCodProducto());
+
+            // Registrar el cambio en el archivo
+            registrarCambioEnArchivo(tiendaNombre, productoSaliente->getCodProducto(), productoEntrante->getCodProducto(), codigoTransaccion);
+
+            // Confirmar al usuario
+            cout << "Cambio registrado exitosamente." << endl;
+            cout << "Detalles del cambio:" << endl;
+            cout << " - Código de transacción: " << codigoTransaccion << endl;
+            cout << " - Código del producto cambiado: " << productoSaliente->getCodProducto() << endl;
+            cout << " - Código del producto llevado: " << productoEntrante->getCodProducto() << endl;
+        } else {
+            cout << "Cambio cancelado." << endl;
+        }
+    }
+
+    void registrarCambioEnArchivo(const string& tienda, const string& codigoProductoSaliente,
+                                  const string& codigoProductoEntrante, const string& codigoTransaccion) {
+        ofstream archivo("transacciones.txt", ios::app);
+        if (!archivo) {
+            cerr << "Error al abrir el archivo transacciones.txt." << endl;
+            return;
+        }
+    
+        time_t ahora = time(nullptr);
+        tm* tiempoLocal = localtime(&ahora);
+
+        archivo << "Código de transacción: " << codigoTransaccion << endl;
+        archivo << "Tipo de operación: Cambio" << endl;
+        archivo << "Fecha y hora: "
+                << tiempoLocal->tm_year + 1900 << "-"
+                << setw(2) << setfill('0') << tiempoLocal->tm_mon + 1 << "-"
+                << setw(2) << setfill('0') << tiempoLocal->tm_mday << " "
+                << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
+                << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
+                << setw(2) << setfill('0') << tiempoLocal->tm_sec << endl;
+        archivo << "Tienda: " << tienda << endl;
+        archivo << "Código del producto cambiado: " << codigoProductoSaliente << endl;
+        archivo << "Código del producto llevado: " << codigoProductoEntrante << endl;
+        archivo << "--------------------------------------" << endl;
+
+        archivo.close();
+    }
+    
+    void registrarDevolucion(const string& tiendaNombre) {
+        string codigoProducto;
+        cout << "Ingrese el código del producto que desea devolver: ";
+        cin >> codigoProducto;
+        
+        // Buscar el producto en cada contenedor
+        for (auto& camiseta : camisetasEnInventario) {
+            if (camiseta.getCodProducto() == codigoProducto) {
+                procesarDevolucion(camiseta, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& sudadera : sudaderasEnInventario) {
+            if (sudadera.getCodProducto() == codigoProducto) {
+                procesarDevolucion(sudadera, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& pantalon : pantalonesEnInventario) {
+            if (pantalon.getCodProducto() == codigoProducto) {
+                procesarDevolucion(pantalon, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& bufanda : bufandasEnInventario) {
+            if (bufanda.getCodProducto() == codigoProducto) {
+                procesarDevolucion(bufanda, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& gafas : gafasDeSolEnInventario) {
+            if (gafas.getCodProducto() == codigoProducto) {
+                procesarDevolucion(gafas, tiendaNombre);
+                return;
+            }
+        }
+        
+        for (auto& gorra : gorrasEnInventario) {
+            if (gorra.getCodProducto() == codigoProducto) {
+                procesarDevolucion(gorra, tiendaNombre);
+                return;
+            }
+        }
+        
+        // Si no se encontró el producto
+        cout << "El producto con código \"" << codigoProducto << "\" no se encuentra en el inventario." << endl;
+    }
+    
+    
+    void procesarDevolucion(Producto& producto, const string& tiendaNombre) {
+        producto.mostrarInformacion();
+        
+        int cantidad;
+        cout << "Ingrese la cantidad que desea devolver: ";
+        cin >> cantidad;
+        
+        // Validar cantidad
+        if (cantidad <= 0 || cantidad > producto.getCantidad()) {
+            cout << "Cantidad no válida. Debe estar entre 1 y " << producto.getCantidad() << "." << endl;
+            return;
+        }
+        
+        // Calcular el precio total
+        float precioTotal = cantidad * producto.getPrecioVenta();
+        
+        // Confirmar la devolución
+        cout << "El precio total es: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        cout << "¿Desea confirmar la devolución? (s/n): ";
+        char confirmacion;
+        cin >> confirmacion;
+        
+        if (tolower(confirmacion) == 's') {
+            // Actualizar inventario
+            producto.setCantidad(producto.getCantidad() + cantidad);
+            
+            // Generar un código de transacción
+            string codigoTransaccion = generarCodigoTransaccion(producto.getCodProducto());
+            
+            // Registrar la devolución en el archivo
+            registrarDevolucionEnArchivo("Devolución", tiendaNombre, producto.getCodProducto(), cantidad, precioTotal, codigoTransaccion);
+            
+            // Confirmar al usuario
+            cout << "Devolución registrada exitosamente." << endl;
+            cout << "Detalles de la transacción:" << endl;
+            cout << " - Código de transacción: " << codigoTransaccion << endl;
+            cout << " - Cantidad devuelta: " << cantidad << endl;
+            cout << " - Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        } else {
+            cout << "Devolución cancelada." << endl;
+        }
+    }
+    
+    void registrarDevolucionEnArchivo(const string& tipoOperacion, const string& tienda, const string& codigoProducto,
+                                 int cantidad, float precioTotal, const string& codigoTransaccion) {
+        ofstream archivo("transacciones.txt", ios::app);
+        if (!archivo) {
+            cerr << "Error al abrir el archivo transacciones.txt." << endl;
+            return;
+        }
+        
+        time_t ahora = time(nullptr);
+        tm* tiempoLocal = localtime(&ahora);
+        
+        archivo << "Código de transacción: " << codigoTransaccion << endl;
+        archivo << "Tipo de operación: " << tipoOperacion << endl;
+        archivo << "Fecha y hora: "
+        << tiempoLocal->tm_year + 1900 << "-"
+        << setw(2) << setfill('0') << tiempoLocal->tm_mon + 1 << "-"
+        << setw(2) << setfill('0') << tiempoLocal->tm_mday << " "
+        << setw(2) << setfill('0') << tiempoLocal->tm_hour << ":"
+        << setw(2) << setfill('0') << tiempoLocal->tm_min << ":"
+        << setw(2) << setfill('0') << tiempoLocal->tm_sec << endl;
+        archivo << "Tienda: " << tienda << endl;
+        archivo << "Código de producto: " << codigoProducto << endl;
+        archivo << "Cantidad: " << cantidad << endl;
+        archivo << "Precio unitario: " << fixed << setprecision(2) << precioTotal / cantidad << " €" << endl;
+        archivo << "Precio total: " << fixed << setprecision(2) << precioTotal << " €" << endl;
+        archivo << "--------------------------------------" << endl;
+        
+        archivo.close();
+    }
+
     void registrarVenta(const string& tiendaNombre) {
         string codigoProducto;
         cout << "Ingrese el código del producto que desea vender: ";
@@ -1085,7 +1366,7 @@ public:
     }
 
 };
-    
+
     // Clase Tienda
 class Tienda {
 private:
@@ -1190,10 +1471,10 @@ void menuPrincipal(Tienda& tienda, const Almacen& almacen) {
                 tienda.getInventario().anadirProductoDesdeAlmacen(almacen);
                 break;
             case 4:
-                //tienda.getInventario().realizarDevolucion();
+                tienda.getInventario().registrarDevolucion(tienda.getNombre());
                 break;
             case 5:
-                //tienda.getInventario().realizarCambio(tienda.getNombre());
+                tienda.getInventario().registrarCambio(tienda.getNombre());
                 break;
             case 6:
                 cout << "Saliendo del inventario de " << tienda.getNombre() << endl;
@@ -1283,4 +1564,3 @@ int main() {
     
     return 0;
 }
-
