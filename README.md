@@ -26,7 +26,29 @@ Este proyecto es una aplicación diseñada para gestionar el inventario de tiend
 
 ## Estructura del Proyecto
 
-Proyecto/ ├── src/ │ ├── main.cpp # Punto de entrada del programa. │ ├── Menu.cpp # Implementación de los menús de usuario. │ ├── Inventario.cpp # Métodos relacionados con el inventario. │ ├── Producto.cpp # Métodos y lógica de la clase abstracta Producto. │ ├── Almacen.cpp # Creación de productos y añadir a un vector específico para cada tipo de producto. │ └── Tienda.cpp # Gestión de tiendas específicas. ├── include/ │ ├── Definiciones.hpp # Definiciones generales como enumeraciones. │ ├── Producto.hpp # Clase base abstracta Producto. │ ├── Inventario.hpp # Clase Inventario y su lógica. │ ├── Tienda.hpp # Clase Tienda para manejar múltiples tiendas. │ ├── Almacen.hpp # Clase Almacen para crear productos. │ └── Menu.hpp # Declaración de funciones para menús. ├── data/ │ ├── inventarioMadrid.txt # Archivo de datos persistentes para la tienda de Madrid. │ ├── inventarioBarcelona.txt # Archivo de datos persistentes para la tienda de Barcelona. │ ├── Transacciones.txt # Registro de todas las transacciones realizadas. │ └── ... # Otros archivos para almacenar datos persistentes. ├── README.md # Documentación del proyecto. └── Makefile # Script para compilar el proyecto.
+Proyecto/
+├── src/
+│   ├── main.cpp            # Punto de entrada del programa.
+│   ├── Menu.cpp            # Implementación de los menús de usuario.
+│   ├── Inventario.cpp      # Métodos relacionados con el inventario.
+│   ├── Producto.cpp        # Métodos y lógica de la clase abstracta Producto.
+│   ├── Almacen.cpp         # Creación de productos y añadir a un vector específico para cada tipo de producto.
+│   └── Tienda.cpp          # Gestión de tiendas específicas.
+├── include/
+│   ├── Definiciones.hpp    # Definiciones generales como enumeraciones.
+│   ├── Producto.hpp        # Clase base abstracta Producto.
+│   ├── Inventario.hpp      # Clase Inventario y su lógica.
+│   ├── Tienda.hpp          # Clase Tienda para manejar múltiples tiendas.
+│   ├── Almacen.hpp         # Clase Almacen para crear productos.
+│   └── Menu.hpp            # Declaración de funciones para menús.
+├── data/
+│   ├── inventarioMadrid.txt    # Archivo de datos persistentes para la tienda de Madrid.
+│   ├── inventarioBarcelona.txt # Archivo de datos persistentes para la tienda de Barcelona.
+│   ├── Transacciones.txt       # Registro de todas las transacciones realizadas.
+│   └── ...                     # Otros archivos para almacenar datos persistentes.
+├── README.md               # Documentación del proyecto.
+└── Makefile                # Script para compilar el proyecto.
+
 
 ---
 
