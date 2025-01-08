@@ -1,13 +1,13 @@
 # Gestión de Inventarios de Tiendas
 
-Este proyecto es una aplicación completa para la gestión del inventario de tiendas, que permite realizar operaciones como registrar ventas, devoluciones, ampliaciones de inventario y cambios. Además, incluye medidas de seguridad, funcionalidades avanzadas como la sobrecarga de operadores, y persistencia de datos en archivos. Ideal para optimizar la administración de productos en tiendas múltiples.
+Este proyecto es una aplicación completa para la gestión del inventario de tiendas, que permite realizar operaciones como registrar ventas, devoluciones, ampliaciones de inventario y cambios. Además, incluye medidas de seguridad, funcionalidades avanzadas como la sobrecarga de operadores, y lectura y modificación de datos en archivos. Perfecto para optimizar la administración de productos en tiendas múltiples.
 
 ---
 
 ## Características Principales
 
 ### **Gestín de múltiples tiendas:**
-- Cada tienda tiene su propio inventario y archivo de persistencia.
+- Cada tienda tiene su propio inventario y archivo txt.
 - Cambio de tienda con códigos de verificación seguros.
 
 ### **Operaciones de inventario:**
@@ -64,24 +64,15 @@ Proyecto/
 ## Instalación y Configuración
 
 ### **Requisitos:**
-- Un compilador compatible con C++ (como `g++` o el que viene con Visual Studio/Xcode).
+- Un compilador compatible con C++ (como `g++` o el que viene Xcode).
 - Configuración adecuada del directorio de trabajo si usas Xcode:
 
+### **Problema de no lectura de txt:**
 1. Abre tu proyecto en Xcode.
 2. Haz clic en el esquema de tu proyecto (junto al botón de ejecutar) y selecciona **Edit Scheme...**.
 3. Ve a la pestaña **Run** > **Options**.
 4. Marca la casilla **Use custom working directory**.
 5. Selecciona la carpeta del proyecto.
-
-### **Compilación y Ejecución:**
-1. Usa el siguiente comando para compilar:
-   ```bash
-   make
-   ```
-2. Para ejecutar el programa:
-   ```bash
-   ./gestorInventarios
-   ```
 
 ---
 
@@ -112,7 +103,7 @@ El programa ofrece un menú principal con las siguientes opciones:
 ## Clases Principales
 
 ### **`Producto` (Abstracta):**
-Clase base para todas las categorías de productos. Define propiedades comunes como:
+Clase base para todas las categorías de productos(Ropa: "Camiseta, Pantalon y Sudadera", Accesorio: "Bufanda, Gafas de sol, Gorra"). Define propiedades comunes como:
 - **Código:** Identificador único.
 - **Precio:** Precio de venta del producto.
 - **Cantidad:** Unidades disponibles.
