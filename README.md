@@ -1,4 +1,4 @@
-# Gestión de Inventarios para Tiendas
+# Gestión de Inventarios de Tiendas
 
 Este proyecto es una aplicación completa para la gestión del inventario de tiendas, que permite realizar operaciones como registrar ventas, devoluciones, ampliaciones de inventario y cambios. Además, incluye medidas de seguridad, funcionalidades avanzadas como la sobrecarga de operadores, y persistencia de datos en archivos. Ideal para optimizar la administración de productos en tiendas múltiples.
 
