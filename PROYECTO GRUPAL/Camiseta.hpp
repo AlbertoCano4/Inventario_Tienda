@@ -1,8 +1,9 @@
 #ifndef CAMISETA_HPP
 #define CAMISETA_HPP
 
-#include "Ropa.hpp"
+#include "Ropa.hpp" // Incluye la definición de la clase base `Ropa`.
 
+// Clase derivada que representa una Camiseta, hereda de Ropa
 class Camiseta : public Ropa {
 private:
     TipoCamiseta tipo;

@@ -1,8 +1,9 @@
 #ifndef SUDADERA_HPP
 #define SUDADERA_HPP
 
-#include "Ropa.hpp"
+#include "Ropa.hpp" // Incluye la definición de la clase base `Ropa`.
 
+// Clase derivada que representa una sudadera, hereda de Ropa
 class Sudadera : public Ropa {
 private:
     TipoSudadera tipo;

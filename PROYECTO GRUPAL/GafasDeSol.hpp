@@ -1,8 +1,9 @@
 #ifndef GAFASDESOL_HPP
 #define GAFASDESOL_HPP
 
-#include "Accesorio.hpp"
+#include "Accesorio.hpp" // Incluye la definición de la clase base Accesorio.
 
+// Clase derivada que representa unas gafas de sol, hereda de Accesorio
 class GafasDeSol : public Accesorio {
 private:
     string formaLente;
@@ -27,4 +28,4 @@ public:
     virtual ~GafasDeSol();
 };
 
-#endif // GAFASDESOL_HPP
+#endif 

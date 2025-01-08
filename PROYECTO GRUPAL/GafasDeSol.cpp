@@ -1,6 +1,8 @@
 #include "GafasDeSol.hpp"
 
 // Constructor
+// Llama al constructor de la clase base Accesorio para inicializar los atributos comunes.
+// Inicializa los atributos específicos de las gafas de sol: forma de lente y protección UV.
 GafasDeSol::GafasDeSol(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Estilo est, const string& forma, bool uv)
     : Accesorio("Gafas de Sol", cod, precioV, cant, temp, gen, est), formaLente(forma), proteccionUV(uv) {}
 
@@ -26,7 +28,7 @@ void GafasDeSol::setProteccionUV(bool uv) {
 
 // Mostrar información
 void GafasDeSol::mostrarInformacion() const {
-    Accesorio::mostrarInformacion();
+    Accesorio::mostrarInformacion(); // Llama al método de la clase Accesorio para mostrar atributos comunes.
     cout << "Forma de Lente: " << formaLente << "\n";
     cout << "Protección UV: " << (proteccionUV ? "Sí" : "No") << "\n";
 }

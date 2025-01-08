@@ -1,6 +1,7 @@
 #include "Pantalon.hpp"
 
-// Constructor
+// Constructor Pantalon
+// Inicializa los atributos heredados de Ropa y los atributos específicos de Pantalon (tipo y si son cargo o no).
 Pantalon::Pantalon(const string& cod, float precioV, int cant, Temporada temp, Genero gen, Talla t, TipoPantalon tip, bool carg)
     : Ropa("Pantalon", cod, precioV, cant, temp, gen, t), tipo(tip), cargo(carg) {}
 
@@ -26,7 +27,7 @@ void Pantalon::setCargo(bool carg) {
 
 // Método para mostrar información
 void Pantalon::mostrarInformacion() const {
-    Ropa::mostrarInformacion();
+    Ropa::mostrarInformacion();  // Llamamos al método de la clase base (Ropa) para imprimir información general
     cout << "Tipo de Pantalón: " << tipoPantalonToString(tipo) << "\n";
     cout << "Cargo: " << (cargo ? "Sí" : "No") << "\n";
 }

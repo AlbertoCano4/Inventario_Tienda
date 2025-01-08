@@ -1,12 +1,13 @@
 #ifndef GORRA_HPP
 #define GORRA_HPP
 
-#include "Accesorio.hpp"
+#include "Accesorio.hpp" // Incluye la definición de la clase base Accesorio.
 
+// Clase derivada que representa una gorra, hereda de Accesorio
 class Gorra : public Accesorio {
 private:
-    string tipo;    // Tipo de gorra
-    string material; // Material de la gorra
+    string tipo;
+    string material;
 
 public:
     // Constructor
@@ -27,4 +28,4 @@ public:
     virtual ~Gorra();
 };
 
-#endif // GORRA_HPP
+#endif 

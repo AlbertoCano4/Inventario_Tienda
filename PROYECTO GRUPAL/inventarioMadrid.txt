@@ -1,7 +1,7 @@
 Camisetas
 2
 C001
-60
+59
 29.99
 Verano
 Hombre
@@ -10,7 +10,7 @@ Sin Mangas
 Algodón
 Sí
 C002
-30
+50
 35.5
 Invierno
 Mujer
@@ -108,7 +108,7 @@ Casual
 Snapback
 Algodón
 GR002
-43
+40
 24.99
 Verano
 Mujer

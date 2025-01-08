@@ -149,3 +149,46 @@ Cantidad: 1
 Precio unitario: 24.99 €
 Precio total: 24.99 €
 --------------------------------------
+Código de transacción: TX-C002M5Z
+Tipo de operación: Venta
+Fecha y hora: 2025-01-08 20:58:04
+Tienda: Madrid
+Código de producto: C002
+Cantidad: 12
+Precio unitario: 35.50 €
+Precio total: 426.00 €
+--------------------------------------
+Código de transacción: TX-C001C4C
+Tipo de operación: Venta
+Fecha y hora: 2025-01-08 22:03:51
+Tienda: Madrid
+Código de producto: C001
+Cantidad: 2
+Precio unitario: 29.99 €
+Precio total: 59.98 €
+--------------------------------------
+Código de transacción: TX-GR002X3C
+Tipo de operación: Devolución
+Fecha y hora: 2025-01-08 22:04:29
+Tienda: Madrid
+Código de producto: GR002
+Cantidad: 2
+Precio unitario: 24.99 €
+Precio total: 49.98 €
+--------------------------------------
+Código de transacción: TX-C001-C002Z7K
+Tipo de operación: Cambio
+Fecha y hora: 2025-01-08 22:04:52
+Tienda: Madrid
+Código del producto cambiado: C001
+Código del producto llevado: C002
+--------------------------------------
+Código de transacción: TX-GR002W2Y
+Tipo de operación: Venta
+Fecha y hora: 2025-01-08 22:06:35
+Tienda: Madrid
+Código de producto: GR002
+Cantidad: 5
+Precio unitario: 24.99 €
+Precio total: 124.95 €
+--------------------------------------

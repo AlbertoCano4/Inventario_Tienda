@@ -1,12 +1,13 @@
 #ifndef PANTALON_HPP
 #define PANTALON_HPP
 
-#include "Ropa.hpp"
+#include "Ropa.hpp" // Incluye la definición de la clase base `Ropa`.
 
+// Clase derivada que representa un pantalon, hereda de Ropa
 class Pantalon : public Ropa {
 private:
     TipoPantalon tipo;
-    bool cargo; // Indica si tiene bolsillos estilo cargo
+    bool cargo;
 
 public:
     // Constructor
@@ -27,4 +28,4 @@ public:
     virtual ~Pantalon();
 };
 
-#endif // PANTALON_HPP
+#endif 
