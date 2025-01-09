@@ -187,6 +187,6 @@ Las contribuciones son bienvenidas. Sigue estos pasos:
 - **Sofía Azpiroz** - [GitHub](https://github.com/Sofiazpiroz)
 - **Paloma Belenguer** - [GitHub](https://github.com/pomibelenguer)
 - **Alberto Cano** - [GitHub](https://github.com/AlbertoCano4)
-- **Ignacio Fernández** - *Pendiente de perfil.*
+- **Ignacio Fernández** - [GitHub](https://github.com/ignaciofern)
 - **Gonzalo Ruiz** - [GitHub](https://github.com/gon-ruiz)
 
